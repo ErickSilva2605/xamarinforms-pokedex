@@ -1,8 +1,104 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Application xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PokedexXF.App">
+<Application
+    x:Class="PokedexXF.App"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    >
     <Application.Resources>
+        <!--  Colors  -->
+        <Color x:Key="ColorBackgroundWhite">#FFFFFF</Color>
+        <Color x:Key="ColorBackgroundDefaultInput">#F2F2F2</Color>
+        <Color x:Key="ColorBackgroundPressedInput">#E2E2E2</Color>
+        <Color x:Key="ColorBackgroundModal">#000000</Color>
 
+        <Color x:Key="ColorBackgroundTypeBug">#8BD674</Color>
+        <Color x:Key="ColorBackgroundTypeDark">#6F6E78</Color>
+        <Color x:Key="ColorBackgroundTypeDragon">#7383B9</Color>
+        <Color x:Key="ColorBackgroundTypeEletric">#F2CB55</Color>
+        <Color x:Key="ColorBackgroundTypeFairy">#EBA8C3</Color>
+        <Color x:Key="ColorBackgroundTypeFighting">#EB4971</Color>
+        <Color x:Key="ColorBackgroundTypeFire">#FFA756</Color>
+        <Color x:Key="ColorBackgroundTypeFlying">#83A2E3</Color>
+        <Color x:Key="ColorBackgroundTypeGhost">#8571BE</Color>
+        <Color x:Key="ColorBackgroundTypeGrass">#8BBE8A</Color>
+        <Color x:Key="ColorBackgroundTypeGround">#F78551</Color>
+        <Color x:Key="ColorBackgroundTypeIce">#91D8DF</Color>
+        <Color x:Key="ColorBackgroundTypeNormal">#B5B9C4</Color>
+        <Color x:Key="ColorBackgroundTypePoison">#9F6E97</Color>
+        <Color x:Key="ColorBackgroundTypePsychic">#FF6568</Color>
+        <Color x:Key="ColorBackgroundTypeRock">#D4C294</Color>
+        <Color x:Key="ColorBackgroundTypeSteel">#4C91B2</Color>
+        <Color x:Key="ColorBackgroundTypeWater">#58ABF6</Color>
+
+        <Color x:Key="ColorTypeBug">#8CB230</Color>
+        <Color x:Key="ColorTypeDark">#58575F</Color>
+        <Color x:Key="ColorTypeDragon">#0F6AC0</Color>
+        <Color x:Key="ColorTypeEletric">#EED535</Color>
+        <Color x:Key="ColorTypeFairy">#ED6EC7</Color>
+        <Color x:Key="ColorTypeFighting">#D04164</Color>
+        <Color x:Key="ColorTypeFire">#FD7D24</Color>
+        <Color x:Key="ColorTypeFlying">#748FC9</Color>
+        <Color x:Key="ColorTypeGhost">#556AAE</Color>
+        <Color x:Key="ColorTypeGrass">#62B957</Color>
+        <Color x:Key="ColorTypeGround">#DD7748</Color>
+        <Color x:Key="ColorTypeIce">#61CEC0</Color>
+        <Color x:Key="ColorTypeNormal">#9DA0AA</Color>
+        <Color x:Key="ColorTypePoison">#A552CC</Color>
+        <Color x:Key="ColorTypePsychic">#EA5D60</Color>
+        <Color x:Key="ColorTypeRock">#BAAB82</Color>
+        <Color x:Key="ColorTypeSteel">#417D9A</Color>
+        <Color x:Key="ColorTypeWater">#4A90DA</Color>
+
+        <Color x:Key="ColorHeightShort">#FFC5E6</Color>
+        <Color x:Key="ColorHeightMedium">#AEBFD7</Color>
+        <Color x:Key="ColorHeightTall">#AAACB8</Color>
+
+        <Color x:Key="ColorWeightLight">#99CD7C</Color>
+        <Color x:Key="ColorWeightNormal">#57B2DC</Color>
+        <Color x:Key="ColorWeightHeavy">#5A92A5</Color>
+
+        <Color x:Key="ColorTextWhite">#FFFFFF</Color>
+        <Color x:Key="ColorTextBlack">#000000</Color>
+        <Color x:Key="ColorTextGray">#747476</Color>
+        <Color x:Key="ColorTextNumber">#17171B</Color>
+
+        <!--  Styles  -->
+        <Style x:Key="LabelAplicationTitle" TargetType="Label">
+            <Setter Property="FontFamily" Value="FontBold" />
+            <Setter Property="FontSize" Value="32" />
+        </Style>
+        <Style x:Key="LabelPokemonName" TargetType="Label">
+            <Setter Property="FontFamily" Value="FontBold" />
+            <Setter Property="FontSize" Value="26" />
+        </Style>
+        <Style x:Key="LabelFilterTitle" TargetType="Label">
+            <Setter Property="FontFamily" Value="FontBold" />
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+        <Style x:Key="LabelDescription" TargetType="Label">
+            <Setter Property="FontFamily" Value="FontRegular" />
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+        <Style x:Key="LabelPokemonNumber" TargetType="Label">
+            <Setter Property="FontFamily" Value="FontBold" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+        <Style x:Key="LabelPokemonType" TargetType="Label">
+            <Setter Property="FontFamily" Value="FontMedium" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+
+        <Style x:Key="ButtonPrimary" TargetType="Button">
+            <Setter Property="FontFamily" Value="FontRegular" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="TextColor" Value="{StaticResource ColorTextWhite}" />
+            <Setter Property="BackgroundColor" Value="{StaticResource ColorTypePsychic}" />
+        </Style>
+        <Style x:Key="ButtonSecondary" TargetType="Button">
+            <Setter Property="FontFamily" Value="FontRegular" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="TextColor" Value="{StaticResource ColorTextGray}" />
+            <Setter Property="BackgroundColor" Value="{StaticResource ColorBackgroundDefaultInput}" />
+        </Style>
     </Application.Resources>
 </Application>
