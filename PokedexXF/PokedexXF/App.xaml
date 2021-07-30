@@ -63,6 +63,10 @@
         <Color x:Key="ColorTextNumber">#17171B</Color>
 
         <!--  Styles  -->
+        <Style x:Key="LabelTitle" TargetType="Label">
+            <Setter Property="FontFamily" Value="FontBold" />
+            <Setter Property="FontSize" Value="100" />
+        </Style>
         <Style x:Key="LabelAplicationTitle" TargetType="Label">
             <Setter Property="FontFamily" Value="FontBold" />
             <Setter Property="FontSize" Value="32" />
