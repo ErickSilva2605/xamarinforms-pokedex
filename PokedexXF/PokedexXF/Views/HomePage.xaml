@@ -4,16 +4,21 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:magic="http://magic.com/schemas/gradients"
+    xmlns:myControls="clr-namespace:PokedexXF.Controls"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:system="clr-namespace:System;assembly=netstandard"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     >
     <ContentPage.Content>
         <Grid HorizontalOptions="FillAndExpand">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <magic:GradientView
                 Grid.RowSpan="2"
-                Margin="0,-207,0,0"
+                Margin="0,-190,0,0"
                 HorizontalOptions="FillAndExpand"
                 >
                 <magic:GradientView.GradientSource>
@@ -58,25 +63,60 @@
                     WidthRequest="20"
                     />
             </StackLayout>
-            <StackLayout
+            <Label
                 Grid.Row="1"
-                Padding="40,0,40,20"
+                Margin="40,0"
                 HorizontalOptions="Start"
-                Orientation="Vertical"
-                Spacing="0"
+                VerticalOptions="Center"
                 >
-                <Label
-                    Margin="0,0,0,5"
-                    Style="{StaticResource LabelAplicationTitle}"
-                    Text="Pokédex"
-                    TextColor="{StaticResource ColorTextBlack}"
-                    />
-                <Label
-                    Style="{StaticResource LabelDescription}"
-                    Text="Search for Pokémon by name or using the National Pokédex number."
-                    TextColor="{StaticResource ColorTextGray}"
-                    />
-            </StackLayout>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span
+                            Style="{StaticResource LabelAplicationTitle}"
+                            Text="Pokédex"
+                            TextColor="{StaticResource ColorTextBlack}"
+                            />
+                        <Span Text="{x:Static system:Environment.NewLine}" />
+                        <Span Text="{x:Static system:Environment.NewLine}" />
+                        <Span
+                            Style="{StaticResource LabelDescription}"
+                            Text="Search for Pokémon by name or using the National Pokédex number."
+                            TextColor="{StaticResource ColorTextGray}"
+                            />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <pancake:PancakeView
+                x:Name="cardSearch"
+                Grid.Row="2"
+                Margin="40,25,40,20"
+                Padding="20,10"
+                BackgroundColor="{StaticResource ColorBackgroundDefaultInput}"
+                CornerRadius="10"
+                HorizontalOptions="FillAndExpand"
+                >
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Image
+                        xct:IconTintColorEffect.TintColor="{StaticResource ColorTextGray}"
+                        HeightRequest="16"
+                        HorizontalOptions="Start"
+                        Source="icon_search"
+                        VerticalOptions="Center"
+                        WidthRequest="16"
+                        />
+                    <myControls:CustomEntryBorderless
+                        Focused="CustomEntryBorderless_Focused"
+                        FontFamily="FontRegular"
+                        FontSize="14"
+                        HorizontalOptions="Start"
+                        Placeholder="What Pokémon are you looking for?"
+                        PlaceholderColor="{StaticResource ColorTextGray}"
+                        TextColor="{StaticResource ColorTextBlack}"
+                        Unfocused="CustomEntryBorderless_Unfocused"
+                        VerticalOptions="Center"
+                        />
+                </StackLayout>
+            </pancake:PancakeView>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

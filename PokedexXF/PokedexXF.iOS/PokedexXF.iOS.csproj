@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Renderers\CustomEntryBorderlessRenderer.cs" />
     <Compile Include="SplashViewController.cs" />
     <Compile Include="SplashViewController.designer.cs">
       <DependentUpon>SplashViewController.cs</DependentUpon>
@@ -137,6 +138,9 @@
     </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
+    <PackageReference Include="Xamarin.Forms.PancakeView">
+      <Version>2.3.0.759</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms.Skeleton">
       <Version>2.0.0</Version>
     </PackageReference>
@@ -147,33 +151,6 @@
       <Project>{B12B16C2-FC36-4667-9AF2-526731635BAE}</Project>
       <Name>PokedexXF</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\6x3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\6x3%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\6x3%403x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\10x5.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\10x5%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\10x5%403x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\circle.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\circle%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\circle%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\generation_eight.png" />
