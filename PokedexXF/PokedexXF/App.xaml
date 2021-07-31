@@ -5,6 +5,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     >
     <Application.Resources>
+
+        <Style ApplyToDerivedTypes="True" TargetType="ContentPage">
+            <Setter Property="BackgroundColor" Value="#FFFFFF" />
+        </Style>
+
         <!--  Colors  -->
         <Color x:Key="ColorBackgroundWhite">#FFFFFF</Color>
         <Color x:Key="ColorBackgroundDefaultInput">#F2F2F2</Color>
