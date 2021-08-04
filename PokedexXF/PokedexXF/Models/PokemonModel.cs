@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace PokedexXF.Models
 {
@@ -31,7 +32,7 @@ namespace PokedexXF.Models
         public PokemonSpritesModel Sprites { get; set; }
 
         [JsonProperty("types")]
-        public IEnumerable<PokemonTypeModel> Types { get; set; }
+        public ObservableRangeCollection<PokemonTypeModel> Types { get; set; }
 
         public TypeEnum TypeDefault 
         { 
