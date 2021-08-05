@@ -12,5 +12,7 @@ namespace PokedexXF.Models
 
         [JsonProperty("type")]
         public TypeModel Type { get; set; }
+
+        public bool IsBusy { get; set; }
     }
 }

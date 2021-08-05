@@ -7,6 +7,7 @@
     xmlns:magic="http://magic.com/schemas/gradients"
     xmlns:myControls="clr-namespace:PokedexXF.Controls"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:skeleton="clr-namespace:Xamarin.Forms.Skeleton;assembly=Xamarin.Forms.Skeleton"
     xmlns:system="clr-namespace:System;assembly=netstandard"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     >
@@ -129,6 +130,9 @@
             </pancake:PancakeView>
             <CollectionView
                 Grid.Row="3"
+                skeleton:Skeleton.Animation="{skeleton:DefaultAnimation Beat}"
+                skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                skeleton:Skeleton.IsParent="True"
                 ItemSizingStrategy="MeasureAllItems"
                 ItemsSource="{Binding Pokemons}"
                 >
@@ -146,6 +150,9 @@
                                 Grid.Row="1"
                                 Margin="40,0,40,5"
                                 Padding="0"
+                                skeleton:Skeleton.BackgroundColor="{StaticResource ColorGray}"
+                                skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                                skeleton:Skeleton.IsParent="True"
                                 xct:ShadowEffect.Color="{Binding TypeDefault, Converter={StaticResource converterTypeToColorBackgroundType}}"
                                 xct:ShadowEffect.Radius="10"
                                 BackgroundColor="{Binding TypeDefault, Converter={StaticResource converterTypeToColorBackgroundType}}"
@@ -166,6 +173,8 @@
                                     <magic:GradientView
                                         Grid.Column="0"
                                         Margin="90,5,0,0"
+                                        skeleton:Skeleton.Hide="True"
+                                        skeleton:Skeleton.IsBusy="{Binding IsBusy}"
                                         HeightRequest="32"
                                         HorizontalOptions="End"
                                         VerticalOptions="Start"
@@ -189,32 +198,35 @@
                                     <Grid
                                         Grid.ColumnSpan="2"
                                         HorizontalOptions="FillAndExpand"
-                                        RowSpacing="5"
+                                        RowSpacing="0"
                                         VerticalOptions="FillAndExpand"
                                         >
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
-                                        <Label Margin="20,15,0,0">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span
-                                                        Style="{StaticResource LabelPokemonNumber}"
-                                                        Text="{Binding Id, StringFormat='#{0:000}'}"
-                                                        TextColor="{StaticResource ColorTextNumber}"
-                                                        />
-                                                    <Span Text="{x:Static system:Environment.NewLine}" />
-                                                    <Span
-                                                        Style="{StaticResource LabelPokemonName}"
-                                                        Text="{Binding Name}"
-                                                        TextColor="{StaticResource ColorTextWhite}"
-                                                        />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                        <StackLayout
+                                        <Label
+                                            Margin="20,15,20,0"
+                                            skeleton:Skeleton.BackgroundColor="{StaticResource ColorDarkGray}"
+                                            skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                                            Style="{StaticResource LabelPokemonNumber}"
+                                            Text="{Binding Id, StringFormat='#{0:000}'}"
+                                            TextColor="{StaticResource ColorTextNumber}"
+                                            WidthRequest="190"
+                                            />
+                                        <Label
                                             Grid.Row="1"
+                                            Margin="20,2,20,5"
+                                            skeleton:Skeleton.BackgroundColor="{StaticResource ColorDarkGray}"
+                                            skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                                            Style="{StaticResource LabelPokemonName}"
+                                            Text="{Binding Name}"
+                                            TextColor="{StaticResource ColorTextWhite}"
+                                            WidthRequest="190"
+                                            />
+                                        <StackLayout
+                                            Grid.Row="2"
                                             Margin="20,0,0,20"
                                             BindableLayout.ItemsSource="{Binding Types}"
                                             HorizontalOptions="Start"
@@ -227,6 +239,8 @@
                                                     <pancake:PancakeView
                                                         Margin="0"
                                                         Padding="6"
+                                                        skeleton:Skeleton.BackgroundColor="{StaticResource ColorDarkGray}"
+                                                        skeleton:Skeleton.IsBusy="{Binding IsBusy}"
                                                         BackgroundColor="{Binding Type.Name, Converter={StaticResource converterTypeToColorType}}"
                                                         CornerRadius="3"
                                                         HorizontalOptions="Start"
@@ -260,6 +274,8 @@
                                     <magic:GradientView
                                         Grid.Column="1"
                                         Margin="0,0,-25,-30"
+                                        skeleton:Skeleton.Hide="True"
+                                        skeleton:Skeleton.IsBusy="{Binding IsBusy}"
                                         HeightRequest="145"
                                         HorizontalOptions="End"
                                         VerticalOptions="Center"
@@ -285,6 +301,8 @@
                             <Image
                                 Grid.RowSpan="2"
                                 Margin="0,0,50,15"
+                                skeleton:Skeleton.Hide="True"
+                                skeleton:Skeleton.IsBusy="{Binding IsBusy}"
                                 HeightRequest="130"
                                 HorizontalOptions="End"
                                 Source="{Binding Sprites.Other.OfficialArtwork.FrontDefault}"

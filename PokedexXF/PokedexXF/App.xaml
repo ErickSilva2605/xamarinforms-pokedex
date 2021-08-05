@@ -11,6 +11,9 @@
         </Style>
 
         <!--  Colors  -->
+        <Color x:Key="ColorDarkGray">#828282</Color>
+        <Color x:Key="ColorGray">#E3E3E3</Color>
+
         <Color x:Key="ColorBackgroundWhite">#FFFFFF</Color>
         <Color x:Key="ColorBackgroundDefaultInput">#F2F2F2</Color>
         <Color x:Key="ColorBackgroundPressedInput">#E2E2E2</Color>

@@ -17,6 +17,8 @@ namespace PokedexXF.Models
         [JsonProperty("id")]
         public int Id { get; set; }
 
+        public bool IsBusy { get; set; }
+
         [JsonProperty("name")]
         private string _name;
         public string Name 
