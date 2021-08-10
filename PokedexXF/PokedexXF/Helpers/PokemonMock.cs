@@ -8,11 +8,11 @@ namespace PokedexXF.Helpers
 {
     public class PokemonMock
     {
-        public static IList<PokemonModel> GetPokemonMock(int amount)
+        public static IList<PokemonModel> GetPokemonMock(int offset, int amount)
         {
             IList<PokemonModel> pokemonMockList = new List<PokemonModel>();
 
-            for (int i = 1; i <= amount; i++)
+            for (int i = offset + 1; i <= amount; i++)
             {
                 pokemonMockList.Add(new PokemonModel()
                 {
@@ -20,7 +20,6 @@ namespace PokedexXF.Helpers
                     Id = i,
                     Types = new ObservableRangeCollection<PokemonTypeModel>(GetPokemonTypesMock()),
                     IsBusy = true
-
                 });
             }
 
@@ -34,13 +33,13 @@ namespace PokedexXF.Helpers
                 new PokemonTypeModel()
                 {
                     Slot = 1,
-                    Type = new TypeModel() { Name = "Bug", Url = "x" },
+                    Type = new TypeModel() { Name = "xxxxx", Url = "x" },
                     IsBusy = true
                 },
                 new PokemonTypeModel()
                 {
                     Slot = 1,
-                    Type = new TypeModel() { Name = "Bug", Url = "x" },
+                    Type = new TypeModel() { Name = "xxxxx", Url = "x" },
                     IsBusy = true
                 }
             };

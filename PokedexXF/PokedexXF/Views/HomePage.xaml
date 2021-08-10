@@ -135,6 +135,8 @@
                 skeleton:Skeleton.IsParent="True"
                 ItemSizingStrategy="MeasureAllItems"
                 ItemsSource="{Binding Pokemons}"
+                RemainingItemsThreshold="{Binding ItemTreshold}"
+                RemainingItemsThresholdReachedCommand="{Binding LoadMorePokemonsCommand}"
                 >
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout ItemSpacing="0" Orientation="Vertical" />
@@ -150,7 +152,6 @@
                                 Grid.Row="1"
                                 Margin="40,0,40,5"
                                 Padding="0"
-                                skeleton:Skeleton.BackgroundColor="{StaticResource ColorGray}"
                                 skeleton:Skeleton.IsBusy="{Binding IsBusy}"
                                 skeleton:Skeleton.IsParent="True"
                                 xct:ShadowEffect.Color="{Binding TypeDefault, Converter={StaticResource converterTypeToColorBackgroundType}}"

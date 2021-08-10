@@ -22,7 +22,7 @@
         <Color x:Key="ColorBackgroundTypeBug">#8BD674</Color>
         <Color x:Key="ColorBackgroundTypeDark">#6F6E78</Color>
         <Color x:Key="ColorBackgroundTypeDragon">#7383B9</Color>
-        <Color x:Key="ColorBackgroundTypeEletric">#F2CB55</Color>
+        <Color x:Key="ColorBackgroundTypeElectric">#F2CB55</Color>
         <Color x:Key="ColorBackgroundTypeFairy">#EBA8C3</Color>
         <Color x:Key="ColorBackgroundTypeFighting">#EB4971</Color>
         <Color x:Key="ColorBackgroundTypeFire">#FFA756</Color>
@@ -41,7 +41,7 @@
         <Color x:Key="ColorTypeBug">#8CB230</Color>
         <Color x:Key="ColorTypeDark">#58575F</Color>
         <Color x:Key="ColorTypeDragon">#0F6AC0</Color>
-        <Color x:Key="ColorTypeEletric">#EED535</Color>
+        <Color x:Key="ColorTypeElectric">#EED535</Color>
         <Color x:Key="ColorTypeFairy">#ED6EC7</Color>
         <Color x:Key="ColorTypeFighting">#D04164</Color>
         <Color x:Key="ColorTypeFire">#FD7D24</Color>

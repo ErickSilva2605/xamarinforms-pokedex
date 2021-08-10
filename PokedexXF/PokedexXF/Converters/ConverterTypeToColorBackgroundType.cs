@@ -10,7 +10,7 @@ namespace PokedexXF.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (!(value is TypeEnum))
-                return null;
+                return Application.Current.Resources["ColorGray"];
 
             var type = (TypeEnum)value;
 
@@ -53,9 +53,9 @@ namespace PokedexXF.Converters
                 case TypeEnum.Water:
                     return Application.Current.Resources["ColorBackgroundTypeWater"];
                 case TypeEnum.Undefined:
-                    return Color.Default;
+                    return Application.Current.Resources["ColorGray"];
                 default:
-                    return Color.Default;
+                    return Application.Current.Resources["ColorGray"];
             }
         }
 

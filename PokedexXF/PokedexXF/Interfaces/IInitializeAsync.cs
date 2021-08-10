@@ -7,6 +7,6 @@ namespace PokedexXF.Interfaces
 {
     public interface IInitializeAsync
     {
-        Task InitializeAsync();
+        Task Initialization { get; }
     }
 }
