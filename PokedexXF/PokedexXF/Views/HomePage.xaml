@@ -3,6 +3,7 @@
     x:Class="PokedexXF.Views.HomePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:contentViews="clr-namespace:PokedexXF.ContentViews"
     xmlns:converters="clr-namespace:PokedexXF.Converters"
     xmlns:magic="http://magic.com/schemas/gradients"
     xmlns:myControls="clr-namespace:PokedexXF.Controls"
@@ -14,8 +15,6 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:ConverterTypeToColorBackgroundType x:Key="converterTypeToColorBackgroundType" />
-            <converters:ConverterTypeToColorType x:Key="converterTypeToColorType" />
-            <converters:ConverterTypeToImageType x:Key="converterTypeToImageType" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -226,51 +225,7 @@
                                             TextColor="{StaticResource ColorTextWhite}"
                                             WidthRequest="190"
                                             />
-                                        <StackLayout
-                                            Grid.Row="2"
-                                            Margin="20,0,0,20"
-                                            BindableLayout.ItemsSource="{Binding Types}"
-                                            HorizontalOptions="Start"
-                                            Orientation="Horizontal"
-                                            Spacing="5"
-                                            VerticalOptions="Start"
-                                            >
-                                            <BindableLayout.ItemTemplate>
-                                                <DataTemplate>
-                                                    <pancake:PancakeView
-                                                        Margin="0"
-                                                        Padding="6"
-                                                        skeleton:Skeleton.BackgroundColor="{StaticResource ColorDarkGray}"
-                                                        skeleton:Skeleton.IsBusy="{Binding IsBusy}"
-                                                        BackgroundColor="{Binding Type.Name, Converter={StaticResource converterTypeToColorType}}"
-                                                        CornerRadius="3"
-                                                        HorizontalOptions="Start"
-                                                        VerticalOptions="Start"
-                                                        >
-                                                        <Grid ColumnSpacing="5">
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="Auto" />
-                                                                <ColumnDefinition Width="Auto" />
-                                                            </Grid.ColumnDefinitions>
-                                                            <Image
-                                                                xct:IconTintColorEffect.TintColor="{StaticResource ColorTextWhite}"
-                                                                HeightRequest="15"
-                                                                Source="{Binding Type.Name, Converter={StaticResource converterTypeToImageType}}"
-                                                                VerticalOptions="Center"
-                                                                />
-                                                            <Label
-                                                                Grid.Column="1"
-                                                                Style="{StaticResource LabelPokemonType}"
-                                                                Text="{Binding Type.Name}"
-                                                                TextColor="{StaticResource ColorTextWhite}"
-                                                                VerticalOptions="Center"
-                                                                VerticalTextAlignment="Center"
-                                                                />
-                                                        </Grid>
-                                                    </pancake:PancakeView>
-                                                </DataTemplate>
-                                            </BindableLayout.ItemTemplate>
-                                        </StackLayout>
+                                        <contentViews:BadgeTypeContentView Grid.Row="2" Margin="20,0,0,20" />
                                     </Grid>
                                     <magic:GradientView
                                         Grid.Column="1"

@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="PokedexXF.ContentViews.BadgeTypeContentView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:PokedexXF.Converters"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:skeleton="clr-namespace:Xamarin.Forms.Skeleton;assembly=Xamarin.Forms.Skeleton"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    >
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:ConverterTypeToColorType x:Key="converterTypeToColorType" />
+            <converters:ConverterTypeToImageType x:Key="converterTypeToImageType" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <StackLayout
+            BindableLayout.ItemsSource="{Binding Types}"
+            HorizontalOptions="Start"
+            Orientation="Horizontal"
+            Spacing="5"
+            VerticalOptions="Start"
+            >
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <pancake:PancakeView
+                        Margin="0"
+                        Padding="6"
+                        skeleton:Skeleton.BackgroundColor="{StaticResource ColorDarkGray}"
+                        skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                        BackgroundColor="{Binding Type.Name, Converter={StaticResource converterTypeToColorType}}"
+                        CornerRadius="3"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Start"
+                        >
+                        <Grid ColumnSpacing="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Image
+                                xct:IconTintColorEffect.TintColor="{StaticResource ColorTextWhite}"
+                                HeightRequest="15"
+                                Source="{Binding Type.Name, Converter={StaticResource converterTypeToImageType}}"
+                                VerticalOptions="Center"
+                                />
+                            <Label
+                                Grid.Column="1"
+                                Style="{StaticResource LabelPokemonType}"
+                                Text="{Binding Type.Name}"
+                                TextColor="{StaticResource ColorTextWhite}"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center"
+                                />
+                        </Grid>
+                    </pancake:PancakeView>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>
