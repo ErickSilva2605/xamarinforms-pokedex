@@ -46,34 +46,71 @@
                 </magic:GradientView.Mask>
             </magic:GradientView>
             <StackLayout
-                Padding="43,45,43,30"
+                Padding="43,45,20,30"
                 HorizontalOptions="EndAndExpand"
                 Orientation="Horizontal"
-                Spacing="20"
+                Spacing="15"
                 >
-                <Image
-                    HeightRequest="20"
+                <pancake:PancakeView
+                    x:Name="frameFilterGeneration"
+                    Margin="0"
+                    Padding="5"
+                    BackgroundColor="Transparent"
+                    CornerRadius="20"
+                    HeightRequest="27"
                     HorizontalOptions="End"
-                    Source="icon_generation"
                     VerticalOptions="Center"
-                    WidthRequest="20"
-                    />
-                <Image
-                    HeightRequest="20"
+                    WidthRequest="27"
+                    >
+                    <Image
+                        HeightRequest="20"
+                        HorizontalOptions="Center"
+                        Source="icon_generation"
+                        VerticalOptions="Center"
+                        WidthRequest="20"
+                        />
+                </pancake:PancakeView>
+                <pancake:PancakeView
+                    x:Name="frameFilterSort"
+                    Margin="0"
+                    Padding="5"
+                    BackgroundColor="Transparent"
+                    CornerRadius="20"
+                    HeightRequest="27"
                     HorizontalOptions="End"
-                    Source="icon_sort"
                     VerticalOptions="Center"
-                    WidthRequest="20"
-                    />
-                <Image
-                    HeightRequest="20"
+                    WidthRequest="27"
+                    >
+                    <Image
+                        HeightRequest="20"
+                        HorizontalOptions="Center"
+                        Source="icon_sort"
+                        VerticalOptions="Center"
+                        WidthRequest="20"
+                        />
+                </pancake:PancakeView>
+                <pancake:PancakeView
+                    x:Name="frameFilters"
+                    Margin="0"
+                    Padding="5"
+                    BackgroundColor="Transparent"
+                    CornerRadius="20"
+                    HeightRequest="27"
                     HorizontalOptions="End"
-                    Source="icon_filter"
                     VerticalOptions="Center"
-                    WidthRequest="20"
-                    />
+                    WidthRequest="27"
+                    >
+                    <Image
+                        HeightRequest="20"
+                        HorizontalOptions="Center"
+                        Source="icon_filter"
+                        VerticalOptions="Center"
+                        WidthRequest="20"
+                        />
+                </pancake:PancakeView>
             </StackLayout>
             <Label
+                x:Name="labelTitle"
                 Grid.Row="1"
                 Margin="40,0"
                 HorizontalOptions="Start"
@@ -97,7 +134,7 @@
                 </Label.FormattedText>
             </Label>
             <pancake:PancakeView
-                x:Name="cardSearch"
+                x:Name="frameSearch"
                 Grid.Row="2"
                 Margin="40,25,40,10"
                 Padding="20,10"
@@ -128,6 +165,7 @@
                 </StackLayout>
             </pancake:PancakeView>
             <CollectionView
+                x:Name="collectionPokemons"
                 Grid.Row="3"
                 skeleton:Skeleton.Animation="{skeleton:DefaultAnimation Beat}"
                 skeleton:Skeleton.IsBusy="{Binding IsBusy}"
