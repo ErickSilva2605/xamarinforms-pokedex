@@ -2,6 +2,7 @@
 using PokedexXF.Interfaces;
 using PokedexXF.Models;
 using PokedexXF.Services;
+using PokedexXF.Views;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -43,6 +44,7 @@ namespace PokedexXF.ViewModels
         }
 
         public ICommand LoadMorePokemonsCommand { get; set; }
+        public Command<PokemonModel> NavigateToDetailCommand { get; set; }
 
         public HomeViewModel(INavigation navigation, IRestService restService) : base(navigation)
         {
@@ -52,6 +54,7 @@ namespace PokedexXF.ViewModels
             Pagination = new PaginationModel();
             Pokemons = new ObservableRangeCollection<PokemonModel>();
             LoadMorePokemonsCommand = new Command(async () => await LoadMorePokemons());
+            NavigateToDetailCommand = new Command<PokemonModel>(async (item) => await ExecuteNavigateToDetailCommand(item));
             Initialization = InitializeAsync();
         }
 
@@ -59,27 +62,6 @@ namespace PokedexXF.ViewModels
         {
             Pokemons.AddRange(GetPokemonsMock());
             await LoadPokemons();
-        }
-
-        private async Task GetPaginationList(string url)
-        {
-            try
-            {
-                if (!InternetConnectivity())
-                    return;
-
-                var pagination = await _service.GetPokemons(url);
-
-                if (pagination == null)
-                    return;
-
-                Pagination = pagination;
-
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Erro", ex.Message);
-            }
         }
 
         private async Task LoadPokemons()
@@ -177,6 +159,48 @@ namespace PokedexXF.ViewModels
             finally
             {
                 IsBusy = false;
+            }
+        }
+
+        private async Task ExecuteNavigateToDetailCommand(PokemonModel pokemon)
+        {
+            if (IsBusy)
+                return;
+
+            try
+            {
+                IsBusy = true;
+
+                await Navigation.PushAsync(new DetailPage());
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Erro", ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private async Task GetPaginationList(string url)
+        {
+            try
+            {
+                if (!InternetConnectivity())
+                    return;
+
+                var pagination = await _service.GetPokemons(url);
+
+                if (pagination == null)
+                    return;
+
+                Pagination = pagination;
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Erro", ex.Message);
             }
         }
 
