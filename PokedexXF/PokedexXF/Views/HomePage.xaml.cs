@@ -16,7 +16,7 @@ namespace PokedexXF.Views
             InitializeComponent();
             BindingContext = new HomeViewModel(Navigation, new RestService());
 
-            labelTitle.TranslationX = -300;
+            labelTitle.TranslationX = -350;
             frameSearch.TranslationX = -300;
             frameFilterGeneration.TranslationY = -300;
             frameFilterSort.TranslationY = -300;
@@ -29,6 +29,7 @@ namespace PokedexXF.Views
             await Task.WhenAll(
                 labelTitle.TranslateTo(0, -300, DURATION_ANIMATION, Easing.Linear),
                 labelTitle.TranslateTo(0, -150, DURATION_ANIMATION, Easing.Linear),
+                labelTitle.TranslateTo(0, -75, DURATION_ANIMATION, Easing.Linear),
                 labelTitle.TranslateTo(0, 0, DURATION_ANIMATION, Easing.Linear),
                 frameSearch.TranslateTo(0, -300, DURATION_ANIMATION, Easing.Linear),
                 frameSearch.TranslateTo(0, -150, DURATION_ANIMATION, Easing.Linear),

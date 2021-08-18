@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using LiteDB;
+using Newtonsoft.Json;
 using PokedexXF.Enums;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace PokedexXF.Models
         [JsonProperty("height")]
         public int Height { get; set; }
 
+        [BsonId]
         [JsonProperty("id")]
         public int Id { get; set; }
 

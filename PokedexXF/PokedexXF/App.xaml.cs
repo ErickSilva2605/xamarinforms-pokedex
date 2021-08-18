@@ -1,10 +1,15 @@
-﻿using PokedexXF.Views;
+﻿using LiteDB;
+using PokedexXF.Views;
+using System.IO;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace PokedexXF
 {
     public partial class App : Application
     {
+        public static LiteDatabase Database = new LiteDatabase(Path.Combine(FileSystem.AppDataDirectory, "pokedex.db"));
+
         public App()
         {
             InitializeComponent();

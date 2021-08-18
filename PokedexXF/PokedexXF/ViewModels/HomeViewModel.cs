@@ -1,9 +1,11 @@
 ﻿using PokedexXF.Helpers;
 using PokedexXF.Interfaces;
 using PokedexXF.Models;
+using PokedexXF.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -14,6 +16,7 @@ namespace PokedexXF.ViewModels
     public class HomeViewModel : BaseViewModel, IInitializeAsync
     {
         private readonly IRestService _service;
+        private readonly LiteDbService<PokemonModel> _dbService;
         private ObservableRangeCollection<PokemonModel> _pokemons;
         private int _itemTreshold;
 
@@ -45,7 +48,7 @@ namespace PokedexXF.ViewModels
         {
             ItemTreshold = 1;
             _service = restService;
-
+            _dbService = new LiteDbService<PokemonModel>();
             Pagination = new PaginationModel();
             Pokemons = new ObservableRangeCollection<PokemonModel>();
             LoadMorePokemonsCommand = new Command(async () => await LoadMorePokemons());
@@ -88,22 +91,28 @@ namespace PokedexXF.ViewModels
             {
                 IsBusy = true;
 
-                if (!InternetConnectivity())
+                if (!InternetConnectivity()) 
+                {
+                    // TODO - Mensagem dados offline
                     return;
+                }
 
                 await GetPaginationList(null);
 
-                List<PokemonModel> pokemonsList = new List<PokemonModel>();
+                var dbPokemons = _dbService.FindAll();
 
-                foreach (var item in Pagination.Results)
+                if (!dbPokemons.Any())
                 {
-                    var pokemon = await _service.GetPokemon(item.Url);
+                    Pokemons = new ObservableRangeCollection<PokemonModel>( await GetPokemons());
 
-                    if (pokemon != null)
-                        pokemonsList.Add(pokemon);
+                    if (Pokemons.Any())
+                        LiteDbHelper.UpdateDataBase(_dbService, Pokemons);
                 }
-
-                Pokemons = new ObservableRangeCollection<PokemonModel>(pokemonsList);
+                else
+                {
+                    await Task.Delay(4000);
+                    Pokemons = new ObservableRangeCollection<PokemonModel>(dbPokemons.Take(20));
+                }
 
             }
             catch (Exception ex)
@@ -133,13 +142,48 @@ namespace PokedexXF.ViewModels
                 }
 
                 if (!InternetConnectivity())
+                {
+                    // TODO - Mensagem dados offline
                     return;
+                }
 
                 var mock = GetPokemonsMock();
                 Pokemons.AddRange(mock);
 
                 await GetPaginationList(Pagination.Next);
 
+                var dbPokemons = _dbService.FindAll();
+
+                if (!dbPokemons.Any() || dbPokemons.Count() <= Offset)
+                {
+                    var pokemonList = await GetPokemons();
+                    Pokemons.RemoveRange(mock);
+                    Pokemons.AddRange(pokemonList);
+
+                    if (Pokemons.Any())
+                        LiteDbHelper.UpdateDataBase(_dbService, Pokemons);
+                }
+                else
+                {
+                    await Task.Delay(2000);
+                    Pokemons.RemoveRange(mock);
+                    Pokemons.AddRange(dbPokemons.Skip(Offset).Take(Offset));
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Erro", ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private async Task<List<PokemonModel>> GetPokemons()
+        {
+            try
+            {
                 List<PokemonModel> pokemonsList = new List<PokemonModel>();
 
                 foreach (var item in Pagination.Results)
@@ -150,17 +194,14 @@ namespace PokedexXF.ViewModels
                         pokemonsList.Add(pokemon);
                 }
 
-                Pokemons.RemoveRange(mock);
-                Pokemons.AddRange(pokemonsList);
+                return pokemonsList;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Erro", ex.Message);
             }
-            finally
-            {
-                IsBusy = false;
-            }
+
+            return new List<PokemonModel>();
         }
 
         private IList<PokemonModel> GetPokemonsMock()
