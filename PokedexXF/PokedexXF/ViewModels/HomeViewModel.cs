@@ -3,6 +3,8 @@ using PokedexXF.Interfaces;
 using PokedexXF.Models;
 using PokedexXF.Services;
 using PokedexXF.Views;
+using PokedexXF.Views.Popups;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -45,6 +47,7 @@ namespace PokedexXF.ViewModels
 
         public ICommand LoadMorePokemonsCommand { get; set; }
         public Command<PokemonModel> NavigateToDetailCommand { get; set; }
+        public ICommand NavigateToFiltersPageCommand { get; set; }
 
         public HomeViewModel(INavigation navigation, IRestService restService) : base(navigation)
         {
@@ -55,6 +58,7 @@ namespace PokedexXF.ViewModels
             Pokemons = new ObservableRangeCollection<PokemonModel>();
             LoadMorePokemonsCommand = new Command(async () => await LoadMorePokemons());
             NavigateToDetailCommand = new Command<PokemonModel>(async (item) => await ExecuteNavigateToDetailCommand(item));
+            NavigateToFiltersPageCommand = new Command(async () => await ExecuteNavigateToFiltersPageCommand());
             Initialization = InitializeAsync();
         }
 
@@ -172,6 +176,27 @@ namespace PokedexXF.ViewModels
                 IsBusy = true;
 
                 await Navigation.PushAsync(new DetailPage());
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Erro", ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private async Task ExecuteNavigateToFiltersPageCommand()
+        {
+            if (IsBusy)
+                return;
+
+            try
+            {
+                IsBusy = true;
+
+                await PopupNavigation.Instance.PushAsync(new FiltersPage());
             }
             catch (Exception ex)
             {

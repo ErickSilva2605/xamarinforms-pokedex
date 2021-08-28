@@ -95,6 +95,8 @@
                     x:Name="frameFilters"
                     Margin="0"
                     Padding="5"
+                    xct:TouchEffect.Command="{Binding NavigateToFiltersPageCommand}"
+                    xct:TouchEffect.NativeAnimation="True"
                     BackgroundColor="Transparent"
                     CornerRadius="20"
                     HeightRequest="27"
@@ -187,7 +189,7 @@
                             Padding="0"
                             xct:TouchEffect.Command="{Binding Source={x:Reference Home}, Path=BindingContext.NavigateToDetailCommand}"
                             xct:TouchEffect.CommandParameter="{Binding .}"
-                            xct:TouchEffect.PressedScale="0.95"
+                            xct:TouchEffect.PressedScale="0.90"
                             >
                             <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                                 <Grid.RowDefinitions>

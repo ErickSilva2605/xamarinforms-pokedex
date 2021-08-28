@@ -28,6 +28,7 @@ namespace PokedexXF.iOS
             }
             else
             {
+                Rg.Plugins.Popup.Popup.Init();
                 global::Xamarin.Forms.Forms.Init();
                 LoadApplication(new App());
 

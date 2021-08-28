@@ -1,0 +1,425 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+    x:Class="PokedexXF.Views.Popups.FiltersPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    xmlns:controls="clr-namespace:PokedexXF.Controls"
+    xmlns:converters="clr-namespace:PokedexXF.Converters"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:system="clr-namespace:System;assembly=netstandard"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:Name="filtersPage"
+    >
+    <pages:PopupPage.Animation>
+        <animations:MoveAnimation
+            DurationIn="500"
+            DurationOut="300"
+            EasingIn="Linear"
+            EasingOut="Linear"
+            HasBackgroundAnimation="True"
+            PositionIn="Bottom"
+            PositionOut="Bottom"
+            />
+    </pages:PopupPage.Animation>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ConverterTypeToColorType x:Key="converterTypeToColorType" />
+            <converters:ConverterTypeToImageType x:Key="converterTypeToImageType" />
+            <converters:ConverterHeightToColorHeight x:Key="converterHeightToColorHeight" />
+            <converters:ConverterHeightToImageHeight x:Key="converterHeightToImageHeight" />
+            <converters:ConverterWeightToColorWeight x:Key="converterWeightToColorWeight" />
+            <converters:ConverterWeightToImageWeight x:Key="converterWeightToImageWeight" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <controls:BottomSheetControl SheetMargin="0,10,0,0">
+            <controls:BottomSheetControl.SheetContent>
+                <Grid Padding="0,20,0,40" RowSpacing="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Label
+                        Margin="40,0"
+                        HorizontalOptions="Start"
+                        HorizontalTextAlignment="Start"
+                        VerticalOptions="Start"
+                        >
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span
+                                    Style="{StaticResource LabelPokemonName}"
+                                    Text="Filters"
+                                    TextColor="{StaticResource ColorTextBlack}"
+                                    />
+                                <Span Text="{x:Static system:Environment.NewLine}" />
+                                <Span
+                                    Style="{StaticResource LabelDescription}"
+                                    Text="Use advanced search to explore Pokémon by type, weakness, height and more!"
+                                    TextColor="{StaticResource ColorTextGray}"
+                                    />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <ScrollView Grid.Row="1">
+                        <Grid Padding="40,0" RowSpacing="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="70" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="70" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="70" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="70" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Label
+                                Margin="0,15,0,0"
+                                Style="{StaticResource LabelFilterTitle}"
+                                Text="Types"
+                                TextColor="{StaticResource ColorTextBlack}"
+                                />
+                            <CollectionView
+                                Grid.Row="1"
+                                ItemsSource="{Binding Filters.Types}"
+                                VerticalOptions="Start"
+                                >
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout ItemSpacing="5" Orientation="Horizontal" />
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid
+                                            Padding="3"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="FillAndExpand"
+                                            >
+                                            <pancake:PancakeView
+                                                Padding="12"
+                                                xct:TouchEffect.Command="{Binding Source={x:Reference filtersPage}, Path=BindingContext.SelectFilterTypeCommand}"
+                                                xct:TouchEffect.CommandParameter="{Binding .}"
+                                                xct:TouchEffect.NativeAnimation="True"
+                                                BackgroundColor="Transparent"
+                                                CornerRadius="30"
+                                                HeightRequest="30"
+                                                HorizontalOptions="Center"
+                                                VerticalOptions="Center"
+                                                WidthRequest="30"
+                                                >
+                                                <Image
+                                                    xct:IconTintColorEffect.TintColor="{Binding Type, Converter={StaticResource converterTypeToColorType}}"
+                                                    HeightRequest="25"
+                                                    HorizontalOptions="Center"
+                                                    Source="{Binding Type, Converter={StaticResource converterTypeToImageType}}"
+                                                    VerticalOptions="Center"
+                                                    >
+                                                    <Image.Triggers>
+                                                        <DataTrigger
+                                                            Binding="{Binding Selected}"
+                                                            TargetType="Image"
+                                                            Value="True"
+                                                            >
+                                                            <Setter Property="xct:IconTintColorEffect.TintColor" Value="{StaticResource ColorTextWhite}" />
+                                                        </DataTrigger>
+                                                    </Image.Triggers>
+                                                </Image>
+                                                <pancake:PancakeView.Triggers>
+                                                    <DataTrigger
+                                                        Binding="{Binding Selected}"
+                                                        TargetType="{x:Type pancake:PancakeView}"
+                                                        Value="True"
+                                                        >
+                                                        <Setter Property="BackgroundColor" Value="{Binding Type, Converter={StaticResource converterTypeToColorType}}" />
+                                                        <Setter Property="xct:ShadowEffect.Color" Value="{Binding Type, Converter={StaticResource converterTypeToColorType}}" />
+                                                        <Setter Property="xct:ShadowEffect.Radius" Value="30" />
+                                                    </DataTrigger>
+                                                </pancake:PancakeView.Triggers>
+                                            </pancake:PancakeView>
+                                        </Grid>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                            <Label
+                                Grid.Row="2"
+                                Margin="0,10,0,0"
+                                Style="{StaticResource LabelFilterTitle}"
+                                Text="Weaknesses"
+                                TextColor="{StaticResource ColorTextBlack}"
+                                />
+                            <CollectionView
+                                Grid.Row="3"
+                                ItemsSource="{Binding Filters.Weaknesses}"
+                                VerticalOptions="Start"
+                                >
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout ItemSpacing="5" Orientation="Horizontal" />
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid
+                                            Padding="3"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="FillAndExpand"
+                                            >
+                                            <pancake:PancakeView
+                                                Padding="12"
+                                                xct:TouchEffect.Command="{Binding Source={x:Reference filtersPage}, Path=BindingContext.SelectFilterWeaknessCommand}"
+                                                xct:TouchEffect.CommandParameter="{Binding .}"
+                                                xct:TouchEffect.NativeAnimation="True"
+                                                BackgroundColor="Transparent"
+                                                CornerRadius="30"
+                                                HeightRequest="30"
+                                                HorizontalOptions="Center"
+                                                VerticalOptions="Center"
+                                                WidthRequest="30"
+                                                >
+                                                <Image
+                                                    xct:IconTintColorEffect.TintColor="{Binding Type, Converter={StaticResource converterTypeToColorType}}"
+                                                    HeightRequest="25"
+                                                    HorizontalOptions="Center"
+                                                    Source="{Binding Type, Converter={StaticResource converterTypeToImageType}}"
+                                                    VerticalOptions="Center"
+                                                    >
+                                                    <Image.Triggers>
+                                                        <DataTrigger
+                                                            Binding="{Binding Selected}"
+                                                            TargetType="Image"
+                                                            Value="True"
+                                                            >
+                                                            <Setter Property="xct:IconTintColorEffect.TintColor" Value="{StaticResource ColorTextWhite}" />
+                                                        </DataTrigger>
+                                                    </Image.Triggers>
+                                                </Image>
+                                                <pancake:PancakeView.Triggers>
+                                                    <DataTrigger
+                                                        Binding="{Binding Selected}"
+                                                        TargetType="{x:Type pancake:PancakeView}"
+                                                        Value="True"
+                                                        >
+                                                        <Setter Property="BackgroundColor" Value="{Binding Type, Converter={StaticResource converterTypeToColorType}}" />
+                                                        <Setter Property="xct:ShadowEffect.Color" Value="{Binding Type, Converter={StaticResource converterTypeToColorType}}" />
+                                                        <Setter Property="xct:ShadowEffect.Radius" Value="30" />
+                                                    </DataTrigger>
+                                                </pancake:PancakeView.Triggers>
+                                            </pancake:PancakeView>
+                                        </Grid>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                            <Label
+                                Grid.Row="4"
+                                Margin="0,10,0,0"
+                                Style="{StaticResource LabelFilterTitle}"
+                                Text="Heights"
+                                TextColor="{StaticResource ColorTextBlack}"
+                                />
+                            <CollectionView
+                                Grid.Row="5"
+                                ItemsSource="{Binding Filters.Heights}"
+                                VerticalOptions="Start"
+                                >
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout ItemSpacing="5" Orientation="Horizontal" />
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid
+                                            Padding="3"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="FillAndExpand"
+                                            >
+                                            <pancake:PancakeView
+                                                Padding="12"
+                                                xct:TouchEffect.Command="{Binding Source={x:Reference filtersPage}, Path=BindingContext.SelectFilterHeightCommand}"
+                                                xct:TouchEffect.CommandParameter="{Binding .}"
+                                                xct:TouchEffect.NativeAnimation="True"
+                                                BackgroundColor="Transparent"
+                                                CornerRadius="30"
+                                                HeightRequest="30"
+                                                HorizontalOptions="Center"
+                                                VerticalOptions="Center"
+                                                WidthRequest="30"
+                                                >
+                                                <Image
+                                                    xct:IconTintColorEffect.TintColor="{Binding Height, Converter={StaticResource converterHeightToColorHeight}}"
+                                                    HeightRequest="25"
+                                                    HorizontalOptions="Center"
+                                                    Source="{Binding Height, Converter={StaticResource converterHeightToImageHeight}}"
+                                                    VerticalOptions="Center"
+                                                    >
+                                                    <Image.Triggers>
+                                                        <DataTrigger
+                                                            Binding="{Binding Selected}"
+                                                            TargetType="Image"
+                                                            Value="True"
+                                                            >
+                                                            <Setter Property="xct:IconTintColorEffect.TintColor" Value="{StaticResource ColorTextWhite}" />
+                                                        </DataTrigger>
+                                                    </Image.Triggers>
+                                                </Image>
+                                                <pancake:PancakeView.Triggers>
+                                                    <DataTrigger
+                                                        Binding="{Binding Selected}"
+                                                        TargetType="{x:Type pancake:PancakeView}"
+                                                        Value="True"
+                                                        >
+                                                        <Setter Property="BackgroundColor" Value="{Binding Height, Converter={StaticResource converterHeightToColorHeight}}" />
+                                                        <Setter Property="xct:ShadowEffect.Color" Value="{Binding Height, Converter={StaticResource converterHeightToColorHeight}}" />
+                                                        <Setter Property="xct:ShadowEffect.Radius" Value="30" />
+                                                    </DataTrigger>
+                                                </pancake:PancakeView.Triggers>
+                                            </pancake:PancakeView>
+                                        </Grid>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                            <Label
+                                Grid.Row="6"
+                                Margin="0,10,0,0"
+                                Style="{StaticResource LabelFilterTitle}"
+                                Text="Weights"
+                                TextColor="{StaticResource ColorTextBlack}"
+                                />
+                            <CollectionView
+                                Grid.Row="7"
+                                ItemsSource="{Binding Filters.Weights}"
+                                VerticalOptions="Start"
+                                >
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout ItemSpacing="5" Orientation="Horizontal" />
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid
+                                            Padding="3"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="FillAndExpand"
+                                            >
+                                            <pancake:PancakeView
+                                                Padding="12"
+                                                xct:TouchEffect.Command="{Binding Source={x:Reference filtersPage}, Path=BindingContext.SelectFilterWeightCommand}"
+                                                xct:TouchEffect.CommandParameter="{Binding .}"
+                                                xct:TouchEffect.NativeAnimation="True"
+                                                BackgroundColor="Transparent"
+                                                CornerRadius="30"
+                                                HeightRequest="30"
+                                                HorizontalOptions="Center"
+                                                VerticalOptions="Center"
+                                                WidthRequest="30"
+                                                >
+                                                <Image
+                                                    xct:IconTintColorEffect.TintColor="{Binding Weight, Converter={StaticResource converterWeightToColorWeight}}"
+                                                    HeightRequest="25"
+                                                    HorizontalOptions="Center"
+                                                    Source="{Binding Weight, Converter={StaticResource converterWeightToImageWeight}}"
+                                                    VerticalOptions="Center"
+                                                    >
+                                                    <Image.Triggers>
+                                                        <DataTrigger
+                                                            Binding="{Binding Selected}"
+                                                            TargetType="Image"
+                                                            Value="True"
+                                                            >
+                                                            <Setter Property="xct:IconTintColorEffect.TintColor" Value="{StaticResource ColorTextWhite}" />
+                                                        </DataTrigger>
+                                                    </Image.Triggers>
+                                                </Image>
+                                                <pancake:PancakeView.Triggers>
+                                                    <DataTrigger
+                                                        Binding="{Binding Selected}"
+                                                        TargetType="{x:Type pancake:PancakeView}"
+                                                        Value="True"
+                                                        >
+                                                        <Setter Property="BackgroundColor" Value="{Binding Weight, Converter={StaticResource converterWeightToColorWeight}}" />
+                                                        <Setter Property="xct:ShadowEffect.Color" Value="{Binding Weight, Converter={StaticResource converterWeightToColorWeight}}" />
+                                                        <Setter Property="xct:ShadowEffect.Radius" Value="30" />
+                                                    </DataTrigger>
+                                                </pancake:PancakeView.Triggers>
+                                            </pancake:PancakeView>
+                                        </Grid>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                            <Label
+                                Grid.Row="8"
+                                Margin="0,10,0,0"
+                                Style="{StaticResource LabelFilterTitle}"
+                                Text="Number Range"
+                                TextColor="{StaticResource ColorTextBlack}"
+                                />
+                            <xct:RangeSlider
+                                Grid.Row="9"
+                                Margin="0,5"
+                                LowerValue="{Binding Filters.NumberRangeMin}"
+                                MaximumValue="898"
+                                MinimumValue="1"
+                                StepValue="1"
+                                ThumbBorderColor="{StaticResource ColorTypePsychic}"
+                                ThumbSize="20"
+                                TrackColor="{StaticResource ColorBackgroundDefaultInput}"
+                                TrackHighlightColor="{StaticResource ColorTypePsychic}"
+                                TrackRadius="2"
+                                TrackSize="5"
+                                UpperValue="{Binding Filters.NumberRangeMax}"
+                                ValueLabelStyle="{StaticResource LabelRangeSlider}"
+                                >
+                                <xct:RangeSlider.LowerThumbView>
+                                    <pancake:PancakeView Padding="4" BackgroundColor="{StaticResource ColorTypePsychic}">
+                                        <BoxView
+                                            BackgroundColor="{StaticResource ColorBackgroundWhite}"
+                                            CornerRadius="10"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center"
+                                            />
+                                    </pancake:PancakeView>
+                                </xct:RangeSlider.LowerThumbView>
+                                <xct:RangeSlider.UpperThumbView>
+                                    <pancake:PancakeView Padding="4" BackgroundColor="{StaticResource ColorTypePsychic}">
+                                        <BoxView
+                                            BackgroundColor="{StaticResource ColorBackgroundWhite}"
+                                            CornerRadius="10"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center"
+                                            />
+                                    </pancake:PancakeView>
+                                </xct:RangeSlider.UpperThumbView>
+                            </xct:RangeSlider>
+                            <FlexLayout
+                                Grid.Row="10"
+                                Margin="0,20,0,0"
+                                Padding="2,5"
+                                Direction="Row"
+                                JustifyContent="SpaceBetween"
+                                >
+                                <Button
+                                    CornerRadius="10"
+                                    HeightRequest="60"
+                                    HorizontalOptions="Start"
+                                    Style="{StaticResource ButtonSecondary}"
+                                    Text="Reset"
+                                    VerticalOptions="CenterAndExpand"
+                                    WidthRequest="160"
+                                    />
+                                <Button
+                                    xct:ShadowEffect.Color="{StaticResource ColorTypePsychic}"
+                                    xct:ShadowEffect.Radius="10"
+                                    CornerRadius="10"
+                                    HeightRequest="60"
+                                    HorizontalOptions="End"
+                                    Style="{StaticResource ButtonPrimary}"
+                                    Text="Apply"
+                                    VerticalOptions="Center"
+                                    WidthRequest="160"
+                                    />
+                            </FlexLayout>
+                        </Grid>
+                    </ScrollView>
+                </Grid>
+            </controls:BottomSheetControl.SheetContent>
+        </controls:BottomSheetControl>
+    </ContentPage.Content>
+</pages:PopupPage>

@@ -11,12 +11,18 @@ namespace PokedexXF.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!(value is string))
-                return Application.Current.Resources["ColorGray"];
+            TypeEnum type = TypeEnum.Undefined;
 
-            TypeEnum type;
-            if (!Enum.TryParse((string)value, out type))
-                type = TypeEnum.Undefined;
+            if (!(value is TypeEnum))
+            {
+                if (!(value is string))
+                    return Application.Current.Resources["ColorGray"];
+
+                if (!Enum.TryParse((string)value, out type))
+                    type = TypeEnum.Undefined;
+            }
+            else
+                type = (TypeEnum)value;
 
             switch (type)
             {
