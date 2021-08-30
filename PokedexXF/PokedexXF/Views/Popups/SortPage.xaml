@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+    x:Class="PokedexXF.Views.Popups.SortPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    xmlns:controls="clr-namespace:PokedexXF.Controls"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:system="clr-namespace:System;assembly=netstandard"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    >
+    <pages:PopupPage.Animation>
+        <animations:MoveAnimation
+            DurationIn="500"
+            DurationOut="300"
+            EasingIn="Linear"
+            EasingOut="Linear"
+            HasBackgroundAnimation="True"
+            PositionIn="Bottom"
+            PositionOut="Bottom"
+            />
+    </pages:PopupPage.Animation>
+    <ContentPage.Resources>
+        <Style TargetType="Button">
+            <Setter Property="HeightRequest" Value="60" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="UnSelected">
+                            <VisualState.Setters>
+                                <Setter Property="Style" Value="{StaticResource ButtonSecondary}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="Style" Value="{StaticResource ButtonPrimary}" />
+                                <Setter Property="xct:ShadowEffect.Color" Value="{StaticResource ColorTypePsychic}" />
+                                <Setter Property="xct:ShadowEffect.Radius" Value="10" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <controls:BottomSheetControl>
+            <controls:BottomSheetControl.SheetContent>
+                <Grid
+                    x:Name="gridSort"
+                    Padding="0,20,0,40"
+                    RowSpacing="20"
+                    >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Label
+                        Margin="40,0"
+                        HorizontalOptions="Start"
+                        HorizontalTextAlignment="Start"
+                        VerticalOptions="Start"
+                        >
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span
+                                    Style="{StaticResource LabelPokemonName}"
+                                    Text="Sort"
+                                    TextColor="{StaticResource ColorTextBlack}"
+                                    />
+                                <Span Text="{x:Static system:Environment.NewLine}" />
+                                <Span
+                                    Style="{StaticResource LabelDescription}"
+                                    Text="Sort Pokémons alphabetically or by National Pokédex number!"
+                                    TextColor="{StaticResource ColorTextGray}"
+                                    />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Button
+                        x:Name="buttonAscending"
+                        Grid.Row="1"
+                        Margin="40,15,40,0"
+                        Clicked="SortClicked"
+                        Command="{Binding SelectSortCommand}"
+                        CommandParameter="0"
+                        Text="Smallest number first"
+                        />
+                    <Button
+                        x:Name="buttonDescending"
+                        Grid.Row="2"
+                        Margin="40,0"
+                        Clicked="SortClicked"
+                        Command="{Binding SelectSortCommand}"
+                        CommandParameter="1"
+                        Text="Highest number first"
+                        />
+                    <Button
+                        x:Name="buttonAlphabeticalAscending"
+                        Grid.Row="3"
+                        Margin="40,0"
+                        Clicked="SortClicked"
+                        Command="{Binding SelectSortCommand}"
+                        CommandParameter="2"
+                        Text="A-Z"
+                        />
+                    <Button
+                        x:Name="buttonAlphabeticalDescending"
+                        Grid.Row="4"
+                        Margin="40,0"
+                        Clicked="SortClicked"
+                        Command="{Binding SelectSortCommand}"
+                        CommandParameter="3"
+                        Text="Z-A"
+                        />
+                </Grid>
+            </controls:BottomSheetControl.SheetContent>
+        </controls:BottomSheetControl>
+    </ContentPage.Content>
+</pages:PopupPage>

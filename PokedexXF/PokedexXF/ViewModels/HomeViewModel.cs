@@ -48,6 +48,7 @@ namespace PokedexXF.ViewModels
         public ICommand LoadMorePokemonsCommand { get; set; }
         public Command<PokemonModel> NavigateToDetailCommand { get; set; }
         public ICommand NavigateToFiltersPageCommand { get; set; }
+        public ICommand NavigateToSortPageCommand { get; set; }
 
         public HomeViewModel(INavigation navigation, IRestService restService) : base(navigation)
         {
@@ -59,6 +60,7 @@ namespace PokedexXF.ViewModels
             LoadMorePokemonsCommand = new Command(async () => await LoadMorePokemons());
             NavigateToDetailCommand = new Command<PokemonModel>(async (item) => await ExecuteNavigateToDetailCommand(item));
             NavigateToFiltersPageCommand = new Command(async () => await ExecuteNavigateToFiltersPageCommand());
+            NavigateToSortPageCommand = new Command(async () => await ExecuteNavigateToSortPageCommand());
             Initialization = InitializeAsync();
         }
 
@@ -197,6 +199,27 @@ namespace PokedexXF.ViewModels
                 IsBusy = true;
 
                 await PopupNavigation.Instance.PushAsync(new FiltersPage());
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Erro", ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private async Task ExecuteNavigateToSortPageCommand()
+        {
+            if (IsBusy)
+                return;
+
+            try
+            {
+                IsBusy = true;
+
+                await PopupNavigation.Instance.PushAsync(new SortPage());
             }
             catch (Exception ex)
             {

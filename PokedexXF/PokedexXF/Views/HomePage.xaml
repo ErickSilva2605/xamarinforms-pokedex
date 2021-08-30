@@ -76,6 +76,8 @@
                     x:Name="frameFilterSort"
                     Margin="0"
                     Padding="5"
+                    xct:TouchEffect.Command="{Binding NavigateToSortPageCommand}"
+                    xct:TouchEffect.NativeAnimation="True"
                     BackgroundColor="Transparent"
                     CornerRadius="20"
                     HeightRequest="27"

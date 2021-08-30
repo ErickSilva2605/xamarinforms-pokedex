@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PokedexXF.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -14,6 +15,13 @@ namespace PokedexXF.Models
         public ObservableRangeCollection<HeightFilterModel> Heights { get; set; }
 
         public ObservableRangeCollection<WeightFilterModel> Weights { get; set; }
+
+        private SortEnum _sort;
+        public SortEnum Sort 
+        {
+            get => _sort;
+            set => SetProperty(ref _sort, value);
+        }
 
         private int _numberRangeMin;
         public int NumberRangeMin 
