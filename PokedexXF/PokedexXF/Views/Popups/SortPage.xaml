@@ -5,9 +5,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
     xmlns:controls="clr-namespace:PokedexXF.Controls"
+    xmlns:converters="clr-namespace:PokedexXF.Converters"
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     xmlns:system="clr-namespace:System;assembly=netstandard"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:Name="sortPage"
     >
     <pages:PopupPage.Animation>
         <animations:MoveAnimation
@@ -21,45 +23,17 @@
             />
     </pages:PopupPage.Animation>
     <ContentPage.Resources>
-        <Style TargetType="Button">
-            <Setter Property="HeightRequest" Value="60" />
-            <Setter Property="CornerRadius" Value="10" />
-            <Setter Property="VerticalOptions" Value="Center" />
-            <Setter Property="HorizontalOptions" Value="FillAndExpand" />
-            <Setter Property="VisualStateManager.VisualStateGroups">
-                <VisualStateGroupList>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualState x:Name="UnSelected">
-                            <VisualState.Setters>
-                                <Setter Property="Style" Value="{StaticResource ButtonSecondary}" />
-                            </VisualState.Setters>
-                        </VisualState>
-                        <VisualState x:Name="Selected">
-                            <VisualState.Setters>
-                                <Setter Property="Style" Value="{StaticResource ButtonPrimary}" />
-                                <Setter Property="xct:ShadowEffect.Color" Value="{StaticResource ColorTypePsychic}" />
-                                <Setter Property="xct:ShadowEffect.Radius" Value="10" />
-                            </VisualState.Setters>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateGroupList>
-            </Setter>
-        </Style>
+        <ResourceDictionary>
+            <converters:ConverterSortToDescriptionSort x:Key="converterSortToDescriptionSort" />
+        </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
         <controls:BottomSheetControl>
             <controls:BottomSheetControl.SheetContent>
-                <Grid
-                    x:Name="gridSort"
-                    Padding="0,20,0,40"
-                    RowSpacing="20"
-                    >
+                <Grid Padding="0,20,0,40" RowSpacing="20">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="370" />
                     </Grid.RowDefinitions>
                     <Label
                         Margin="40,0"
@@ -83,42 +57,45 @@
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
-                    <Button
-                        x:Name="buttonAscending"
+                    <CollectionView
                         Grid.Row="1"
-                        Margin="40,15,40,0"
-                        Clicked="SortClicked"
-                        Command="{Binding SelectSortCommand}"
-                        CommandParameter="0"
-                        Text="Smallest number first"
-                        />
-                    <Button
-                        x:Name="buttonDescending"
-                        Grid.Row="2"
-                        Margin="40,0"
-                        Clicked="SortClicked"
-                        Command="{Binding SelectSortCommand}"
-                        CommandParameter="1"
-                        Text="Highest number first"
-                        />
-                    <Button
-                        x:Name="buttonAlphabeticalAscending"
-                        Grid.Row="3"
-                        Margin="40,0"
-                        Clicked="SortClicked"
-                        Command="{Binding SelectSortCommand}"
-                        CommandParameter="2"
-                        Text="A-Z"
-                        />
-                    <Button
-                        x:Name="buttonAlphabeticalDescending"
-                        Grid.Row="4"
-                        Margin="40,0"
-                        Clicked="SortClicked"
-                        Command="{Binding SelectSortCommand}"
-                        CommandParameter="3"
-                        Text="Z-A"
-                        />
+                        ItemsSource="{Binding Filters.Orders}"
+                        VerticalOptions="Start"
+                        >
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout ItemSpacing="20" Orientation="Vertical" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="3" HorizontalOptions="FillAndExpand">
+                                    <Button
+                                        Margin="40,0"
+                                        xct:TouchEffect.Command="{Binding Source={x:Reference sortPage}, Path=BindingContext.SelectSortCommand}"
+                                        xct:TouchEffect.CommandParameter="{Binding .}"
+                                        xct:TouchEffect.PressedScale="0.90"
+                                        CornerRadius="10"
+                                        HeightRequest="60"
+                                        HorizontalOptions="FillAndExpand"
+                                        Style="{StaticResource ButtonSecondary}"
+                                        Text="{Binding Sort, Converter={StaticResource converterSortToDescriptionSort}}"
+                                        VerticalOptions="Center"
+                                        >
+                                        <Button.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding Selected}"
+                                                TargetType="Button"
+                                                Value="True"
+                                                >
+                                                <Setter Property="Style" Value="{StaticResource ButtonPrimary}" />
+                                                <Setter Property="xct:ShadowEffect.Color" Value="{StaticResource ColorTypePsychic}" />
+                                                <Setter Property="xct:ShadowEffect.Radius" Value="10" />
+                                            </DataTrigger>
+                                        </Button.Triggers>
+                                    </Button>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
                 </Grid>
             </controls:BottomSheetControl.SheetContent>
         </controls:BottomSheetControl>

@@ -18,12 +18,7 @@ namespace PokedexXF.Models
 
         public ObservableRangeCollection<GenerationFilterModel> Generations { get; set; }
 
-        private SortEnum _sort;
-        public SortEnum Sort 
-        {
-            get => _sort;
-            set => SetProperty(ref _sort, value);
-        }
+        public ObservableRangeCollection<SortFilterModel> Orders { get; set; }
 
         private int _numberRangeMin;
         public int NumberRangeMin 

@@ -37,9 +37,6 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Label
                         Margin="25,0"
@@ -83,6 +80,7 @@
                                     Padding="0"
                                     xct:TouchEffect.Command="{Binding Source={x:Reference generationPage}, Path=BindingContext.SelectGenerationCommand}"
                                     xct:TouchEffect.CommandParameter="{Binding .}"
+                                    xct:TouchEffect.PressedScale="0.90"
                                     BackgroundColor="{StaticResource ColorBackgroundDefaultInput}"
                                     CornerRadius="10"
                                     HeightRequest="130"

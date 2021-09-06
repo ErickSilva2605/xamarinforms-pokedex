@@ -1,8 +1,7 @@
 ﻿using PokedexXF.Enums;
 using PokedexXF.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
 namespace PokedexXF.ViewModels
@@ -17,19 +16,37 @@ namespace PokedexXF.ViewModels
             set => SetProperty(ref _filters, value);
         }
 
-        public Command<string> SelectSortCommand { get; set; }
+        public Command<SortFilterModel> SelectSortCommand { get; set; }
 
         public SortViewModel(INavigation navigation) : base(navigation)
         {
             Filters = new FiltersModel();
-            Filters.Sort = SortEnum.Ascending;
-
-            SelectSortCommand = new Command<string>((sort) => ExecuteSelectSortCommand(sort));
+            SelectSortCommand = new Command<SortFilterModel>((sort) => ExecuteSelectSortCommand(sort));
+            InitFilter();
         }
 
-        private void ExecuteSelectSortCommand(string sort)
+        private void InitFilter()
         {
-                Filters.Sort = (SortEnum)Convert.ToInt32(sort);
+            Filters.Orders = new ObservableRangeCollection<SortFilterModel>(GetOrders());
+        }
+
+        private IList<SortFilterModel> GetOrders()
+        {
+            return new List<SortFilterModel>()
+            {
+                new SortFilterModel { Sort = SortEnum.Ascending, Selected = true },
+                new SortFilterModel { Sort = SortEnum.Descending },
+                new SortFilterModel { Sort = SortEnum.AlphabeticalAscending },
+                new SortFilterModel { Sort = SortEnum.AlphabeticalDescending }
+            };
+        }
+
+        private void ExecuteSelectSortCommand(SortFilterModel sort)
+        {
+            foreach (var item in Filters.Orders)
+                item.Selected = false;
+
+            sort.Selected = true;
         }
     }
 }
