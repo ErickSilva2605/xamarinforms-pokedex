@@ -57,6 +57,8 @@
                     x:Name="frameFilterGeneration"
                     Margin="0"
                     Padding="5"
+                    xct:TouchEffect.Command="{Binding NavigateToGenerationPageCommand}"
+                    xct:TouchEffect.NativeAnimation="True"
                     BackgroundColor="Transparent"
                     CornerRadius="20"
                     HeightRequest="27"

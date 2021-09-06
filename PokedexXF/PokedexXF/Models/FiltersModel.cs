@@ -16,6 +16,8 @@ namespace PokedexXF.Models
 
         public ObservableRangeCollection<WeightFilterModel> Weights { get; set; }
 
+        public ObservableRangeCollection<GenerationFilterModel> Generations { get; set; }
+
         private SortEnum _sort;
         public SortEnum Sort 
         {
