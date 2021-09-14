@@ -179,7 +179,7 @@ namespace PokedexXF.ViewModels
             {
                 IsBusy = true;
 
-                await Navigation.PushAsync(new DetailPage());
+                await Navigation.PushAsync(new DetailPage(pokemon));
             }
             catch (Exception ex)
             {

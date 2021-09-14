@@ -17,6 +17,7 @@
     <ContentView.Content>
         <StackLayout
             BindableLayout.ItemsSource="{Binding Types}"
+            HeightRequest="30"
             HorizontalOptions="Start"
             Orientation="Horizontal"
             Spacing="5"

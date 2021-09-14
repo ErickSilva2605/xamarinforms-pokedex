@@ -29,6 +29,11 @@ namespace PokedexXF.Models
             set => _name = value;
         }
 
+        public string NameUpperCase 
+        {
+            get => Name.ToUpper();
+        }
+
         [JsonProperty("order")]
         public int Order { get; set; }
 
