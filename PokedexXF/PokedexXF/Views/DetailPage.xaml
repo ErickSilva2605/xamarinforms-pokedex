@@ -229,7 +229,451 @@
                 IsTabTransitionEnabled="False"
                 >
                 <xct:TabViewItem ControlTemplate="{StaticResource TabItemTemplate}" Text="About">
-                    <pancake:PancakeView Style="{StaticResource pancakeTabItem}" />
+                    <pancake:PancakeView Style="{StaticResource pancakeTabItem}">
+                        <ScrollView>
+                            <Grid Padding="40,30,40,10" RowSpacing="25">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Label
+                                    Margin="0,0,0,15"
+                                    HorizontalOptions="Start"
+                                    Style="{StaticResource LabelDescription}"
+                                    Text="Bulbasaur can be seen napping in bright sunlight. There is a seed on its back. By soaking up the sun's rays, the seed grows progressively larger."
+                                    TextColor="{StaticResource ColorTextGray}"
+                                    VerticalOptions="Start"
+                                    />
+
+                                <!--  Pokédex Data Section  -->
+                                <Label
+                                    Grid.Row="1"
+                                    Style="{StaticResource LabelFilterTitle}"
+                                    Text="Pokédex Data"
+                                    TextColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorType}}"
+                                    />
+                                <Grid
+                                    Grid.Row="2"
+                                    ColumnSpacing="10"
+                                    RowSpacing="15"
+                                    >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="2.5*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Label
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelPokemonType}"
+                                        Text="Species"
+                                        TextColor="{StaticResource ColorTextBlack}"
+                                        VerticalOptions="Center"
+                                        />
+                                    <Label
+                                        Grid.Row="1"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelPokemonType}"
+                                        Text="Height"
+                                        TextColor="{StaticResource ColorTextBlack}"
+                                        VerticalOptions="Center"
+                                        />
+                                    <Label
+                                        Grid.Row="2"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelPokemonType}"
+                                        Text="Weight"
+                                        TextColor="{StaticResource ColorTextBlack}"
+                                        VerticalOptions="Center"
+                                        />
+                                    <Label
+                                        Grid.Row="3"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelPokemonType}"
+                                        Text="Abilities"
+                                        TextColor="{StaticResource ColorTextBlack}"
+                                        VerticalOptions="Center"
+                                        />
+                                    <Label
+                                        Grid.Row="4"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelPokemonType}"
+                                        Text="Weaknesses"
+                                        TextColor="{StaticResource ColorTextBlack}"
+                                        VerticalOptions="Center"
+                                        />
+
+                                    <Label
+                                        Grid.Column="1"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelDescription}"
+                                        Text="Seed Pokémon"
+                                        TextColor="{StaticResource ColorTextGray}"
+                                        VerticalOptions="Center"
+                                        />
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelDescription}"
+                                        Text="0.7m (2′04″)"
+                                        TextColor="{StaticResource ColorTextGray}"
+                                        VerticalOptions="Center"
+                                        />
+                                    <Label
+                                        Grid.Row="2"
+                                        Grid.Column="1"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelDescription}"
+                                        Text="6.9kg (15.2 lbs)"
+                                        TextColor="{StaticResource ColorTextGray}"
+                                        VerticalOptions="Center"
+                                        />
+                                    <Label
+                                        Grid.Row="3"
+                                        Grid.Column="1"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelDescription}"
+                                        Text="1. Overgrow"
+                                        TextColor="{StaticResource ColorTextGray}"
+                                        VerticalOptions="Center"
+                                        />
+                                    <Label
+                                        Grid.Row="4"
+                                        Grid.Column="1"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelDescription}"
+                                        Text="Weaknesses"
+                                        TextColor="{StaticResource ColorTextGray}"
+                                        VerticalOptions="Center"
+                                        />
+                                </Grid>
+
+                                <!--  Training Section  -->
+                                <Label
+                                    Grid.Row="3"
+                                    Style="{StaticResource LabelFilterTitle}"
+                                    Text="Training"
+                                    TextColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorType}}"
+                                    />
+                                <Grid
+                                    Grid.Row="4"
+                                    ColumnSpacing="10"
+                                    RowSpacing="15"
+                                    >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="2.5*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Label
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelPokemonType}"
+                                        Text="EV Yield"
+                                        TextColor="{StaticResource ColorTextBlack}"
+                                        VerticalOptions="Center"
+                                        />
+                                    <Label
+                                        Grid.Row="1"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelPokemonType}"
+                                        Text="Catch Rate"
+                                        TextColor="{StaticResource ColorTextBlack}"
+                                        VerticalOptions="Center"
+                                        />
+                                    <Label
+                                        Grid.Row="2"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelPokemonType}"
+                                        Text="Base Friendship"
+                                        TextColor="{StaticResource ColorTextBlack}"
+                                        VerticalOptions="Center"
+                                        />
+                                    <Label
+                                        Grid.Row="3"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelPokemonType}"
+                                        Text="Base Exp"
+                                        TextColor="{StaticResource ColorTextBlack}"
+                                        VerticalOptions="Center"
+                                        />
+                                    <Label
+                                        Grid.Row="4"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelPokemonType}"
+                                        Text="Growth Rate"
+                                        TextColor="{StaticResource ColorTextBlack}"
+                                        VerticalOptions="Center"
+                                        />
+
+                                    <Label
+                                        Grid.Column="1"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelDescription}"
+                                        Text="1 Special Attack"
+                                        TextColor="{StaticResource ColorTextGray}"
+                                        VerticalOptions="Center"
+                                        />
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelDescription}"
+                                        Text="45 (5.9% with PokéBall, full HP)"
+                                        TextColor="{StaticResource ColorTextGray}"
+                                        VerticalOptions="Center"
+                                        />
+                                    <Label
+                                        Grid.Row="2"
+                                        Grid.Column="1"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelDescription}"
+                                        Text="70 (normal)"
+                                        TextColor="{StaticResource ColorTextGray}"
+                                        VerticalOptions="Center"
+                                        />
+                                    <Label
+                                        Grid.Row="3"
+                                        Grid.Column="1"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelDescription}"
+                                        Text="64"
+                                        TextColor="{StaticResource ColorTextGray}"
+                                        VerticalOptions="Center"
+                                        />
+                                    <Label
+                                        Grid.Row="4"
+                                        Grid.Column="1"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelDescription}"
+                                        Text="Medium Slow"
+                                        TextColor="{StaticResource ColorTextGray}"
+                                        VerticalOptions="Center"
+                                        />
+                                </Grid>
+
+                                <!--  Breeding Section  -->
+                                <Label
+                                    Grid.Row="5"
+                                    Style="{StaticResource LabelFilterTitle}"
+                                    Text="Breeding"
+                                    TextColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorType}}"
+                                    />
+                                <Grid
+                                    Grid.Row="6"
+                                    ColumnSpacing="10"
+                                    RowSpacing="15"
+                                    >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="2.5*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Label
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelPokemonType}"
+                                        Text="Gender"
+                                        TextColor="{StaticResource ColorTextBlack}"
+                                        VerticalOptions="Center"
+                                        />
+                                    <Label
+                                        Grid.Row="1"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelPokemonType}"
+                                        Text="Egg Groups"
+                                        TextColor="{StaticResource ColorTextBlack}"
+                                        VerticalOptions="Center"
+                                        />
+                                    <Label
+                                        Grid.Row="2"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelPokemonType}"
+                                        Text="Egg Cycles"
+                                        TextColor="{StaticResource ColorTextBlack}"
+                                        VerticalOptions="Center"
+                                        />
+
+                                    <Label
+                                        Grid.Column="1"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelDescription}"
+                                        Text="♀ 87.5%, ♂ 12.5%"
+                                        TextColor="{StaticResource ColorTextGray}"
+                                        VerticalOptions="Center"
+                                        />
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelDescription}"
+                                        Text="Grass, Monster"
+                                        TextColor="{StaticResource ColorTextGray}"
+                                        VerticalOptions="Center"
+                                        />
+                                    <Label
+                                        Grid.Row="2"
+                                        Grid.Column="1"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelDescription}"
+                                        Text="20 (4,884 - 5,140 steps)"
+                                        TextColor="{StaticResource ColorTextGray}"
+                                        VerticalOptions="Center"
+                                        />
+                                </Grid>
+
+                                <!--  Location Section  -->
+                                <Label
+                                    Grid.Row="7"
+                                    Style="{StaticResource LabelFilterTitle}"
+                                    Text="Location"
+                                    TextColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorType}}"
+                                    />
+                                <Grid
+                                    Grid.Row="8"
+                                    ColumnSpacing="10"
+                                    RowSpacing="15"
+                                    >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="2.5*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Label
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelPokemonType}"
+                                        Text="001"
+                                        TextColor="{StaticResource ColorTextBlack}"
+                                        VerticalOptions="Center"
+                                        />
+                                    <Label
+                                        Grid.Row="1"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelPokemonType}"
+                                        Text="226"
+                                        TextColor="{StaticResource ColorTextBlack}"
+                                        VerticalOptions="Center"
+                                        />
+                                    <Label
+                                        Grid.Row="2"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelPokemonType}"
+                                        Text="001"
+                                        TextColor="{StaticResource ColorTextBlack}"
+                                        VerticalOptions="Center"
+                                        />
+                                    <Label
+                                        Grid.Row="3"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelPokemonType}"
+                                        Text="231"
+                                        TextColor="{StaticResource ColorTextBlack}"
+                                        VerticalOptions="Center"
+                                        />
+                                    <Label
+                                        Grid.Row="4"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelPokemonType}"
+                                        Text="080"
+                                        TextColor="{StaticResource ColorTextBlack}"
+                                        VerticalOptions="Center"
+                                        />
+                                    <Label
+                                        Grid.Row="5"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelPokemonType}"
+                                        Text="001"
+                                        TextColor="{StaticResource ColorTextBlack}"
+                                        VerticalOptions="Center"
+                                        />
+
+                                    <Label
+                                        Grid.Column="1"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelDescription}"
+                                        Text="(Red/Blue/Yellow)"
+                                        TextColor="{StaticResource ColorTextGray}"
+                                        VerticalOptions="Center"
+                                        />
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelDescription}"
+                                        Text="(Gold/Silver/Crystal)"
+                                        TextColor="{StaticResource ColorTextGray}"
+                                        VerticalOptions="Center"
+                                        />
+                                    <Label
+                                        Grid.Row="2"
+                                        Grid.Column="1"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelDescription}"
+                                        Text="(FireRed/LeafGreen)"
+                                        TextColor="{StaticResource ColorTextGray}"
+                                        VerticalOptions="Center"
+                                        />
+                                    <Label
+                                        Grid.Row="3"
+                                        Grid.Column="1"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelDescription}"
+                                        Text="(HeartGold/SoulSilver)"
+                                        TextColor="{StaticResource ColorTextGray}"
+                                        VerticalOptions="Center"
+                                        />
+                                    <Label
+                                        Grid.Row="4"
+                                        Grid.Column="1"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelDescription}"
+                                        Text="(X/Y - Central Kalos)"
+                                        TextColor="{StaticResource ColorTextGray}"
+                                        VerticalOptions="Center"
+                                        />
+                                    <Label
+                                        Grid.Row="5"
+                                        Grid.Column="1"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelDescription}"
+                                        Text="(Let's Go Pikachu/Let's Go Eevee)"
+                                        TextColor="{StaticResource ColorTextGray}"
+                                        VerticalOptions="Center"
+                                        />
+                                </Grid>
+                            </Grid>
+                        </ScrollView>
+                    </pancake:PancakeView>
                 </xct:TabViewItem>
                 <xct:TabViewItem ControlTemplate="{StaticResource TabItemTemplate}" Text="Stats">
                     <pancake:PancakeView Style="{StaticResource pancakeTabItem}" />
