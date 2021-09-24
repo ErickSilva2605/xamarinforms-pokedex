@@ -1,8 +1,12 @@
-﻿using PokedexXF.Interfaces;
+﻿using PokedexXF.Enums;
+using PokedexXF.Helpers;
+using PokedexXF.Interfaces;
 using PokedexXF.Models;
 using PokedexXF.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -30,12 +34,161 @@ namespace PokedexXF.ViewModels
             _dbService = new LiteDbService<PokemonModel>();
             Pokemon = pokemon;
 
-            //Initialization = InitializeAsync();
+            Initialization = InitializeAsync();
         }
 
-        //private async Task InitializeAsync()
-        //{
-            
-        //}
+        private async Task InitializeAsync()
+        {
+            if (IsBusy)
+                return;
+
+            try
+            {
+                IsBusy = true;
+
+                Pokemon.Weaknesses.Clear();
+                Pokemon.TypeDefenses.Clear();
+
+                if (!InternetConnectivity())
+                {
+                    // TODO - Mensagem dados offline
+                    return;
+                }
+
+                await GetPokemonSpecies();
+                await GetPokemonDamageRelations();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Erro", ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private async Task GetPokemonSpecies()
+        {
+            try
+            {
+                var species = await _service.GetPokemonSpecies(Pokemon.Species.Url);
+
+                if (species == null)
+                    return;
+
+                Pokemon.FlavorText = species.FlavorTextEntries
+                    .Where(w => w.Language.Name == "en" && w.Version.Name == "ruby")
+                    .Select(s => s.FlavorText)
+                    .FirstOrDefault()
+                    .Replace('\n', ' ')
+                    .Replace('\f', ' ');
+
+                Pokemon.Genus = species.Genera
+                    .Where(w => w.Language.Name == "en")
+                    .Select(s => s.Genus).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Erro", ex.Message);
+            }
+        }
+
+        private async Task GetPokemonDamageRelations()
+        {
+            try
+            {
+                List<PokemonDamageRelationsModel> damageRelations = new List<PokemonDamageRelationsModel>();
+                foreach (var type in Pokemon.Types)
+                {
+                    var damageRelation = await _service.GetPokemonDamageRelation(type.Type.Name.ToLower());
+
+                    TypeEnum typeDefense;
+                    if (Enum.TryParse(type.Type.Name, out TypeEnum typeEnum))
+                        typeDefense = typeEnum;
+                    else
+                        typeDefense = TypeEnum.Undefined;
+
+                    if (damageRelation != null)
+                    {
+
+                        List<TypeRelationModel> allTypeRelations = new List<TypeRelationModel>();
+                        var types = Enum.GetValues(typeof(TypeEnum)).Cast<int>().ToList();
+
+                        foreach (var typeItem in types)
+                        {
+                            if ((TypeEnum)typeItem == TypeEnum.Undefined)
+                                continue;
+
+                            TypeRelationModel typeRelation = new TypeRelationModel();
+
+                            typeRelation.Type = (TypeEnum)typeItem;
+
+                            if (damageRelation.DoubleDamageFrom.Any() && damageRelation.DoubleDamageFrom.Any(x => x.Type == typeRelation.Type))
+                                typeRelation.Effect = EffectEnum.SuperEffective;
+                            else if (damageRelation.HalfDamageFrom.Any() && damageRelation.HalfDamageFrom.Any(x => x.Type == typeRelation.Type))
+                                typeRelation.Effect = EffectEnum.NotVeryEffective;
+                            else if (damageRelation.NoDamageFrom.Any() && damageRelation.NoDamageFrom.Any(x => x.Type == typeRelation.Type))
+                                typeRelation.Effect = EffectEnum.NoEffect;
+                            else
+                                typeRelation.Effect = EffectEnum.Normal;
+
+                            allTypeRelations.Add(typeRelation);
+                        }
+
+                        damageRelations.Add(new PokemonDamageRelationsModel()
+                        {
+                            TypeDefense = typeDefense,
+                            DamageRelations = damageRelation,
+                            AllTypeRelations = new ObservableRangeCollection<TypeRelationModel>(allTypeRelations)
+                        });
+                    }
+                }
+
+                if (damageRelations.Any())
+                {
+                    if (damageRelations.Count > 1)
+                    {
+                        foreach (var item in damageRelations[0].AllTypeRelations)
+                        {
+                            var multiplier = PokemonHelper.EffectToMultiplier(item.Effect) *
+                                PokemonHelper.EffectToMultiplier(
+                                        damageRelations[1].AllTypeRelations
+                                        .Where(w => w.Type == item.Type)
+                                        .Select(s => s.Effect).FirstOrDefault()
+                                    );
+
+                            Pokemon.TypeDefenses.Add(new PokemonTypeDefenseModel() 
+                            {
+                                Effect = PokemonHelper.MultiplierToEffect(multiplier),
+                                Multiplier = PokemonHelper.MultiplierToDescription(multiplier),
+                                Type = item.Type
+                            });
+                        }
+                    }
+                    else
+                    {
+                        foreach (var item in damageRelations[0].AllTypeRelations)
+                        {
+                            var multiplier = PokemonHelper.EffectToMultiplier(item.Effect);
+
+                            Pokemon.TypeDefenses.Add(new PokemonTypeDefenseModel()
+                            {
+                                Effect = PokemonHelper.MultiplierToEffect(multiplier),
+                                Multiplier = PokemonHelper.MultiplierToDescription(multiplier),
+                                Type = item.Type
+                            });
+                        }
+                    }
+                }
+
+                if (Pokemon.TypeDefenses != null)
+                    Pokemon.Weaknesses.AddRange(Pokemon.TypeDefenses.Where(w => w.Effect == EffectEnum.SuperEffective).ToList());
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Erro", ex.Message);
+            }
+        }
     }
 }

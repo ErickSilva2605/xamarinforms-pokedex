@@ -13,8 +13,6 @@ namespace PokedexXF.Services
     {
         public async Task<PokemonModel> GetPokemon(string url)
         {
-            await Task.Delay(2000);
-
             try
             {
                 var response = await url
@@ -35,8 +33,6 @@ namespace PokedexXF.Services
 
         public async Task<PaginationModel> GetPokemons(string url)
         {
-            await Task.Delay(2000);
-
             try
             {
                 PaginationModel response;
@@ -56,6 +52,47 @@ namespace PokedexXF.Services
                 }
                 
                 return response;
+            }
+            catch (FlurlHttpException ex)
+            {
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<PokemonSpeciesInfoModel> GetPokemonSpecies(string url)
+        {
+            try
+            {
+                var response = await url
+                    .WithTimeout(TimeSpan.FromSeconds(30))
+                    .GetJsonAsync<PokemonSpeciesInfoModel>();
+
+                return response;
+            }
+            catch (FlurlHttpException ex)
+            {
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<DamageRelationsModel> GetPokemonDamageRelation(string type)
+        {
+            try
+            {
+                var response = await Constants.BASE_URL
+                        .AppendPathSegments("type", type)
+                        .WithTimeout(TimeSpan.FromSeconds(30))
+                        .GetJsonAsync<PokemonDamageRelationsModel>();
+
+                return response.DamageRelations;
             }
             catch (FlurlHttpException ex)
             {

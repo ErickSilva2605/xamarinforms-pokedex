@@ -15,6 +15,9 @@
         <ResourceDictionary>
             <converters:ConverterTypeToColorBackgroundType x:Key="converterTypeToColorBackgroundType" />
             <converters:ConverterTypeToColorType x:Key="converterTypeToColorType" />
+            <converters:ConverterHeightToDescriptionValue x:Key="converterHeightToDescriptionValue" />
+            <converters:ConverterWeightToDescriptionValue x:Key="converterWeightToDescriptionValue" />
+            <converters:ConverterTypeToImageType x:Key="converterTypeToImageType" />
 
             <Style x:Key="pancakeTabItem" TargetType="{x:Type pancake:PancakeView}">
                 <Setter Property="BackgroundColor" Value="{StaticResource ColorBackgroundWhite}" />
@@ -249,7 +252,7 @@
                                     Margin="0,0,0,15"
                                     HorizontalOptions="Start"
                                     Style="{StaticResource LabelDescription}"
-                                    Text="Bulbasaur can be seen napping in bright sunlight. There is a seed on its back. By soaking up the sun's rays, the seed grows progressively larger."
+                                    Text="{Binding Pokemon.FlavorText}"
                                     TextColor="{StaticResource ColorTextGray}"
                                     VerticalOptions="Start"
                                     />
@@ -321,7 +324,7 @@
                                         Grid.Column="1"
                                         HorizontalOptions="Start"
                                         Style="{StaticResource LabelDescription}"
-                                        Text="Seed Pokémon"
+                                        Text="{Binding Pokemon.Genus}"
                                         TextColor="{StaticResource ColorTextGray}"
                                         VerticalOptions="Center"
                                         />
@@ -330,7 +333,7 @@
                                         Grid.Column="1"
                                         HorizontalOptions="Start"
                                         Style="{StaticResource LabelDescription}"
-                                        Text="0.7m (2′04″)"
+                                        Text="{Binding Pokemon.Height, Converter={StaticResource converterHeightToDescriptionValue}}"
                                         TextColor="{StaticResource ColorTextGray}"
                                         VerticalOptions="Center"
                                         />
@@ -339,28 +342,71 @@
                                         Grid.Column="1"
                                         HorizontalOptions="Start"
                                         Style="{StaticResource LabelDescription}"
-                                        Text="6.9kg (15.2 lbs)"
+                                        Text="{Binding Pokemon.Weight, Converter={StaticResource converterWeightToDescriptionValue}}"
                                         TextColor="{StaticResource ColorTextGray}"
                                         VerticalOptions="Center"
                                         />
-                                    <Label
+                                    <StackLayout
                                         Grid.Row="3"
                                         Grid.Column="1"
-                                        HorizontalOptions="Start"
-                                        Style="{StaticResource LabelDescription}"
-                                        Text="1. Overgrow"
-                                        TextColor="{StaticResource ColorTextGray}"
-                                        VerticalOptions="Center"
-                                        />
-                                    <Label
+                                        BindableLayout.ItemsSource="{Binding Pokemon.Abilities}"
+                                        HorizontalOptions="StartAndExpand"
+                                        Orientation="Vertical"
+                                        VerticalOptions="CenterAndExpand"
+                                        >
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <Label
+                                                    HorizontalOptions="Start"
+                                                    Style="{StaticResource LabelDescription}"
+                                                    Text="{Binding Ability.Name}"
+                                                    TextColor="{StaticResource ColorTextGray}"
+                                                    VerticalOptions="Center"
+                                                    >
+                                                    <Label.Triggers>
+                                                        <DataTrigger
+                                                            Binding="{Binding IsHidden}"
+                                                            TargetType="Label"
+                                                            Value="True"
+                                                            >
+                                                            <Setter Property="Style" Value="{StaticResource LabelPokemonType}" />
+                                                            <Setter Property="Text" Value="{Binding Ability.Name, StringFormat='{0} (hidden ability)'}" />
+                                                        </DataTrigger>
+                                                    </Label.Triggers>
+                                                </Label>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </StackLayout>
+
+                                    <StackLayout
                                         Grid.Row="4"
                                         Grid.Column="1"
-                                        HorizontalOptions="Start"
-                                        Style="{StaticResource LabelDescription}"
-                                        Text="Weaknesses"
-                                        TextColor="{StaticResource ColorTextGray}"
-                                        VerticalOptions="Center"
-                                        />
+                                        BindableLayout.ItemsSource="{Binding Pokemon.Weaknesses}"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal"
+                                        Spacing="10"
+                                        VerticalOptions="CenterAndExpand"
+                                        >
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <pancake:PancakeView
+                                                    Padding="5"
+                                                    BackgroundColor="{Binding Type, Converter={StaticResource converterTypeToColorType}}"
+                                                    CornerRadius="3"
+                                                    HeightRequest="25"
+                                                    WidthRequest="25"
+                                                    >
+                                                    <Image
+                                                        xct:IconTintColorEffect.TintColor="{StaticResource ColorTextWhite}"
+                                                        HeightRequest="18"
+                                                        HorizontalOptions="Center"
+                                                        Source="{Binding Type, Converter={StaticResource converterTypeToImageType}}"
+                                                        VerticalOptions="Center"
+                                                        />
+                                                </pancake:PancakeView>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </StackLayout>
                                 </Grid>
 
                                 <!--  Training Section  -->
@@ -678,13 +724,13 @@
                 <xct:TabViewItem ControlTemplate="{StaticResource TabItemTemplate}" Text="Stats">
                     <pancake:PancakeView Style="{StaticResource pancakeTabItem}">
                         <ScrollView>
-                            <Grid Padding="40,30,40,10" RowSpacing="25">
+                            <Grid Padding="40,30,40,40" RowSpacing="25">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="150" />
                                 </Grid.RowDefinitions>
 
                                 <!--  Base Stats Section  -->
@@ -872,13 +918,6 @@
                                         Progress="0.45"
                                         ProgressColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorType}}"
                                         />
-                                    <ProgressBar
-                                        Grid.Row="6"
-                                        Grid.Column="2"
-                                        Progress="0.45"
-                                        ProgressColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorType}}"
-                                        />
-
 
                                     <!--  Column 3  -->
                                     <Label
@@ -1028,12 +1067,61 @@
                                             <Span Text="{x:Static system:Environment.NewLine}" />
                                             <Span
                                                 Style="{StaticResource LabelDescription}"
-                                                Text="The effectiveness of each type on Bulbasaur."
+                                                Text="{Binding Pokemon.Name, StringFormat='The effectiveness of each type on {0}.'}"
                                                 TextColor="{StaticResource ColorTextGray}"
                                                 />
                                         </FormattedString>
                                     </Label.FormattedText>
                                 </Label>
+
+                                <CollectionView Grid.Row="4" ItemsSource="{Binding Pokemon.TypeDefenses}">
+                                    <CollectionView.ItemsLayout>
+                                        <GridItemsLayout
+                                            HorizontalItemSpacing="9"
+                                            Orientation="Horizontal"
+                                            Span="2"
+                                            VerticalItemSpacing="10"
+                                            />
+                                    </CollectionView.ItemsLayout>
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid RowSpacing="10">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+
+                                                <pancake:PancakeView
+                                                    Padding="5"
+                                                    BackgroundColor="{Binding Type, Converter={StaticResource converterTypeToColorType}}"
+                                                    CornerRadius="3"
+                                                    HeightRequest="25"
+                                                    HorizontalOptions="Start"
+                                                    VerticalOptions="Start"
+                                                    WidthRequest="25"
+                                                    >
+                                                    <Image
+                                                        xct:IconTintColorEffect.TintColor="{StaticResource ColorTextWhite}"
+                                                        HeightRequest="18"
+                                                        HorizontalOptions="Center"
+                                                        Source="{Binding Type, Converter={StaticResource converterTypeToImageType}}"
+                                                        VerticalOptions="Center"
+                                                        />
+                                                </pancake:PancakeView>
+
+                                                <Label
+                                                    Grid.Row="1"
+                                                    HorizontalOptions="Center"
+                                                    Style="{StaticResource LabelDescription}"
+                                                    Text="{Binding Multiplier}"
+                                                    TextColor="{StaticResource ColorTextGray}"
+                                                    VerticalOptions="Start"
+                                                    />
+
+                                            </Grid>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
                             </Grid>
                         </ScrollView>
                     </pancake:PancakeView>

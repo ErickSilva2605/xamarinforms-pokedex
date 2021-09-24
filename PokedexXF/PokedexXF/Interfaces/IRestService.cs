@@ -8,5 +8,7 @@ namespace PokedexXF.Interfaces
     {
         Task<PaginationModel> GetPokemons(string url);
         Task<PokemonModel> GetPokemon(string url);
+        Task<PokemonSpeciesInfoModel> GetPokemonSpecies(string url);
+        Task<DamageRelationsModel> GetPokemonDamageRelation(string type);
     }
 }
