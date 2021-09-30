@@ -103,5 +103,25 @@ namespace PokedexXF.Services
                 return null;
             }
         }
+
+        public async Task<IList<PokemonPokedexDescriptionModel>> GetPokemonLocationDescription(string url)
+        {
+            try
+            {
+                var response = await url
+                    .WithTimeout(TimeSpan.FromSeconds(30))
+                    .GetJsonAsync<PokemonPokedexNumberModel>();
+
+                return response.Descriptions;
+            }
+            catch (FlurlHttpException ex)
+            {
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }

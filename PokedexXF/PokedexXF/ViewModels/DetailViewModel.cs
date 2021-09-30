@@ -33,6 +33,7 @@ namespace PokedexXF.ViewModels
             _service = restService;
             _dbService = new LiteDbService<PokemonModel>();
             Pokemon = pokemon;
+            Pokemon.Locations = new ObservableRangeCollection<PokemonLocationModel>();
 
             Initialization = InitializeAsync();
         }
@@ -76,6 +77,20 @@ namespace PokedexXF.ViewModels
 
                 if (species == null)
                     return;
+
+                if(species.PokedexNumbers.Any())
+                {
+                    foreach (var item in species.PokedexNumbers)
+                        await GetPokemonLocationDescription(item);
+                }
+                    
+                Pokemon.BaseHappiness = species.BaseHappiness;
+                Pokemon.CaptureRate = species.CaptureRate;
+                Pokemon.GenderRate = PokemonHelper.GenderRateToDescription(species.GenderRate);
+                Pokemon.GrowthRate = species.GrowthRate.Name;
+                Pokemon.HatchCounter = species.HatchCounter;
+
+                Pokemon.EggGroups = string.Join(", ", species.EggGroups.Select(s => s.Name));
 
                 Pokemon.FlavorText = species.FlavorTextEntries
                     .Where(w => w.Language.Name == "en" && w.Version.Name == "ruby")
@@ -184,6 +199,27 @@ namespace PokedexXF.ViewModels
 
                 if (Pokemon.TypeDefenses != null)
                     Pokemon.Weaknesses.AddRange(Pokemon.TypeDefenses.Where(w => w.Effect == EffectEnum.SuperEffective).ToList());
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Erro", ex.Message);
+            }
+        }
+
+        private async Task GetPokemonLocationDescription(PokemonPokedexNumberModel pokedexNumber)
+        {
+            try
+            {
+                var descriptions = await _service.GetPokemonLocationDescription(pokedexNumber.Pokedex.Url);
+
+                if (!descriptions.Any())
+                    return;
+
+                Pokemon.Locations.Add(new PokemonLocationModel() 
+                { 
+                    EntryNumber = pokedexNumber.EntryNumber,
+                    Description = $"({descriptions.Where(w => w.Language.Name == "en").Select(s => s.description).FirstOrDefault()})"
+                });
             }
             catch (Exception ex)
             {

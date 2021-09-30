@@ -1,6 +1,7 @@
 ﻿using PokedexXF.Enums;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace PokedexXF.Helpers
@@ -76,6 +77,20 @@ namespace PokedexXF.Helpers
                 default:
                     throw new ArgumentOutOfRangeException("effect");
             }
+        }
+
+        public static string GenderRateToDescription(int rate)
+        {
+            if (rate < 0)
+                return "Genderless";
+
+            if(rate == 8)
+                return $"♀ 0.0%, ♂ 100.0%";
+
+            double female = (double)rate / 8 * 100;
+            double male = 100 - female;
+
+            return $"♂ {male.ToString("N1", new CultureInfo("en-US"))}%, ♀ {female.ToString("N1", new CultureInfo("en-US"))}%";
         }
     }
 }

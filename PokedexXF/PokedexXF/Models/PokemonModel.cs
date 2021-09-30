@@ -16,6 +16,42 @@ namespace PokedexXF.Models
         [JsonProperty("abilities")]
         public ObservableRangeCollection<PokemonAbilitiesModel> Abilities { get; set; }
 
+        [JsonProperty("base_experience")]
+        public int BaseExperience { get; set; }
+
+        private int _baseHappiness;
+        public int BaseHappiness
+        {
+            get => _baseHappiness;
+            set => SetProperty(ref _baseHappiness, value);
+        }
+
+        private int _captureRate;
+        public int CaptureRate
+        {
+            get => _captureRate;
+            set => SetProperty(ref _captureRate, value);
+        }
+
+        private string _eggGroups;
+        public string EggGroups
+        {
+            get => _eggGroups;
+            set => SetProperty(ref _eggGroups, value);
+        }
+
+        public string EvYield 
+        {
+            get
+            {
+                if(Stats.Any())
+                   return $"{Stats.Where(w => w.Effort > 0).Select(x => x.Effort).FirstOrDefault()} " +
+                        $"{Stats.Where(w => w.Effort > 0).Select(x => x.Stat.Name).FirstOrDefault()}";
+
+                return string.Empty;
+            }
+        }
+
         private string _flavorText;
         public string FlavorText
         {
@@ -23,11 +59,32 @@ namespace PokedexXF.Models
             set => SetProperty(ref _flavorText, value);
         }
 
+        private string _genderRate;
+        public string GenderRate
+        {
+            get => _genderRate;
+            set => SetProperty(ref _genderRate, value);
+        }
+
         private string _genus;
         public string Genus
         {
             get => _genus;
             set => SetProperty(ref _genus, value);
+        }
+
+        private string _growthRate;
+        public string GrowthRate
+        {
+            get => _growthRate;
+            set => SetProperty(ref _growthRate, value);
+        }
+
+        private int _hatchCounter;
+        public int HatchCounter
+        {
+            get => _hatchCounter;
+            set => SetProperty(ref _hatchCounter, value);
         }
 
         [JsonProperty("height")]
@@ -38,6 +95,8 @@ namespace PokedexXF.Models
         public int Id { get; set; }
 
         public bool IsBusy { get; set; }
+
+        public ObservableRangeCollection<PokemonLocationModel> Locations { get; set; }
 
         [JsonProperty("name")]
         private string _name;
@@ -60,6 +119,9 @@ namespace PokedexXF.Models
 
         [JsonProperty("sprites")]
         public PokemonSpritesModel Sprites { get; set; }
+
+        [JsonProperty("stats")]
+        public ObservableRangeCollection<PokemonStatModel> Stats { get; set; }
 
         [JsonProperty("types")]
         public ObservableRangeCollection<PokemonTypeModel> Types { get; set; }

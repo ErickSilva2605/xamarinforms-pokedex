@@ -476,7 +476,7 @@
                                         Grid.Column="1"
                                         HorizontalOptions="Start"
                                         Style="{StaticResource LabelDescription}"
-                                        Text="1 Special Attack"
+                                        Text="{Binding Pokemon.EvYield}"
                                         TextColor="{StaticResource ColorTextGray}"
                                         VerticalOptions="Center"
                                         />
@@ -485,7 +485,7 @@
                                         Grid.Column="1"
                                         HorizontalOptions="Start"
                                         Style="{StaticResource LabelDescription}"
-                                        Text="45 (5.9% with PokéBall, full HP)"
+                                        Text="{Binding Pokemon.CaptureRate}"
                                         TextColor="{StaticResource ColorTextGray}"
                                         VerticalOptions="Center"
                                         />
@@ -494,7 +494,7 @@
                                         Grid.Column="1"
                                         HorizontalOptions="Start"
                                         Style="{StaticResource LabelDescription}"
-                                        Text="70 (normal)"
+                                        Text="{Binding Pokemon.BaseHappiness}"
                                         TextColor="{StaticResource ColorTextGray}"
                                         VerticalOptions="Center"
                                         />
@@ -503,7 +503,7 @@
                                         Grid.Column="1"
                                         HorizontalOptions="Start"
                                         Style="{StaticResource LabelDescription}"
-                                        Text="64"
+                                        Text="{Binding Pokemon.BaseExperience}"
                                         TextColor="{StaticResource ColorTextGray}"
                                         VerticalOptions="Center"
                                         />
@@ -512,7 +512,7 @@
                                         Grid.Column="1"
                                         HorizontalOptions="Start"
                                         Style="{StaticResource LabelDescription}"
-                                        Text="Medium Slow"
+                                        Text="{Binding Pokemon.GrowthRate}"
                                         TextColor="{StaticResource ColorTextGray}"
                                         VerticalOptions="Center"
                                         />
@@ -567,7 +567,7 @@
                                         Grid.Column="1"
                                         HorizontalOptions="Start"
                                         Style="{StaticResource LabelDescription}"
-                                        Text="♀ 87.5%, ♂ 12.5%"
+                                        Text="{Binding Pokemon.GenderRate}"
                                         TextColor="{StaticResource ColorTextGray}"
                                         VerticalOptions="Center"
                                         />
@@ -576,7 +576,7 @@
                                         Grid.Column="1"
                                         HorizontalOptions="Start"
                                         Style="{StaticResource LabelDescription}"
-                                        Text="Grass, Monster"
+                                        Text="{Binding Pokemon.EggGroups}"
                                         TextColor="{StaticResource ColorTextGray}"
                                         VerticalOptions="Center"
                                         />
@@ -585,7 +585,7 @@
                                         Grid.Column="1"
                                         HorizontalOptions="Start"
                                         Style="{StaticResource LabelDescription}"
-                                        Text="20 (4,884 - 5,140 steps)"
+                                        Text="{Binding Pokemon.HatchCounter}"
                                         TextColor="{StaticResource ColorTextGray}"
                                         VerticalOptions="Center"
                                         />
@@ -598,125 +598,40 @@
                                     Text="Location"
                                     TextColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorType}}"
                                     />
-                                <Grid
-                                    Grid.Row="8"
-                                    ColumnSpacing="10"
-                                    RowSpacing="15"
-                                    >
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="2.5*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <Label
-                                        HorizontalOptions="Start"
-                                        Style="{StaticResource LabelPokemonType}"
-                                        Text="001"
-                                        TextColor="{StaticResource ColorTextBlack}"
-                                        VerticalOptions="Center"
-                                        />
-                                    <Label
-                                        Grid.Row="1"
-                                        HorizontalOptions="Start"
-                                        Style="{StaticResource LabelPokemonType}"
-                                        Text="226"
-                                        TextColor="{StaticResource ColorTextBlack}"
-                                        VerticalOptions="Center"
-                                        />
-                                    <Label
-                                        Grid.Row="2"
-                                        HorizontalOptions="Start"
-                                        Style="{StaticResource LabelPokemonType}"
-                                        Text="001"
-                                        TextColor="{StaticResource ColorTextBlack}"
-                                        VerticalOptions="Center"
-                                        />
-                                    <Label
-                                        Grid.Row="3"
-                                        HorizontalOptions="Start"
-                                        Style="{StaticResource LabelPokemonType}"
-                                        Text="231"
-                                        TextColor="{StaticResource ColorTextBlack}"
-                                        VerticalOptions="Center"
-                                        />
-                                    <Label
-                                        Grid.Row="4"
-                                        HorizontalOptions="Start"
-                                        Style="{StaticResource LabelPokemonType}"
-                                        Text="080"
-                                        TextColor="{StaticResource ColorTextBlack}"
-                                        VerticalOptions="Center"
-                                        />
-                                    <Label
-                                        Grid.Row="5"
-                                        HorizontalOptions="Start"
-                                        Style="{StaticResource LabelPokemonType}"
-                                        Text="001"
-                                        TextColor="{StaticResource ColorTextBlack}"
-                                        VerticalOptions="Center"
-                                        />
 
-                                    <Label
-                                        Grid.Column="1"
-                                        HorizontalOptions="Start"
-                                        Style="{StaticResource LabelDescription}"
-                                        Text="(Red/Blue/Yellow)"
-                                        TextColor="{StaticResource ColorTextGray}"
-                                        VerticalOptions="Center"
-                                        />
-                                    <Label
-                                        Grid.Row="1"
-                                        Grid.Column="1"
-                                        HorizontalOptions="Start"
-                                        Style="{StaticResource LabelDescription}"
-                                        Text="(Gold/Silver/Crystal)"
-                                        TextColor="{StaticResource ColorTextGray}"
-                                        VerticalOptions="Center"
-                                        />
-                                    <Label
-                                        Grid.Row="2"
-                                        Grid.Column="1"
-                                        HorizontalOptions="Start"
-                                        Style="{StaticResource LabelDescription}"
-                                        Text="(FireRed/LeafGreen)"
-                                        TextColor="{StaticResource ColorTextGray}"
-                                        VerticalOptions="Center"
-                                        />
-                                    <Label
-                                        Grid.Row="3"
-                                        Grid.Column="1"
-                                        HorizontalOptions="Start"
-                                        Style="{StaticResource LabelDescription}"
-                                        Text="(HeartGold/SoulSilver)"
-                                        TextColor="{StaticResource ColorTextGray}"
-                                        VerticalOptions="Center"
-                                        />
-                                    <Label
-                                        Grid.Row="4"
-                                        Grid.Column="1"
-                                        HorizontalOptions="Start"
-                                        Style="{StaticResource LabelDescription}"
-                                        Text="(X/Y - Central Kalos)"
-                                        TextColor="{StaticResource ColorTextGray}"
-                                        VerticalOptions="Center"
-                                        />
-                                    <Label
-                                        Grid.Row="5"
-                                        Grid.Column="1"
-                                        HorizontalOptions="Start"
-                                        Style="{StaticResource LabelDescription}"
-                                        Text="(Let's Go Pikachu/Let's Go Eevee)"
-                                        TextColor="{StaticResource ColorTextGray}"
-                                        VerticalOptions="Center"
-                                        />
-                                </Grid>
+                                <StackLayout
+                                    Grid.Row="8"
+                                    BindableLayout.ItemsSource="{Binding Pokemon.Locations}"
+                                    Orientation="Vertical"
+                                    Spacing="15"
+                                    >
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid ColumnSpacing="10">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="2.5*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Label
+                                                    HorizontalOptions="Start"
+                                                    Style="{StaticResource LabelPokemonType}"
+                                                    Text="{Binding EntryNumber, StringFormat='{0:000}'}"
+                                                    TextColor="{StaticResource ColorTextBlack}"
+                                                    VerticalOptions="Center"
+                                                    />
+                                                <Label
+                                                    Grid.Column="1"
+                                                    HorizontalOptions="Start"
+                                                    Style="{StaticResource LabelDescription}"
+                                                    Text="{Binding Description}"
+                                                    TextColor="{StaticResource ColorTextGray}"
+                                                    VerticalOptions="Center"
+                                                    />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                </StackLayout>
+
                             </Grid>
                         </ScrollView>
                     </pancake:PancakeView>
@@ -885,37 +800,37 @@
                                     <!--  Column 2  -->
                                     <ProgressBar
                                         Grid.Column="2"
-                                        Progress="0.45"
+                                        Progress="0.1530"
                                         ProgressColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorType}}"
                                         />
                                     <ProgressBar
                                         Grid.Row="1"
                                         Grid.Column="2"
-                                        Progress="0.45"
+                                        Progress="0.2268"
                                         ProgressColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorType}}"
                                         />
                                     <ProgressBar
                                         Grid.Row="2"
                                         Grid.Column="2"
-                                        Progress="0.45"
+                                        Progress="0.2268"
                                         ProgressColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorType}}"
                                         />
                                     <ProgressBar
                                         Grid.Row="3"
                                         Grid.Column="2"
-                                        Progress="0.45"
+                                        Progress="0.2589"
                                         ProgressColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorType}}"
                                         />
                                     <ProgressBar
                                         Grid.Row="4"
                                         Grid.Column="2"
-                                        Progress="0.45"
+                                        Progress="0.2589"
                                         ProgressColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorType}}"
                                         />
                                     <ProgressBar
                                         Grid.Row="5"
                                         Grid.Column="2"
-                                        Progress="0.45"
+                                        Progress="0.1530"
                                         ProgressColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorType}}"
                                         />
 
