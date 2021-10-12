@@ -11,5 +11,6 @@ namespace PokedexXF.Interfaces
         Task<PokemonSpeciesInfoModel> GetPokemonSpecies(string url);
         Task<DamageRelationsModel> GetPokemonDamageRelation(string type);
         Task<IList<PokemonPokedexDescriptionModel>> GetPokemonLocationDescription(string url);
+        Task<ChainModel> GetPokemonChain(string url);
     }
 }

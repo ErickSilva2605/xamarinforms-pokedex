@@ -40,6 +40,8 @@ namespace PokedexXF.Models
             set => SetProperty(ref _eggGroups, value);
         }
 
+        public ObservableRangeCollection<EvolutionModel> Evolutions { get; set; }
+
         public string EvYield 
         {
             get

@@ -78,6 +78,8 @@ namespace PokedexXF.ViewModels
                 if (species == null)
                     return;
 
+                await GetPokemonChain(species.EvolutionChain.Url);
+
                 if(species.PokedexNumbers.Any())
                 {
                     foreach (var item in species.PokedexNumbers)
@@ -225,6 +227,102 @@ namespace PokedexXF.ViewModels
             {
                 Debug.WriteLine("Erro", ex.Message);
             }
+        }
+
+        private async Task GetPokemonChain(string url)
+        {
+            try
+            {
+                var chain = await _service.GetPokemonChain(url);
+
+                if (chain == null)
+                    return;
+
+                List<EvolutionModel> evolutions = new List<EvolutionModel>();
+
+                if (chain.EvolvesTo.Any())
+                {
+                    var pokemonRoot = await GetEvolutionPokemon(chain);
+
+                    foreach (var item in chain.EvolvesTo)
+                    {
+                        EvolutionModel evolutionOne = new EvolutionModel();
+                        evolutionOne.Name = pokemonRoot.Name;
+                        evolutionOne.Id = pokemonRoot.Id;
+                        evolutionOne.Image = pokemonRoot.Sprites.Other.OfficialArtwork.FrontDefault;
+                        evolutionOne.HasEvolution = true;
+                        evolutionOne.EnvolvesToMinLevel = item.EvolutionDetails.Select(s => s.MinLevel).FirstOrDefault();
+                        evolutionOne.EnvolvesToName = item.Species.Name;
+
+                        var pokemonEvolutionOne = await GetEvolutionPokemon(item);
+
+                        evolutionOne.EnvolvesToImage = pokemonEvolutionOne.Sprites.Other.OfficialArtwork.FrontDefault;
+                        evolutionOne.EnvolvesToId = pokemonEvolutionOne.Id;
+
+                        evolutions.Add(evolutionOne);
+
+                        if(item.EvolvesTo.Any())
+                        {
+                            foreach (var envolves in item.EvolvesTo)
+                            {
+                                EvolutionModel evolutionTwo = new EvolutionModel();
+                                evolutionTwo.Id = evolutionOne.EnvolvesToId;
+                                evolutionTwo.Name = item.Species.Name;
+                                evolutionTwo.Image = evolutionOne.EnvolvesToImage;
+                                evolutionTwo.HasEvolution = true;
+                                evolutionTwo.EnvolvesToMinLevel = envolves.EvolutionDetails.Select(s => s.MinLevel).FirstOrDefault();
+                                evolutionTwo.EnvolvesToName = envolves.Species.Name;
+
+                                var pokemonEvolution = await GetEvolutionPokemon(envolves);
+
+                                evolutionTwo.EnvolvesToImage = pokemonEvolution.Sprites.Other.OfficialArtwork.FrontDefault;
+                                evolutionTwo.EnvolvesToId = pokemonEvolution.Id;
+
+                                evolutions.Add(evolutionTwo);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    evolutions.Add(new EvolutionModel()
+                    {
+                        Name = Pokemon.Name, 
+                        Image = Pokemon.Sprites.Other.OfficialArtwork.FrontDefault, 
+                        HasEvolution = false 
+                    });
+                }
+
+                Pokemon.Evolutions = new ObservableRangeCollection<EvolutionModel>(evolutions);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Erro", ex.Message);
+            }
+        }
+
+        private async Task<PokemonModel> GetEvolutionPokemon(ChainModel evolution)
+        {
+            PokemonModel pokemon = new PokemonModel();
+
+            try
+            {
+                
+                var id = evolution.Species.Url.Remove(evolution.Species.Url.Length - 1).Split('/')[6];
+
+                pokemon = _dbService.FindAll().Where(s => s.Id == Convert.ToInt32(id)).FirstOrDefault();
+
+                if (pokemon == null)
+                    pokemon = await _service.GetPokemon($"{Constants.BASE_URL}pokemon/{id}");
+
+                return pokemon;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Erro", ex.Message);
+            }
+
+            return pokemon;
         }
     }
 }

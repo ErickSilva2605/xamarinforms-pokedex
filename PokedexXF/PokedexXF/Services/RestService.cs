@@ -123,5 +123,25 @@ namespace PokedexXF.Services
                 return null;
             }
         }
+
+        public async Task<ChainModel> GetPokemonChain(string url)
+        {
+            try
+            {
+                var response = await url
+                    .WithTimeout(TimeSpan.FromSeconds(30))
+                    .GetJsonAsync<PokemonSpeciesInfoModel>();
+
+                return response.Chain;
+            }
+            catch (FlurlHttpException ex)
+            {
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }

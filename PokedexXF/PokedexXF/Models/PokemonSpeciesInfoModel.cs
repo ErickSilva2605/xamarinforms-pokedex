@@ -17,6 +17,12 @@ namespace PokedexXF.Models
         [JsonProperty("egg_groups")]
         public ObservableRangeCollection<PokemonEggGroupModel> EggGroups { get; set; }
 
+        [JsonProperty("evolution_chain")]
+        public PokemonEvolutionChainModel EvolutionChain { get; set; }
+
+        [JsonProperty("chain")]
+        public ChainModel Chain { get; set; }
+
         [JsonProperty("flavor_text_entries")]
         public ObservableRangeCollection<PokemonFlavorTextEntriesModel> FlavorTextEntries { get; set; }
 
