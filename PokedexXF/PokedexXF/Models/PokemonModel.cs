@@ -33,6 +33,13 @@ namespace PokedexXF.Models
             set => SetProperty(ref _captureRate, value);
         }
 
+        private double _captureProbability;
+        public double CaptureProbability
+        {
+            get => _captureProbability;
+            set => SetProperty(ref _captureProbability, value);
+        }
+
         private string _eggGroups;
         public string EggGroups
         {
@@ -89,6 +96,20 @@ namespace PokedexXF.Models
             set => SetProperty(ref _hatchCounter, value);
         }
 
+        private int _maxSteps;
+        public int MaxSteps
+        {
+            get => _maxSteps;
+            set => SetProperty(ref _maxSteps, value);
+        }
+
+        private int _minSteps;
+        public int MinSteps
+        {
+            get => _minSteps;
+            set => SetProperty(ref _minSteps, value);
+        }
+
         [JsonProperty("height")]
         public int Height { get; set; }
 
@@ -124,6 +145,13 @@ namespace PokedexXF.Models
 
         [JsonProperty("stats")]
         public ObservableRangeCollection<PokemonStatModel> Stats { get; set; }
+
+        private int _totalStat;
+        public int TotalStat 
+        {
+            get => _totalStat;
+            set => SetProperty(ref _totalStat, value);
+        }
 
         [JsonProperty("types")]
         public ObservableRangeCollection<PokemonTypeModel> Types { get; set; }

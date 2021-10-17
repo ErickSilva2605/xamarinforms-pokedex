@@ -9,8 +9,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace PokedexXF.ViewModels
 {
@@ -28,6 +30,8 @@ namespace PokedexXF.ViewModels
             set => SetProperty(ref _pokemon, value);
         }
 
+        public ICommand NavigateToBackCommand { get; private set; }
+
         public DetailViewModel(INavigation navigation, IRestService restService, PokemonModel pokemon) : base(navigation)
         {
             _service = restService;
@@ -35,6 +39,7 @@ namespace PokedexXF.ViewModels
             Pokemon = pokemon;
             Pokemon.Locations = new ObservableRangeCollection<PokemonLocationModel>();
 
+            NavigateToBackCommand = new Command(async () => await ExecuteNavigateToBackCommand());
             Initialization = InitializeAsync();
         }
 
@@ -58,6 +63,9 @@ namespace PokedexXF.ViewModels
 
                 await GetPokemonSpecies();
                 await GetPokemonDamageRelations();
+                CalculateStats();
+                CalculateCatchRateProbability();
+                CalculateEggSteps();
             }
             catch (Exception ex)
             {
@@ -80,12 +88,12 @@ namespace PokedexXF.ViewModels
 
                 await GetPokemonChain(species.EvolutionChain.Url);
 
-                if(species.PokedexNumbers.Any())
+                if (species.PokedexNumbers.Any())
                 {
                     foreach (var item in species.PokedexNumbers)
                         await GetPokemonLocationDescription(item);
                 }
-                    
+
                 Pokemon.BaseHappiness = species.BaseHappiness;
                 Pokemon.CaptureRate = species.CaptureRate;
                 Pokemon.GenderRate = PokemonHelper.GenderRateToDescription(species.GenderRate);
@@ -175,7 +183,7 @@ namespace PokedexXF.ViewModels
                                         .Select(s => s.Effect).FirstOrDefault()
                                     );
 
-                            Pokemon.TypeDefenses.Add(new PokemonTypeDefenseModel() 
+                            Pokemon.TypeDefenses.Add(new PokemonTypeDefenseModel()
                             {
                                 Effect = PokemonHelper.MultiplierToEffect(multiplier),
                                 Multiplier = PokemonHelper.MultiplierToDescription(multiplier),
@@ -217,8 +225,8 @@ namespace PokedexXF.ViewModels
                 if (!descriptions.Any())
                     return;
 
-                Pokemon.Locations.Add(new PokemonLocationModel() 
-                { 
+                Pokemon.Locations.Add(new PokemonLocationModel()
+                {
                     EntryNumber = pokedexNumber.EntryNumber,
                     Description = $"({descriptions.Where(w => w.Language.Name == "en").Select(s => s.description).FirstOrDefault()})"
                 });
@@ -261,7 +269,7 @@ namespace PokedexXF.ViewModels
 
                         evolutions.Add(evolutionOne);
 
-                        if(item.EvolvesTo.Any())
+                        if (item.EvolvesTo.Any())
                         {
                             foreach (var envolves in item.EvolvesTo)
                             {
@@ -287,9 +295,9 @@ namespace PokedexXF.ViewModels
                 {
                     evolutions.Add(new EvolutionModel()
                     {
-                        Name = Pokemon.Name, 
-                        Image = Pokemon.Sprites.Other.OfficialArtwork.FrontDefault, 
-                        HasEvolution = false 
+                        Name = Pokemon.Name,
+                        Image = Pokemon.Sprites.Other.OfficialArtwork.FrontDefault,
+                        HasEvolution = false
                     });
                 }
 
@@ -307,7 +315,7 @@ namespace PokedexXF.ViewModels
 
             try
             {
-                
+
                 var id = evolution.Species.Url.Remove(evolution.Species.Url.Length - 1).Split('/')[6];
 
                 pokemon = _dbService.FindAll().Where(s => s.Id == Convert.ToInt32(id)).FirstOrDefault();
@@ -323,6 +331,61 @@ namespace PokedexXF.ViewModels
             }
 
             return pokemon;
+        }
+
+        private async Task ExecuteNavigateToBackCommand()
+        {
+            if (IsBusy)
+                return;
+
+            try
+            {
+                IsBusy = true;
+
+                await Navigation.PopAsync();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Erro", ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private void CalculateStats()
+        {
+            Pokemon.TotalStat = 0;
+            foreach (var item in Pokemon.Stats)
+            {
+                if (item.Stat.Name.ToLower() == "hp")
+                {
+                    item.MaxStat = (((2 * item.BaseStat) + Constants.IV_MAX + (Constants.EV_MAX / 4)) * Constants.POKEMON_MAX_LEVEL / 100) + Constants.POKEMON_MAX_LEVEL + 10;
+                    item.MinStat = (((2 * item.BaseStat) + Constants.IV_MIN + (Constants.EV_MIN / 4)) * Constants.POKEMON_MAX_LEVEL / 100) + Constants.POKEMON_MAX_LEVEL + 10;
+                }
+                else
+                {
+                    item.MaxStat = (int)(((((2 * item.BaseStat) + Constants.IV_MAX + (Constants.EV_MAX / 4)) * Constants.POKEMON_MAX_LEVEL / 100) + 5) * Constants.NATURE_MAX);
+                    item.MinStat = (int)(((((2 * item.BaseStat) + Constants.IV_MIN + (Constants.EV_MIN / 4)) * Constants.POKEMON_MAX_LEVEL / 100) + 5) * Constants.NATURE_MIN);
+                }
+
+                item.PercentageStat = (double)item.BaseStat / ((item.MaxStat + item.MinStat) / 2);
+                Pokemon.TotalStat += item.BaseStat;
+            }
+        }
+
+        private void CalculateCatchRateProbability()
+        {
+            int hp = Pokemon.Stats.Where(w => w.Stat.Name.ToLower() == "hp").Select(s => s.BaseStat).FirstOrDefault();
+            double alpha = (double)(((3 * hp) - (2 * hp)) * Pokemon.CaptureRate * 1 / (3 * hp)) * 1;
+            Pokemon.CaptureProbability = (alpha/255) * 100;
+        }
+
+        private void CalculateEggSteps()
+        {
+            Pokemon.MaxSteps = Pokemon.HatchCounter * Constants.EGG_CYCLE_STEPS;
+            Pokemon.MinSteps = Pokemon.MaxSteps - (Constants.EGG_CYCLE_STEPS - 1);
         }
     }
 }
