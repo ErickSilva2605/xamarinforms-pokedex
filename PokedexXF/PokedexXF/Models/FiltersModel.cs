@@ -8,17 +8,47 @@ namespace PokedexXF.Models
 {
     public class FiltersModel : ObservableObject
     {
-        public ObservableRangeCollection<TypeFilterModel> Types { get; set; }
+        private ObservableRangeCollection<TypeFilterModel> _types;
+        public ObservableRangeCollection<TypeFilterModel> Types 
+        {
+            get => _types;
+            set => SetProperty(ref _types, value);
+        }
 
-        public ObservableRangeCollection<WeaknessFilterModel> Weaknesses { get; set; }
+        private ObservableRangeCollection<WeaknessFilterModel> _weaknesses;
+        public ObservableRangeCollection<WeaknessFilterModel> Weaknesses 
+        {
+            get => _weaknesses; 
+            set => SetProperty(ref _weaknesses, value);
+        }
 
-        public ObservableRangeCollection<HeightFilterModel> Heights { get; set; }
+        private ObservableRangeCollection<HeightFilterModel> _heights;
+        public ObservableRangeCollection<HeightFilterModel> Heights 
+        {
+            get => _heights; 
+            set => SetProperty(ref _heights, value);
+        }
 
-        public ObservableRangeCollection<WeightFilterModel> Weights { get; set; }
+        private ObservableRangeCollection<WeightFilterModel> _weights;
+        public ObservableRangeCollection<WeightFilterModel> Weights 
+        {
+            get => _weights;
+            set => SetProperty(ref _weights, value);
+        }
 
-        public ObservableRangeCollection<GenerationFilterModel> Generations { get; set; }
+        private ObservableRangeCollection<GenerationFilterModel> _generations;
+        public ObservableRangeCollection<GenerationFilterModel> Generations 
+        {
+            get => _generations;
+            set => SetProperty(ref _generations, value);
+        }
 
-        public ObservableRangeCollection<SortFilterModel> Orders { get; set; }
+        private ObservableRangeCollection<SortFilterModel> _orders;
+        public ObservableRangeCollection<SortFilterModel> Orders 
+        {
+            get => _orders;
+            set => SetProperty(ref _orders, value);
+        }
 
         private int _numberRangeMin;
         public int NumberRangeMin 

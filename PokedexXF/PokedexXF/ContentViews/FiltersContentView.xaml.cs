@@ -1,6 +1,4 @@
-﻿using PokedexXF.ViewModels;
-using Rg.Plugins.Popup.Pages;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,15 +7,14 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace PokedexXF.Views.Popups
+namespace PokedexXF.ContentViews
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SortPage : PopupPage
+    public partial class FiltersContentView : ContentView
     {
-        public SortPage()
+        public FiltersContentView()
         {
             InitializeComponent();
-            BindingContext = new SortViewModel(Navigation);
         }
     }
 }

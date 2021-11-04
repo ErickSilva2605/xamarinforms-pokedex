@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="PokedexXF.ContentViews.SortContentView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:PokedexXF.Converters"
+    xmlns:system="clr-namespace:System;assembly=netstandard"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:Name="sortFilter">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:ConverterSortToDescriptionSort x:Key="converterSortToDescriptionSort" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid Padding="0,20,0,40" RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="370" />
+            </Grid.RowDefinitions>
+            <Label
+                Margin="40,0,40,35"
+                HorizontalOptions="Start"
+                HorizontalTextAlignment="Start"
+                VerticalOptions="Start">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span
+                            Style="{StaticResource LabelPokemonName}"
+                            Text="Sort"
+                            TextColor="{StaticResource ColorTextBlack}" />
+                        <Span Text="{x:Static system:Environment.NewLine}" />
+                        <Span
+                            Style="{StaticResource LabelDescription}"
+                            Text="Sort Pokémons alphabetically or by National Pokédex number!"
+                            TextColor="{StaticResource ColorTextGray}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <StackLayout
+                Grid.Row="1"
+                BindableLayout.ItemsSource="{Binding Filters.Orders}"
+                Spacing="20"
+                VerticalOptions="Start">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="3" HorizontalOptions="FillAndExpand">
+                            <Button
+                                Margin="40,0"
+                                xct:TouchEffect.Command="{Binding Source={x:Reference sortFilter}, Path=BindingContext.SelectSortCommand}"
+                                xct:TouchEffect.CommandParameter="{Binding .}"
+                                xct:TouchEffect.PressedScale="0.90"
+                                CornerRadius="10"
+                                HeightRequest="60"
+                                HorizontalOptions="FillAndExpand"
+                                Style="{StaticResource ButtonSecondary}"
+                                Text="{Binding Sort, Converter={StaticResource converterSortToDescriptionSort}}"
+                                VerticalOptions="Center">
+                                <Button.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding Selected}"
+                                        TargetType="Button"
+                                        Value="True">
+                                        <Setter Property="Style" Value="{StaticResource ButtonPrimary}" />
+                                        <Setter Property="xct:ShadowEffect.Color" Value="{StaticResource ColorTypePsychic}" />
+                                        <Setter Property="xct:ShadowEffect.Radius" Value="10" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

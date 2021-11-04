@@ -12,8 +12,7 @@
     xmlns:system="clr-namespace:System;assembly=netstandard"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="Home"
-    NavigationPage.HasNavigationBar="False"
-    >
+    NavigationPage.HasNavigationBar="False">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:ConverterTypeToColorBackgroundType x:Key="converterTypeToColorBackgroundType" />
@@ -38,266 +37,310 @@
         </Style>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid HorizontalOptions="FillAndExpand">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <magic:GradientView
-                Grid.RowSpan="2"
-                Margin="0,-180,0,0"
-                HorizontalOptions="FillAndExpand"
-                >
-                <magic:CssGradientSource>
-                    <x:String>
-                        <![CDATA[
+        <RelativeLayout>
+            <Grid HorizontalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <magic:GradientView
+                    Grid.RowSpan="2"
+                    Margin="0,-180,0,0"
+                    HorizontalOptions="FillAndExpand">
+                    <magic:CssGradientSource>
+                        <x:String>
+                            <![CDATA[
                             linear-gradient(180deg, #F5F5F5 50%, #FFFFFF 94.81%)
                         ]]>
-                    </x:String>
-                </magic:CssGradientSource>
-                <magic:GradientView.Mask>
-                    <magic:PathMask
-                        ClipMode="Include"
-                        Data="M37.5 0C56.798 0 72.7167 14.361 75 32.9032H56.6974C54.6135 24.298 46.8091 17.9032 37.5 17.9032C28.1909 17.9032 20.3865 24.298 18.3026 32.9032H0C2.28333 14.361 18.202 0 37.5 0Z M56.6974 42.0968H75C72.7167 60.639 56.798 75 37.5 75C18.202 75 2.28333 60.639 0 42.0968H18.3026C20.3865 50.702 28.1909 57.0968 37.5 57.0968C46.8091 57.0968 54.6135 50.702 56.6974 42.0968Z M37.5 49.8387C44.3655 49.8387 49.9312 44.3145 49.9312 37.5C49.9312 30.6855 44.3655 25.1613 37.5 25.1613C30.6345 25.1613 25.0688 30.6855 25.0688 37.5C25.0688 44.3145 30.6345 49.8387 37.5 49.8387Z"
-                        Stretch="Fill"
-                        />
-                </magic:GradientView.Mask>
-            </magic:GradientView>
-            <StackLayout
-                Padding="43,45,20,30"
-                HorizontalOptions="EndAndExpand"
-                Orientation="Horizontal"
-                Spacing="15"
-                >
-                <pancake:PancakeView
-                    x:Name="frameFilterGeneration"
-                    xct:TouchEffect.Command="{Binding NavigateToGenerationPageCommand}"
-                    Style="{StaticResource cardFilter}"
-                    >
-                    <Image Source="icon_generation" Style="{StaticResource imageFilter}" />
-                </pancake:PancakeView>
-                <pancake:PancakeView
-                    x:Name="frameFilterSort"
-                    xct:TouchEffect.Command="{Binding NavigateToSortPageCommand}"
-                    Style="{StaticResource cardFilter}"
-                    >
-                    <Image Source="icon_sort" Style="{StaticResource imageFilter}" />
-                </pancake:PancakeView>
-                <pancake:PancakeView
-                    x:Name="frameFilters"
-                    xct:TouchEffect.Command="{Binding NavigateToFiltersPageCommand}"
-                    Style="{StaticResource cardFilter}"
-                    >
-                    <Image Source="icon_filter" Style="{StaticResource imageFilter}" />
-                </pancake:PancakeView>
-            </StackLayout>
-            <Label
-                x:Name="labelTitle"
-                Grid.Row="1"
-                Margin="40,0"
-                HorizontalOptions="Start"
-                VerticalOptions="Center"
-                >
-                <Label.FormattedText>
-                    <FormattedString>
-                        <Span
-                            Style="{StaticResource LabelAplicationTitle}"
-                            Text="Pokédex"
-                            TextColor="{StaticResource ColorTextBlack}"
-                            />
-                        <Span Text="{x:Static system:Environment.NewLine}" />
-                        <Span Text="{x:Static system:Environment.NewLine}" />
-                        <Span
-                            Style="{StaticResource LabelDescription}"
-                            Text="Search for Pokémon by name or using the National Pokédex number."
-                            TextColor="{StaticResource ColorTextGray}"
-                            />
-                    </FormattedString>
-                </Label.FormattedText>
-            </Label>
-            <pancake:PancakeView
-                x:Name="frameSearch"
-                Grid.Row="2"
-                Margin="40,25,40,10"
-                Padding="20,10"
-                BackgroundColor="{StaticResource ColorBackgroundDefaultInput}"
-                CornerRadius="10"
-                HorizontalOptions="FillAndExpand"
-                >
-                <StackLayout Orientation="Horizontal" Spacing="10">
-                    <Image
-                        xct:IconTintColorEffect.TintColor="{StaticResource ColorTextGray}"
-                        HeightRequest="16"
-                        HorizontalOptions="Start"
-                        Source="icon_search"
-                        VerticalOptions="Center"
-                        WidthRequest="16"
-                        />
-                    <myControls:CustomEntryBorderless
-                        Focused="CustomEntryBorderless_Focused"
-                        FontFamily="FontRegular"
-                        FontSize="14"
-                        HorizontalOptions="Start"
-                        Placeholder="What Pokémon are you looking for?"
-                        PlaceholderColor="{StaticResource ColorTextGray}"
-                        TextColor="{StaticResource ColorTextBlack}"
-                        Unfocused="CustomEntryBorderless_Unfocused"
-                        VerticalOptions="Center"
-                        />
+                        </x:String>
+                    </magic:CssGradientSource>
+                    <magic:GradientView.Mask>
+                        <magic:PathMask
+                            ClipMode="Include"
+                            Data="M37.5 0C56.798 0 72.7167 14.361 75 32.9032H56.6974C54.6135 24.298 46.8091 17.9032 37.5 17.9032C28.1909 17.9032 20.3865 24.298 18.3026 32.9032H0C2.28333 14.361 18.202 0 37.5 0Z M56.6974 42.0968H75C72.7167 60.639 56.798 75 37.5 75C18.202 75 2.28333 60.639 0 42.0968H18.3026C20.3865 50.702 28.1909 57.0968 37.5 57.0968C46.8091 57.0968 54.6135 50.702 56.6974 42.0968Z M37.5 49.8387C44.3655 49.8387 49.9312 44.3145 49.9312 37.5C49.9312 30.6855 44.3655 25.1613 37.5 25.1613C30.6345 25.1613 25.0688 30.6855 25.0688 37.5C25.0688 44.3145 30.6345 49.8387 37.5 49.8387Z"
+                            Stretch="Fill" />
+                    </magic:GradientView.Mask>
+                </magic:GradientView>
+                <StackLayout
+                    Padding="43,45,20,30"
+                    HorizontalOptions="EndAndExpand"
+                    Orientation="Horizontal"
+                    Spacing="15">
+                    <pancake:PancakeView
+                        x:Name="frameFilterGeneration"
+                        xct:TouchEffect.Command="{Binding OpenModalGenerationCommand}"
+                        Style="{StaticResource cardFilter}">
+                        <Image Source="icon_generation" Style="{StaticResource imageFilter}" />
+                    </pancake:PancakeView>
+                    <pancake:PancakeView
+                        x:Name="frameFilterSort"
+                        xct:TouchEffect.Command="{Binding OpenModalSortCommand}"
+                        Style="{StaticResource cardFilter}">
+                        <Image Source="icon_sort" Style="{StaticResource imageFilter}" />
+                    </pancake:PancakeView>
+                    <pancake:PancakeView
+                        x:Name="frameFilters"
+                        xct:TouchEffect.Command="{Binding OpenModalFiltersCommand}"
+                        Style="{StaticResource cardFilter}">
+                        <Image Source="icon_filter" Style="{StaticResource imageFilter}" />
+                    </pancake:PancakeView>
                 </StackLayout>
-            </pancake:PancakeView>
-            <CollectionView
-                x:Name="collectionPokemons"
-                Grid.Row="3"
-                skeleton:Skeleton.Animation="{skeleton:DefaultAnimation Beat}"
-                skeleton:Skeleton.IsBusy="{Binding IsBusy}"
-                skeleton:Skeleton.IsParent="True"
-                ItemSizingStrategy="MeasureAllItems"
-                ItemsSource="{Binding Pokemons}"
-                RemainingItemsThreshold="{Binding ItemTreshold}"
-                RemainingItemsThresholdReachedCommand="{Binding LoadMorePokemonsCommand}"
-                >
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout ItemSpacing="0" Orientation="Vertical" />
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <pancake:PancakeView
-                            Margin="0"
-                            Padding="0"
-                            xct:TouchEffect.Command="{Binding Source={x:Reference Home}, Path=BindingContext.NavigateToDetailCommand}"
-                            xct:TouchEffect.CommandParameter="{Binding .}"
-                            xct:TouchEffect.PressedScale="0.90"
-                            >
-                            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="25" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <pancake:PancakeView
-                                    Grid.Row="1"
-                                    Margin="40,0,40,5"
-                                    Padding="0"
-                                    skeleton:Skeleton.IsBusy="{Binding IsBusy}"
-                                    skeleton:Skeleton.IsParent="True"
-                                    xct:ShadowEffect.Color="{Binding TypeDefault, Converter={StaticResource converterTypeToColorBackgroundType}}"
-                                    xct:ShadowEffect.Radius="10"
-                                    BackgroundColor="{Binding TypeDefault, Converter={StaticResource converterTypeToColorBackgroundType}}"
-                                    CornerRadius="10"
-                                    HorizontalOptions="FillAndExpand"
-                                    IsClippedToBounds="True"
-                                    VerticalOptions="FillAndExpand"
-                                    >
-                                    <Grid
-                                        ColumnSpacing="0"
+                <Label
+                    x:Name="labelTitle"
+                    Grid.Row="1"
+                    Margin="40,0"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span
+                                Style="{StaticResource LabelAplicationTitle}"
+                                Text="Pokédex"
+                                TextColor="{StaticResource ColorTextBlack}" />
+                            <Span Text="{x:Static system:Environment.NewLine}" />
+                            <Span Text="{x:Static system:Environment.NewLine}" />
+                            <Span
+                                Style="{StaticResource LabelDescription}"
+                                Text="Search for Pokémon by name or using the National Pokédex number."
+                                TextColor="{StaticResource ColorTextGray}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <pancake:PancakeView
+                    x:Name="frameSearch"
+                    Grid.Row="2"
+                    Margin="40,25,40,10"
+                    Padding="20,10"
+                    BackgroundColor="{StaticResource ColorBackgroundDefaultInput}"
+                    CornerRadius="10"
+                    HorizontalOptions="FillAndExpand">
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Image
+                            xct:IconTintColorEffect.TintColor="{StaticResource ColorTextGray}"
+                            HeightRequest="16"
+                            HorizontalOptions="Start"
+                            Source="icon_search"
+                            VerticalOptions="Center"
+                            WidthRequest="16" />
+                        <myControls:CustomEntryBorderless
+                            Focused="CustomEntryBorderless_Focused"
+                            FontFamily="FontRegular"
+                            FontSize="14"
+                            HorizontalOptions="Start"
+                            Placeholder="What Pokémon are you looking for?"
+                            PlaceholderColor="{StaticResource ColorTextGray}"
+                            TextColor="{StaticResource ColorTextBlack}"
+                            Unfocused="CustomEntryBorderless_Unfocused"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+                </pancake:PancakeView>
+                <CollectionView
+                    x:Name="collectionPokemons"
+                    Grid.Row="3"
+                    skeleton:Skeleton.Animation="{skeleton:DefaultAnimation Beat}"
+                    skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                    skeleton:Skeleton.IsParent="True"
+                    ItemSizingStrategy="MeasureAllItems"
+                    ItemsSource="{Binding Pokemons}"
+                    RemainingItemsThreshold="{Binding ItemTreshold}"
+                    RemainingItemsThresholdReachedCommand="{Binding LoadMorePokemonsCommand}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="0" Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <pancake:PancakeView
+                                Margin="0"
+                                Padding="0"
+                                xct:TouchEffect.Command="{Binding Source={x:Reference Home}, Path=BindingContext.NavigateToDetailCommand}"
+                                xct:TouchEffect.CommandParameter="{Binding .}"
+                                xct:TouchEffect.PressedScale="0.90">
+                                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="25" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <pancake:PancakeView
+                                        Grid.Row="1"
+                                        Margin="40,0,40,5"
+                                        Padding="0"
+                                        skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                                        skeleton:Skeleton.IsParent="True"
+                                        xct:ShadowEffect.Color="{Binding TypeDefault, Converter={StaticResource converterTypeToColorBackgroundType}}"
+                                        xct:ShadowEffect.Radius="10"
+                                        BackgroundColor="{Binding TypeDefault, Converter={StaticResource converterTypeToColorBackgroundType}}"
+                                        CornerRadius="10"
                                         HorizontalOptions="FillAndExpand"
-                                        VerticalOptions="FillAndExpand"
-                                        >
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <magic:GradientView
-                                            Grid.Column="0"
-                                            Margin="90,5,0,0"
-                                            skeleton:Skeleton.Hide="True"
-                                            skeleton:Skeleton.IsBusy="{Binding IsBusy}"
-                                            HeightRequest="32"
-                                            HorizontalOptions="End"
-                                            VerticalOptions="Start"
-                                            WidthRequest="74"
-                                            >
-                                            <magic:CssGradientSource>
-                                                <x:String>
-                                                    <![CDATA[
-                                                        linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%)
-                                                    ]]>
-                                                </x:String>
-                                            </magic:CssGradientSource>
-                                            <magic:GradientView.Mask>
-                                                <magic:PathMask
-                                                    ClipMode="Include"
-                                                    Data="M9.24324 4.6875C9.24324 7.27633 7.17407 9.375 4.62162 9.375C2.06917 9.375 0 7.27633 0 4.6875C0 2.09866 2.06917 0 4.62162 0C7.17407 0 9.24324 2.09866 9.24324 4.6875Z M41.5946 4.6875C41.5946 7.27633 39.5254 9.375 36.973 9.375C34.4205 9.375 32.3514 7.27633 32.3514 4.6875C32.3514 2.09866 34.4205 0 36.973 0C39.5254 0 41.5946 2.09866 41.5946 4.6875Z M73.9459 4.6875C73.9459 7.27633 71.8768 9.375 69.3243 9.375C66.7719 9.375 64.7027 7.27633 64.7027 4.6875C64.7027 2.09866 66.7719 0 69.3243 0C71.8768 0 73.9459 2.09866 73.9459 4.6875Z M106.297 4.6875C106.297 7.27633 104.228 9.375 101.676 9.375C99.1232 9.375 97.0541 7.27633 97.0541 4.6875C97.0541 2.09866 99.1232 0 101.676 0C104.228 0 106.297 2.09866 106.297 4.6875Z M138.649 4.6875C138.649 7.27633 136.579 9.375 134.027 9.375C131.475 9.375 129.405 7.27633 129.405 4.6875C129.405 2.09866 131.475 0 134.027 0C136.579 0 138.649 2.09866 138.649 4.6875Z M171 4.6875C171 7.27633 168.931 9.375 166.378 9.375C163.826 9.375 161.757 7.27633 161.757 4.6875C161.757 2.09866 163.826 0 166.378 0C168.931 0 171 2.09866 171 4.6875Z M9.24324 37.5C9.24324 40.0888 7.17407 42.1875 4.62162 42.1875C2.06917 42.1875 0 40.0888 0 37.5C0 34.9112 2.06917 32.8125 4.62162 32.8125C7.17407 32.8125 9.24324 34.9112 9.24324 37.5Z M41.5946 37.5C41.5946 40.0888 39.5254 42.1875 36.973 42.1875C34.4205 42.1875 32.3514 40.0888 32.3514 37.5C32.3514 34.9112 34.4205 32.8125 36.973 32.8125C39.5254 32.8125 41.5946 34.9112 41.5946 37.5Z M73.9459 37.5C73.9459 40.0888 71.8768 42.1875 69.3243 42.1875C66.7719 42.1875 64.7027 40.0888 64.7027 37.5C64.7027 34.9112 66.7719 32.8125 69.3243 32.8125C71.8768 32.8125 73.9459 34.9112 73.9459 37.5Z M106.297 37.5C106.297 40.0888 104.228 42.1875 101.676 42.1875C99.1232 42.1875 97.0541 40.0888 97.0541 37.5C97.0541 34.9112 99.1232 32.8125 101.676 32.8125C104.228 32.8125 106.297 34.9112 106.297 37.5Z M138.649 37.5C138.649 40.0888 136.579 42.1875 134.027 42.1875C131.475 42.1875 129.405 40.0888 129.405 37.5C129.405 34.9112 131.475 32.8125 134.027 32.8125C136.579 32.8125 138.649 34.9112 138.649 37.5Z M171 37.5C171 40.0888 168.931 42.1875 166.378 42.1875C163.826 42.1875 161.757 40.0888 161.757 37.5C161.757 34.9112 163.826 32.8125 166.378 32.8125C168.931 32.8125 171 34.9112 171 37.5Z M9.24324 70.3125C9.24324 72.9013 7.17407 75 4.62162 75C2.06917 75 0 72.9013 0 70.3125C0 67.7237 2.06917 65.625 4.62162 65.625C7.17407 65.625 9.24324 67.7237 9.24324 70.3125Z M41.5946 70.3125C41.5946 72.9013 39.5254 75 36.973 75C34.4205 75 32.3514 72.9013 32.3514 70.3125C32.3514 67.7237 34.4205 65.625 36.973 65.625C39.5254 65.625 41.5946 67.7237 41.5946 70.3125Z M73.9459 70.3125C73.9459 72.9013 71.8768 75 69.3243 75C66.7719 75 64.7027 72.9013 64.7027 70.3125C64.7027 67.7237 66.7719 65.625 69.3243 65.625C71.8768 65.625 73.9459 67.7237 73.9459 70.3125Z M106.297 70.3125C106.297 72.9013 104.228 75 101.676 75C99.1232 75 97.0541 72.9013 97.0541 70.3125C97.0541 67.7237 99.1232 65.625 101.676 65.625C104.228 65.625 106.297 67.7237 106.297 70.3125Z M138.649 70.3125C138.649 72.9013 136.579 75 134.027 75C131.475 75 129.405 72.9013 129.405 70.3125C129.405 67.7237 131.475 65.625 134.027 65.625C136.579 65.625 138.649 67.7237 138.649 70.3125Z M171 70.3125C171 72.9013 168.931 75 166.378 75C163.826 75 161.757 72.9013 161.757 70.3125C161.757 67.7237 163.826 65.625 166.378 65.625C168.931 65.625 171 67.7237 171 70.3125Z                                                     "
-                                                    Stretch="Fill"
-                                                    />
-                                            </magic:GradientView.Mask>
-                                        </magic:GradientView>
+                                        IsClippedToBounds="True"
+                                        VerticalOptions="FillAndExpand">
                                         <Grid
-                                            Grid.ColumnSpan="2"
+                                            ColumnSpacing="0"
                                             HorizontalOptions="FillAndExpand"
-                                            RowSpacing="0"
-                                            VerticalOptions="FillAndExpand"
-                                            >
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                            </Grid.RowDefinitions>
-                                            <Label
-                                                Margin="20,15,20,0"
-                                                skeleton:Skeleton.BackgroundColor="{StaticResource ColorDarkGray}"
+                                            VerticalOptions="FillAndExpand">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <magic:GradientView
+                                                Grid.Column="0"
+                                                Margin="90,5,0,0"
+                                                skeleton:Skeleton.Hide="True"
                                                 skeleton:Skeleton.IsBusy="{Binding IsBusy}"
-                                                Style="{StaticResource LabelPokemonNumber}"
-                                                Text="{Binding Id, StringFormat='#{0:000}'}"
-                                                TextColor="{StaticResource ColorTextNumber}"
-                                                WidthRequest="190"
-                                                />
-                                            <Label
-                                                Grid.Row="1"
-                                                Margin="20,2,20,5"
-                                                skeleton:Skeleton.BackgroundColor="{StaticResource ColorDarkGray}"
-                                                skeleton:Skeleton.IsBusy="{Binding IsBusy}"
-                                                Style="{StaticResource LabelPokemonName}"
-                                                Text="{Binding Name}"
-                                                TextColor="{StaticResource ColorTextWhite}"
-                                                WidthRequest="190"
-                                                />
-                                            <contentViews:BadgeTypeContentView Grid.Row="2" Margin="20,0,0,20" />
-                                        </Grid>
-                                        <magic:GradientView
-                                            Grid.Column="1"
-                                            Margin="0,0,-25,-30"
-                                            skeleton:Skeleton.Hide="True"
-                                            skeleton:Skeleton.IsBusy="{Binding IsBusy}"
-                                            HeightRequest="145"
-                                            HorizontalOptions="End"
-                                            VerticalOptions="Center"
-                                            WidthRequest="145"
-                                            >
-                                            <magic:CssGradientSource>
-                                                <x:String>
-                                                    <![CDATA[
+                                                HeightRequest="32"
+                                                HorizontalOptions="End"
+                                                VerticalOptions="Start"
+                                                WidthRequest="74">
+                                                <magic:CssGradientSource>
+                                                    <x:String>
+                                                        <![CDATA[
                                                         linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%)
                                                     ]]>
-                                                </x:String>
-                                            </magic:CssGradientSource>
-                                            <magic:GradientView.Mask>
-                                                <magic:PathMask
-                                                    ClipMode="Include"
-                                                    Data="M37.5 0C56.798 0 72.7167 14.361 75 32.9032H56.6974C54.6135 24.298 46.8091 17.9032 37.5 17.9032C28.1909 17.9032 20.3865 24.298 18.3026 32.9032H0C2.28333 14.361 18.202 0 37.5 0Z M56.6974 42.0968H75C72.7167 60.639 56.798 75 37.5 75C18.202 75 2.28333 60.639 0 42.0968H18.3026C20.3865 50.702 28.1909 57.0968 37.5 57.0968C46.8091 57.0968 54.6135 50.702 56.6974 42.0968Z M37.5 49.8387C44.3655 49.8387 49.9312 44.3145 49.9312 37.5C49.9312 30.6855 44.3655 25.1613 37.5 25.1613C30.6345 25.1613 25.0688 30.6855 25.0688 37.5C25.0688 44.3145 30.6345 49.8387 37.5 49.8387Z"
-                                                    Stretch="Fill"
-                                                    />
-                                            </magic:GradientView.Mask>
-                                        </magic:GradientView>
-                                    </Grid>
-                                </pancake:PancakeView>
-                                <Image
-                                    Grid.RowSpan="2"
-                                    Margin="0,0,50,15"
-                                    skeleton:Skeleton.Hide="True"
-                                    skeleton:Skeleton.IsBusy="{Binding IsBusy}"
-                                    HeightRequest="130"
-                                    HorizontalOptions="End"
-                                    Source="{Binding Sprites.Other.OfficialArtwork.FrontDefault}"
-                                    WidthRequest="130"
-                                    />
-                            </Grid>
-                        </pancake:PancakeView>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </Grid>
+                                                    </x:String>
+                                                </magic:CssGradientSource>
+                                                <magic:GradientView.Mask>
+                                                    <magic:PathMask
+                                                        ClipMode="Include"
+                                                        Data="M9.24324 4.6875C9.24324 7.27633 7.17407 9.375 4.62162 9.375C2.06917 9.375 0 7.27633 0 4.6875C0 2.09866 2.06917 0 4.62162 0C7.17407 0 9.24324 2.09866 9.24324 4.6875Z M41.5946 4.6875C41.5946 7.27633 39.5254 9.375 36.973 9.375C34.4205 9.375 32.3514 7.27633 32.3514 4.6875C32.3514 2.09866 34.4205 0 36.973 0C39.5254 0 41.5946 2.09866 41.5946 4.6875Z M73.9459 4.6875C73.9459 7.27633 71.8768 9.375 69.3243 9.375C66.7719 9.375 64.7027 7.27633 64.7027 4.6875C64.7027 2.09866 66.7719 0 69.3243 0C71.8768 0 73.9459 2.09866 73.9459 4.6875Z M106.297 4.6875C106.297 7.27633 104.228 9.375 101.676 9.375C99.1232 9.375 97.0541 7.27633 97.0541 4.6875C97.0541 2.09866 99.1232 0 101.676 0C104.228 0 106.297 2.09866 106.297 4.6875Z M138.649 4.6875C138.649 7.27633 136.579 9.375 134.027 9.375C131.475 9.375 129.405 7.27633 129.405 4.6875C129.405 2.09866 131.475 0 134.027 0C136.579 0 138.649 2.09866 138.649 4.6875Z M171 4.6875C171 7.27633 168.931 9.375 166.378 9.375C163.826 9.375 161.757 7.27633 161.757 4.6875C161.757 2.09866 163.826 0 166.378 0C168.931 0 171 2.09866 171 4.6875Z M9.24324 37.5C9.24324 40.0888 7.17407 42.1875 4.62162 42.1875C2.06917 42.1875 0 40.0888 0 37.5C0 34.9112 2.06917 32.8125 4.62162 32.8125C7.17407 32.8125 9.24324 34.9112 9.24324 37.5Z M41.5946 37.5C41.5946 40.0888 39.5254 42.1875 36.973 42.1875C34.4205 42.1875 32.3514 40.0888 32.3514 37.5C32.3514 34.9112 34.4205 32.8125 36.973 32.8125C39.5254 32.8125 41.5946 34.9112 41.5946 37.5Z M73.9459 37.5C73.9459 40.0888 71.8768 42.1875 69.3243 42.1875C66.7719 42.1875 64.7027 40.0888 64.7027 37.5C64.7027 34.9112 66.7719 32.8125 69.3243 32.8125C71.8768 32.8125 73.9459 34.9112 73.9459 37.5Z M106.297 37.5C106.297 40.0888 104.228 42.1875 101.676 42.1875C99.1232 42.1875 97.0541 40.0888 97.0541 37.5C97.0541 34.9112 99.1232 32.8125 101.676 32.8125C104.228 32.8125 106.297 34.9112 106.297 37.5Z M138.649 37.5C138.649 40.0888 136.579 42.1875 134.027 42.1875C131.475 42.1875 129.405 40.0888 129.405 37.5C129.405 34.9112 131.475 32.8125 134.027 32.8125C136.579 32.8125 138.649 34.9112 138.649 37.5Z M171 37.5C171 40.0888 168.931 42.1875 166.378 42.1875C163.826 42.1875 161.757 40.0888 161.757 37.5C161.757 34.9112 163.826 32.8125 166.378 32.8125C168.931 32.8125 171 34.9112 171 37.5Z M9.24324 70.3125C9.24324 72.9013 7.17407 75 4.62162 75C2.06917 75 0 72.9013 0 70.3125C0 67.7237 2.06917 65.625 4.62162 65.625C7.17407 65.625 9.24324 67.7237 9.24324 70.3125Z M41.5946 70.3125C41.5946 72.9013 39.5254 75 36.973 75C34.4205 75 32.3514 72.9013 32.3514 70.3125C32.3514 67.7237 34.4205 65.625 36.973 65.625C39.5254 65.625 41.5946 67.7237 41.5946 70.3125Z M73.9459 70.3125C73.9459 72.9013 71.8768 75 69.3243 75C66.7719 75 64.7027 72.9013 64.7027 70.3125C64.7027 67.7237 66.7719 65.625 69.3243 65.625C71.8768 65.625 73.9459 67.7237 73.9459 70.3125Z M106.297 70.3125C106.297 72.9013 104.228 75 101.676 75C99.1232 75 97.0541 72.9013 97.0541 70.3125C97.0541 67.7237 99.1232 65.625 101.676 65.625C104.228 65.625 106.297 67.7237 106.297 70.3125Z M138.649 70.3125C138.649 72.9013 136.579 75 134.027 75C131.475 75 129.405 72.9013 129.405 70.3125C129.405 67.7237 131.475 65.625 134.027 65.625C136.579 65.625 138.649 67.7237 138.649 70.3125Z M171 70.3125C171 72.9013 168.931 75 166.378 75C163.826 75 161.757 72.9013 161.757 70.3125C161.757 67.7237 163.826 65.625 166.378 65.625C168.931 65.625 171 67.7237 171 70.3125Z                                                     "
+                                                        Stretch="Fill" />
+                                                </magic:GradientView.Mask>
+                                            </magic:GradientView>
+                                            <Grid
+                                                Grid.ColumnSpan="2"
+                                                HorizontalOptions="FillAndExpand"
+                                                RowSpacing="0"
+                                                VerticalOptions="FillAndExpand">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+                                                <Label
+                                                    Margin="20,15,20,0"
+                                                    skeleton:Skeleton.BackgroundColor="{StaticResource ColorDarkGray}"
+                                                    skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                                                    Style="{StaticResource LabelPokemonNumber}"
+                                                    Text="{Binding Id, StringFormat='#{0:000}'}"
+                                                    TextColor="{StaticResource ColorTextNumber}"
+                                                    WidthRequest="190" />
+                                                <Label
+                                                    Grid.Row="1"
+                                                    Margin="20,2,20,5"
+                                                    skeleton:Skeleton.BackgroundColor="{StaticResource ColorDarkGray}"
+                                                    skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                                                    Style="{StaticResource LabelPokemonName}"
+                                                    Text="{Binding Name}"
+                                                    TextColor="{StaticResource ColorTextWhite}"
+                                                    WidthRequest="190" />
+                                                <contentViews:BadgeTypeContentView Grid.Row="2" Margin="20,0,0,20" />
+                                            </Grid>
+                                            <magic:GradientView
+                                                Grid.Column="1"
+                                                Margin="0,0,-25,-30"
+                                                skeleton:Skeleton.Hide="True"
+                                                skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                                                HeightRequest="145"
+                                                HorizontalOptions="End"
+                                                VerticalOptions="Center"
+                                                WidthRequest="145">
+                                                <magic:CssGradientSource>
+                                                    <x:String>
+                                                        <![CDATA[
+                                                        linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%)
+                                                    ]]>
+                                                    </x:String>
+                                                </magic:CssGradientSource>
+                                                <magic:GradientView.Mask>
+                                                    <magic:PathMask
+                                                        ClipMode="Include"
+                                                        Data="M37.5 0C56.798 0 72.7167 14.361 75 32.9032H56.6974C54.6135 24.298 46.8091 17.9032 37.5 17.9032C28.1909 17.9032 20.3865 24.298 18.3026 32.9032H0C2.28333 14.361 18.202 0 37.5 0Z M56.6974 42.0968H75C72.7167 60.639 56.798 75 37.5 75C18.202 75 2.28333 60.639 0 42.0968H18.3026C20.3865 50.702 28.1909 57.0968 37.5 57.0968C46.8091 57.0968 54.6135 50.702 56.6974 42.0968Z M37.5 49.8387C44.3655 49.8387 49.9312 44.3145 49.9312 37.5C49.9312 30.6855 44.3655 25.1613 37.5 25.1613C30.6345 25.1613 25.0688 30.6855 25.0688 37.5C25.0688 44.3145 30.6345 49.8387 37.5 49.8387Z"
+                                                        Stretch="Fill" />
+                                                </magic:GradientView.Mask>
+                                            </magic:GradientView>
+                                        </Grid>
+                                    </pancake:PancakeView>
+                                    <Image
+                                        Grid.RowSpan="2"
+                                        Margin="0,0,50,15"
+                                        skeleton:Skeleton.Hide="True"
+                                        skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                                        HeightRequest="130"
+                                        HorizontalOptions="End"
+                                        Source="{Binding Sprites.Other.OfficialArtwork.FrontDefault}"
+                                        WidthRequest="130" />
+                                </Grid>
+                            </pancake:PancakeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+
+            <ContentView
+                BackgroundColor="{StaticResource ColorBackgroundModal}"
+                IsVisible="{Binding DrawerIsOpen}"
+                Opacity=".25"
+                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                       Property=Height,
+                                                                       Factor=1,
+                                                                       Constant=0}"
+                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                      Property=Width,
+                                                                      Factor=1,
+                                                                      Constant=0}">
+                <ContentView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CloseModalCommand}" />
+                </ContentView.GestureRecognizers>
+            </ContentView>
+
+            <myControls:CustomBottomDrawer
+                Padding="0"
+                BackgroundColor="Transparent"
+                HasShadow="False"
+                IsOpen="{Binding DrawerIsOpen}"
+                LockStates="{Binding LockStates}"
+                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                       Property=Height,
+                                                                       Factor=1,
+                                                                       Constant=0}"
+                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                      Property=Width,
+                                                                      Factor=1,
+                                                                      Constant=0}"
+                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                  Property=Height,
+                                                                  Factor=1,
+                                                                  Constant=-65}">
+                <Grid
+                    Margin="0,15,0,0"
+                    HorizontalOptions="FillAndExpand"
+                    RowSpacing="5"
+                    VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <BoxView
+                        BackgroundColor="{StaticResource ColorBackgroundWhite}"
+                        CornerRadius="3"
+                        HeightRequest="6"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Start"
+                        WidthRequest="80" />
+                    <pancake:PancakeView
+                        Grid.Row="1"
+                        Margin="0"
+                        BackgroundColor="{StaticResource ColorBackgroundWhite}"
+                        CornerRadius="30,30,0,0"
+                        VerticalOptions="FillAndExpand">
+                        <Grid>
+                            <contentViews:GenerationContentView IsVisible="{Binding FilterGenerationVisible}" />
+                            <contentViews:SortContentView IsVisible="{Binding FilterSortVisible}" />
+                            <contentViews:FiltersContentView IsVisible="{Binding FiltersVisible}" />
+                        </Grid>
+                    </pancake:PancakeView>
+                </Grid>
+            </myControls:CustomBottomDrawer>
+        </RelativeLayout>
     </ContentPage.Content>
 </ContentPage>
