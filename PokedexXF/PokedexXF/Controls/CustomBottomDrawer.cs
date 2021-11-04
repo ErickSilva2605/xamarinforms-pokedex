@@ -80,7 +80,6 @@ namespace PokedexXF.Controls
             BackgroundColor = Color.White;
             CornerRadius = 0;
             HasShadow = false;
-            IsVisible = IsOpen;
 
             // Set the pan gesture listeners
             var panGestures = new PanGestureRecognizer();
@@ -160,9 +159,9 @@ namespace PokedexXF.Controls
                 if (!drawer.isDragging)
                 {
                     if (!isOpened)
-                        drawer.Close(drawer);
+                        drawer.Close();
                     else
-                        drawer.Open(drawer);
+                        drawer.Open();
                 }
             }
         }
@@ -296,21 +295,17 @@ namespace PokedexXF.Controls
         /// <summary>
         /// Close the bottom drawer
         /// </summary>
-        public async void Close(CustomBottomDrawer drawer)
+        public void Close()
         {
             var finalTranslation = Math.Max(Math.Min(0, -1000), -Math.Abs(getProportionCoordinate(LockStates[0])));
-            await this.TranslateTo(this.X, finalTranslation -1, 150, Device.RuntimePlatform == Device.Android ? Easing.Linear : null);
-            ExpandedPercentage = LockStates[0];
-            drawer.IsVisible = false;
+            this.TranslateTo(this.X, finalTranslation, 450, Device.RuntimePlatform == Device.Android ? Easing.SpringOut : null);
         }
 
         /// <summary>
         /// Open the bottom drawer
         /// </summary>
-        public void Open(CustomBottomDrawer drawer)
+        public void Open()
         {
-            drawer.IsVisible = true;
-            ExpandedPercentage = LockStates[1];
             var finalTranslation = Math.Max(Math.Min(0, -1000), -Math.Abs(getProportionCoordinate(LockStates[1])));
             this.TranslateTo(this.X, finalTranslation, 150, Device.RuntimePlatform == Device.Android ? Easing.SpringIn : null);
         }

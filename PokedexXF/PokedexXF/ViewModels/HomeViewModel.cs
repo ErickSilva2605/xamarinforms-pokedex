@@ -271,7 +271,7 @@ namespace PokedexXF.ViewModels
                 await Task.Run(() => 
                 {
                     IsBusy = true;
-                    LockStates = new double[] { 0, 0.35, 0.82 };
+                    LockStates = new double[] { 0, 0.44, 0.9 };
                     FilterGenerationVisible = true;
                     FilterSortVisible = false;
                     FiltersVisible = false;
@@ -298,7 +298,7 @@ namespace PokedexXF.ViewModels
                 await Task.Run(() => 
                 {
                     IsBusy = true;
-                    LockStates = new double[] { 0, 0.35, 0.55 };
+                    LockStates = new double[] { 0, 0.44, 0.62 };
                     FilterSortVisible = true;
                     FilterGenerationVisible = false;
                     FiltersVisible = false;
@@ -325,7 +325,7 @@ namespace PokedexXF.ViewModels
                 await Task.Run(() => 
                 {
                     IsBusy = true;
-                    LockStates = new double[] { 0, 0.35, 0.88 };
+                    LockStates = new double[] { 0, 0.44, 0.97 };
                     FiltersVisible = true;
                     FilterGenerationVisible = false;
                     FilterSortVisible = false;
