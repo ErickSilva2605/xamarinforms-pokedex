@@ -1,11 +1,9 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PokedexXF.Models
 {
-    public class PaginationModel
+    public class ResourceListModel
     {
         [JsonProperty("count")]
         public int Count { get; set; }
@@ -17,6 +15,6 @@ namespace PokedexXF.Models
         public string Previous { get; set; }
 
         [JsonProperty("results")]
-        public IEnumerable<ResultModel> Results { get; set; }
+        public IEnumerable<ResourceItemModel> Results { get; set; }
     }
 }

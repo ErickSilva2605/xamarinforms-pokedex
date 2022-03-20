@@ -9,8 +9,6 @@
     >
     <ContentView.Resources>
         <converters:ConverterTypeToColorType x:Key="converterTypeToColorType" />
-        <converters:ConverterHeightToDescriptionValue x:Key="converterHeightToDescriptionValue" />
-        <converters:ConverterWeightToDescriptionValue x:Key="converterWeightToDescriptionValue" />
         <converters:ConverterTypeToImageType x:Key="converterTypeToImageType" />
     </ContentView.Resources>
     <ContentView.Content>
@@ -33,7 +31,7 @@
                     Margin="0,0,0,15"
                     HorizontalOptions="Start"
                     Style="{StaticResource LabelDescription}"
-                    Text="{Binding Pokemon.FlavorText}"
+                    Text="{Binding PokemonSpecies.FlavorText}"
                     TextColor="{StaticResource ColorTextGray}"
                     VerticalOptions="Start"
                     />
@@ -105,7 +103,7 @@
                         Grid.Column="1"
                         HorizontalOptions="Start"
                         Style="{StaticResource LabelDescription}"
-                        Text="{Binding Pokemon.Genus}"
+                        Text="{Binding PokemonSpecies.GenusDescription}"
                         TextColor="{StaticResource ColorTextGray}"
                         VerticalOptions="Center"
                         />
@@ -113,20 +111,32 @@
                         Grid.Row="1"
                         Grid.Column="1"
                         HorizontalOptions="Start"
-                        Style="{StaticResource LabelDescription}"
-                        Text="{Binding Pokemon.Height, Converter={StaticResource converterHeightToDescriptionValue}}"
                         TextColor="{StaticResource ColorTextGray}"
                         VerticalOptions="Center"
-                        />
+                        >
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Style="{StaticResource LabelDescription}" Text="{Binding Pokemon.Meters, StringFormat='{0:N1}m'}" />
+                                <Span Text=" " />
+                                <Span Style="{StaticResource LabelPokemonType}" Text="{Binding Pokemon.Inches}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
                     <Label
                         Grid.Row="2"
                         Grid.Column="1"
                         HorizontalOptions="Start"
-                        Style="{StaticResource LabelDescription}"
-                        Text="{Binding Pokemon.Weight, Converter={StaticResource converterWeightToDescriptionValue}}"
                         TextColor="{StaticResource ColorTextGray}"
                         VerticalOptions="Center"
-                        />
+                        >
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Style="{StaticResource LabelDescription}" Text="{Binding Pokemon.Kilograms, StringFormat='{0:N1}kg'}" />
+                                <Span Text=" " />
+                                <Span Style="{StaticResource LabelPokemonType}" Text="{Binding Pokemon.Pounds, StringFormat='({0:N1} lbs)'}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
                     <StackLayout
                         Grid.Row="3"
                         Grid.Column="1"
@@ -140,7 +150,7 @@
                                 <Label
                                     HorizontalOptions="Start"
                                     Style="{StaticResource LabelDescription}"
-                                    Text="{Binding Ability.Name}"
+                                    Text="{Binding Ability.NameFirstCharUpper}"
                                     TextColor="{StaticResource ColorTextGray}"
                                     VerticalOptions="Center"
                                     >
@@ -151,7 +161,7 @@
                                             Value="True"
                                             >
                                             <Setter Property="Style" Value="{StaticResource LabelPokemonType}" />
-                                            <Setter Property="Text" Value="{Binding Ability.Name, StringFormat='{0} (hidden ability)'}" />
+                                            <Setter Property="Text" Value="{Binding Ability.NameFirstCharUpper, StringFormat='{0} (hidden ability)'}" />
                                         </DataTrigger>
                                     </Label.Triggers>
                                 </Label>
@@ -257,7 +267,7 @@
                         Grid.Column="1"
                         HorizontalOptions="Start"
                         Style="{StaticResource LabelDescription}"
-                        Text="{Binding Pokemon.EvYield}"
+                        Text="{Binding PokemonSpecies.EvYield}"
                         TextColor="{StaticResource ColorTextGray}"
                         VerticalOptions="Center"
                         />
@@ -270,9 +280,9 @@
                         >
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Style="{StaticResource LabelDescription}" Text="{Binding Pokemon.CaptureRate}" />
+                                <Span Style="{StaticResource LabelDescription}" Text="{Binding PokemonSpecies.CaptureRate}" />
                                 <Span Text=" " />
-                                <Span Style="{StaticResource LabelPokemonType}" Text="{Binding Pokemon.CaptureProbability, StringFormat='({0:N1}% with PokéBall, full HP)'}" />
+                                <Span Style="{StaticResource LabelPokemonType}" Text="{Binding PokemonSpecies.CaptureProbability, StringFormat='({0:P1} with PokéBall, full HP)'}" />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
@@ -285,7 +295,7 @@
                         >
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Style="{StaticResource LabelDescription}" Text="{Binding Pokemon.BaseHappiness}" />
+                                <Span Style="{StaticResource LabelDescription}" Text="{Binding PokemonSpecies.BaseHappiness}" />
                                 <Span Text=" " />
                                 <Span Style="{StaticResource LabelPokemonType}" Text="(normal)" />
                             </FormattedString>
@@ -305,7 +315,7 @@
                         Grid.Column="1"
                         HorizontalOptions="Start"
                         Style="{StaticResource LabelDescription}"
-                        Text="{Binding Pokemon.GrowthRate}"
+                        Text="{Binding PokemonSpecies.GrowthRateDescription}"
                         TextColor="{StaticResource ColorTextGray}"
                         VerticalOptions="Center"
                         />
@@ -360,7 +370,7 @@
                         Grid.Column="1"
                         HorizontalOptions="Start"
                         Style="{StaticResource LabelDescription}"
-                        Text="{Binding Pokemon.GenderRate}"
+                        Text="{Binding PokemonSpecies.GenderDescription}"
                         TextColor="{StaticResource ColorTextGray}"
                         VerticalOptions="Center"
                         />
@@ -369,7 +379,7 @@
                         Grid.Column="1"
                         HorizontalOptions="Start"
                         Style="{StaticResource LabelDescription}"
-                        Text="{Binding Pokemon.EggGroups}"
+                        Text="{Binding PokemonSpecies.EggGroupsDescription}"
                         TextColor="{StaticResource ColorTextGray}"
                         VerticalOptions="Center"
                         />
@@ -382,10 +392,10 @@
                         >
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Style="{StaticResource LabelDescription}" Text="{Binding Pokemon.HatchCounter}" />
+                                <Span Style="{StaticResource LabelDescription}" Text="{Binding PokemonSpecies.HatchCounter}" />
                                 <Span Text=" " />
-                                <Span Style="{StaticResource LabelPokemonType}" Text="{Binding Pokemon.MinSteps, StringFormat='({0} -'}" />
-                                <Span Style="{StaticResource LabelPokemonType}" Text="{Binding Pokemon.MaxSteps, StringFormat=' {0} steps)'}" />
+                                <Span Style="{StaticResource LabelPokemonType}" Text="{Binding PokemonSpecies.MinEggSteps, StringFormat='({0:N0} -'}" />
+                                <Span Style="{StaticResource LabelPokemonType}" Text="{Binding PokemonSpecies.MaxEggSteps, StringFormat=' {0:N0} steps)'}" />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
@@ -401,7 +411,7 @@
 
                 <StackLayout
                     Grid.Row="8"
-                    BindableLayout.ItemsSource="{Binding Pokemon.Locations}"
+                    BindableLayout.ItemsSource="{Binding PokemonSpecies.Locations}"
                     Orientation="Vertical"
                     Spacing="15"
                     >
@@ -431,7 +441,6 @@
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </StackLayout>
-
             </Grid>
         </StackLayout>
     </ContentView.Content>

@@ -1,50 +1,47 @@
-﻿using PokedexXF.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace PokedexXF.Models
 {
     public class FiltersModel : ObservableObject
     {
-        private ObservableRangeCollection<TypeFilterModel> _types;
-        public ObservableRangeCollection<TypeFilterModel> Types 
+        private IEnumerable<TypeFilterModel> _types;
+        public IEnumerable<TypeFilterModel> Types 
         {
             get => _types;
             set => SetProperty(ref _types, value);
         }
 
-        private ObservableRangeCollection<WeaknessFilterModel> _weaknesses;
-        public ObservableRangeCollection<WeaknessFilterModel> Weaknesses 
+        private IEnumerable<WeaknessFilterModel> _weaknesses;
+        public IEnumerable<WeaknessFilterModel> Weaknesses 
         {
             get => _weaknesses; 
             set => SetProperty(ref _weaknesses, value);
         }
 
-        private ObservableRangeCollection<HeightFilterModel> _heights;
-        public ObservableRangeCollection<HeightFilterModel> Heights 
+        private IEnumerable<HeightFilterModel> _heights;
+        public IEnumerable<HeightFilterModel> Heights 
         {
             get => _heights; 
             set => SetProperty(ref _heights, value);
         }
 
-        private ObservableRangeCollection<WeightFilterModel> _weights;
-        public ObservableRangeCollection<WeightFilterModel> Weights 
+        private IEnumerable<WeightFilterModel> _weights;
+        public IEnumerable<WeightFilterModel> Weights 
         {
             get => _weights;
             set => SetProperty(ref _weights, value);
         }
 
-        private ObservableRangeCollection<GenerationFilterModel> _generations;
-        public ObservableRangeCollection<GenerationFilterModel> Generations 
+        private IEnumerable<GenerationFilterModel> _generations;
+        public IEnumerable<GenerationFilterModel> Generations 
         {
             get => _generations;
             set => SetProperty(ref _generations, value);
         }
 
-        private ObservableRangeCollection<SortFilterModel> _orders;
-        public ObservableRangeCollection<SortFilterModel> Orders 
+        private IEnumerable<SortFilterModel> _orders;
+        public IEnumerable<SortFilterModel> Orders 
         {
             get => _orders;
             set => SetProperty(ref _orders, value);

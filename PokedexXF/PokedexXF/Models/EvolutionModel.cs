@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PokedexXF.Models
+﻿namespace PokedexXF.Models
 {
     public class EvolutionModel
     {
@@ -18,8 +14,10 @@ namespace PokedexXF.Models
 
         public string EnvolvesToImage { get; set; }
 
-        public int EnvolvesToMinLevel { get; set; }
+        public string EnvolvesToMinLevel { get; set; }
 
         public bool HasEvolution { get; set; }
+
+        public bool IsBaby { get; set; }
     }
 }

@@ -25,7 +25,11 @@
                     Text="Evolution Chart"
                     TextColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorType}}"
                     />
-                <StackLayout Grid.Row="1" BindableLayout.ItemsSource="{Binding Pokemon.Evolutions}">
+                <StackLayout
+                    Grid.Row="1"
+                    BindableLayout.ItemsSource="{Binding PokemonSpecies.Evolutions}"
+                    Spacing="30"
+                    >
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
                             <Grid ColumnSpacing="30" RowSpacing="0">
@@ -159,6 +163,7 @@
                                     Grid.Row="1"
                                     Grid.Column="2"
                                     HorizontalTextAlignment="Center"
+                                    IsVisible="{Binding HasEvolution}"
                                     VerticalOptions="End"
                                     VerticalTextAlignment="End"
                                     >

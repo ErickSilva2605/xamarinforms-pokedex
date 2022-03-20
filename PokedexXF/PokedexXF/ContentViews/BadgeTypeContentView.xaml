@@ -30,7 +30,7 @@
                         Padding="6"
                         skeleton:Skeleton.BackgroundColor="{StaticResource ColorDarkGray}"
                         skeleton:Skeleton.IsBusy="{Binding IsBusy}"
-                        BackgroundColor="{Binding Type.Name, Converter={StaticResource converterTypeToColorType}}"
+                        BackgroundColor="{Binding Type.NameFirstCharUpper, Converter={StaticResource converterTypeToColorType}}"
                         CornerRadius="3"
                         HorizontalOptions="Start"
                         VerticalOptions="Start"
@@ -43,13 +43,13 @@
                             <Image
                                 xct:IconTintColorEffect.TintColor="{StaticResource ColorTextWhite}"
                                 HeightRequest="15"
-                                Source="{Binding Type.Name, Converter={StaticResource converterTypeToImageType}}"
+                                Source="{Binding Type.NameFirstCharUpper, Converter={StaticResource converterTypeToImageType}}"
                                 VerticalOptions="Center"
                                 />
                             <Label
                                 Grid.Column="1"
                                 Style="{StaticResource LabelPokemonType}"
-                                Text="{Binding Type.Name}"
+                                Text="{Binding Type.NameFirstCharUpper}"
                                 TextColor="{StaticResource ColorTextWhite}"
                                 VerticalOptions="Center"
                                 VerticalTextAlignment="Center"

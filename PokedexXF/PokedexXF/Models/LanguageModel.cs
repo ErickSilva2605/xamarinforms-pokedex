@@ -4,7 +4,7 @@ using PokedexXF.Helpers;
 
 namespace PokedexXF.Models
 {
-    public class StatModel : ResourceBaseModel
+    public class LanguageModel : ResourceBaseModel
     {
         [JsonProperty("id")]
         public override int Id { get; set; }
@@ -16,8 +16,9 @@ namespace PokedexXF.Models
 
         public override string NameUpperCase => Name.ToUpper();
 
-        public override string ApiEndpoint => Constants.ENDPOINT_STAT;
+        public override string ApiEndpoint => Constants.ENDPOINT_LANGUAGE;
 
-        public string StatDescription { get; set; }
+        [JsonProperty("official")]
+        public bool Official { get; set; }
     }
 }

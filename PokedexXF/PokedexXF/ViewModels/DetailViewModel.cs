@@ -1,5 +1,4 @@
-﻿using PokedexXF.Enums;
-using PokedexXF.Helpers;
+﻿using PokedexXF.Helpers;
 using PokedexXF.Interfaces;
 using PokedexXF.Models;
 using PokedexXF.Services;
@@ -7,12 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
 
 namespace PokedexXF.ViewModels
 {
@@ -21,6 +17,7 @@ namespace PokedexXF.ViewModels
         private readonly IRestService _service;
         private readonly LiteDbService<PokemonModel> _dbService;
         private PokemonModel _pokemon;
+        private PokemonSpeciesModel _pokemonSpecies;
 
         public Task Initialization { get; }
 
@@ -30,6 +27,12 @@ namespace PokedexXF.ViewModels
             set => SetProperty(ref _pokemon, value);
         }
 
+        public PokemonSpeciesModel PokemonSpecies
+        {
+            get => _pokemonSpecies;
+            set => SetProperty(ref _pokemonSpecies, value);
+        }
+
         public ICommand NavigateToBackCommand { get; private set; }
 
         public DetailViewModel(INavigation navigation, IRestService restService, PokemonModel pokemon) : base(navigation)
@@ -37,7 +40,7 @@ namespace PokedexXF.ViewModels
             _service = restService;
             _dbService = new LiteDbService<PokemonModel>();
             Pokemon = pokemon;
-            Pokemon.Locations = new ObservableRangeCollection<PokemonLocationModel>();
+            PokemonSpecies = new PokemonSpeciesModel();
 
             NavigateToBackCommand = new Command(async () => await ExecuteNavigateToBackCommand());
             Initialization = InitializeAsync();
@@ -52,20 +55,13 @@ namespace PokedexXF.ViewModels
             {
                 IsBusy = true;
 
-                Pokemon.Weaknesses.Clear();
-                Pokemon.TypeDefenses.Clear();
-
                 if (!InternetConnectivity())
                 {
                     // TODO - Mensagem dados offline
                     return;
                 }
 
-                await GetPokemonSpecies();
-                await GetPokemonDamageRelations();
-                CalculateStats();
-                CalculateCatchRateProbability();
-                CalculateEggSteps();
+                PokemonSpecies = await GetPokemonSpeciesAsync();
             }
             catch (Exception ex)
             {
@@ -77,251 +73,137 @@ namespace PokedexXF.ViewModels
             }
         }
 
-        private async Task GetPokemonSpecies()
+        private async Task<PokemonSpeciesModel> GetPokemonSpeciesAsync()
         {
             try
             {
-                var species = await _service.GetPokemonSpecies(Pokemon.Species.Url);
+                var species = await _service.GetResourceByNameAsync<PokemonSpeciesModel>(Pokemon.Species.ApiEndpoint, Pokemon.Species.Name);
 
-                if (species == null)
-                    return;
-
-                await GetPokemonChain(species.EvolutionChain.Url);
-
-                if (species.PokedexNumbers.Any())
+                if (species != null)
                 {
-                    foreach (var item in species.PokedexNumbers)
-                        await GetPokemonLocationDescription(item);
+                    species.EggGroupsDescription = PokemonHelper.EggGroupsToDescription(species.EggGroups);
+                    species.FlavorText = PokemonHelper.FlavorTextsToDescription(species.FlavorTextEntries);
+                    species.GenusDescription = PokemonHelper.GeneraToDescription(species.Genera);
+                    species.GenderDescription = PokemonHelper.GenderRateToDescription(species.GenderRate);
+                    species.CaptureProbability = PokemonHelper.CalculateCatchRateProbability(Pokemon.Stats, species.CaptureRate);
+                    species.GrowthRateDescription = PokemonHelper.GrowthRateToDescription(species.GrowthRate);
+                    species.MaxEggSteps = PokemonHelper.CalculateMaxEggSteps(species.HatchCounter);
+                    species.MinEggSteps = PokemonHelper.CalculateMinEggSteps(species.MaxEggSteps);
+                    species.EvYield = PokemonHelper.GetEvYield(Pokemon.Stats);
+
+                    species.Locations = await GetPokemonLocationDescriptionAsync(species.PokedexNumbers);
+                    species.Evolutions = await GetPokemonEvolutionChainAsync(species);
+
+                    return species;
                 }
-
-                Pokemon.BaseHappiness = species.BaseHappiness;
-                Pokemon.CaptureRate = species.CaptureRate;
-                Pokemon.GenderRate = PokemonHelper.GenderRateToDescription(species.GenderRate);
-                Pokemon.GrowthRate = species.GrowthRate.Name;
-                Pokemon.HatchCounter = species.HatchCounter;
-
-                Pokemon.EggGroups = string.Join(", ", species.EggGroups.Select(s => s.Name));
-
-                Pokemon.FlavorText = species.FlavorTextEntries
-                    .Where(w => w.Language.Name == "en" && w.Version.Name == "ruby")
-                    .Select(s => s.FlavorText)
-                    .FirstOrDefault()
-                    .Replace('\n', ' ')
-                    .Replace('\f', ' ');
-
-                Pokemon.Genus = species.Genera
-                    .Where(w => w.Language.Name == "en")
-                    .Select(s => s.Genus).FirstOrDefault();
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Erro", ex.Message);
             }
+
+            return null;
         }
 
-        private async Task GetPokemonDamageRelations()
+        private async Task<IEnumerable<LocationModel>> GetPokemonLocationDescriptionAsync(IEnumerable<PokemonSpeciesDexEntryModel> pokedexNumbers)
+        {
+            List<LocationModel> locations = new List<LocationModel>();
+
+            try
+            {
+                foreach (var item in pokedexNumbers)
+                {
+                    var pokedex = await _service.GetResourceByNameAsync<PokedexModel>(item.Pokedex.ApiEndpoint, item.Pokedex.Name.ToLower());
+
+                    if (pokedex == null || !pokedex.Descriptions.Any())
+                        continue;
+
+                    locations.Add(PokemonHelper.GetLocation(item.EntryNumber, pokedex));
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Erro", ex.Message);
+            }
+
+            return locations;
+        }
+
+        private async Task<IEnumerable<EvolutionModel>> GetPokemonEvolutionChainAsync(PokemonSpeciesModel species)
         {
             try
             {
-                List<PokemonDamageRelationsModel> damageRelations = new List<PokemonDamageRelationsModel>();
-                foreach (var type in Pokemon.Types)
+                var evolutionChain = await _service.GetResourceAsync<EvolutionChainModel>(species.EvolutionChain.Url);
+
+                if (evolutionChain != null)
+                    return await GetPokemonEvolutions(evolutionChain.Chain, new List<EvolutionModel>());
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Erro", ex.Message);
+            }
+
+            return new List<EvolutionModel>();
+        }
+
+        private async Task<IEnumerable<EvolutionModel>> GetPokemonEvolutions(ChainLinkModel chain, List<EvolutionModel> evolutions)
+        {
+            try
+            {
+                var pokemon = await GetEvolutionPokemon(chain);
+
+                if (pokemon != null)
                 {
-                    var damageRelation = await _service.GetPokemonDamageRelation(type.Type.Name.ToLower());
+                    EvolutionModel evolution = new EvolutionModel();
+                    evolution.Id = pokemon.Id;
+                    evolution.Name = pokemon.NameFirstCharUpper; 
+                    evolution.Image = pokemon.ImageUrl;
+                    evolution.IsBaby = chain.IsBaby;
 
-                    TypeEnum typeDefense;
-                    if (Enum.TryParse(type.Type.Name, out TypeEnum typeEnum))
-                        typeDefense = typeEnum;
-                    else
-                        typeDefense = TypeEnum.Undefined;
-
-                    if (damageRelation != null)
+                    if (chain.EvolvesTo.Any())
                     {
-
-                        List<TypeRelationModel> allTypeRelations = new List<TypeRelationModel>();
-                        var types = Enum.GetValues(typeof(TypeEnum)).Cast<int>().ToList();
-
-                        foreach (var typeItem in types)
+                        foreach (var item in chain.EvolvesTo)
                         {
-                            if ((TypeEnum)typeItem == TypeEnum.Undefined)
-                                continue;
+                            evolution.EnvolvesToMinLevel = item.EvolutionDetails.Any() ? 
+                                item.EvolutionDetails.Select(s => s.MinLevel).FirstOrDefault().HasValue ? 
+                                item.EvolutionDetails.Select(s => s.MinLevel).FirstOrDefault().Value.ToString() : "???" : "???";
 
-                            TypeRelationModel typeRelation = new TypeRelationModel();
+                            evolution.EnvolvesToName = item.Species.NameFirstCharUpper;
+                            evolution.HasEvolution = true;
 
-                            typeRelation.Type = (TypeEnum)typeItem;
+                            var nextEvolution = await GetPokemonEvolutions(item, evolutions);
 
-                            if (damageRelation.DoubleDamageFrom.Any() && damageRelation.DoubleDamageFrom.Any(x => x.Type == typeRelation.Type))
-                                typeRelation.Effect = EffectEnum.SuperEffective;
-                            else if (damageRelation.HalfDamageFrom.Any() && damageRelation.HalfDamageFrom.Any(x => x.Type == typeRelation.Type))
-                                typeRelation.Effect = EffectEnum.NotVeryEffective;
-                            else if (damageRelation.NoDamageFrom.Any() && damageRelation.NoDamageFrom.Any(x => x.Type == typeRelation.Type))
-                                typeRelation.Effect = EffectEnum.NoEffect;
-                            else
-                                typeRelation.Effect = EffectEnum.Normal;
+                            evolution.EnvolvesToId = nextEvolution.FirstOrDefault().Id;
+                            evolution.EnvolvesToImage = nextEvolution.FirstOrDefault().Image;
+                            evolutions.Add(evolution);
 
-                            allTypeRelations.Add(typeRelation);
-                        }
-
-                        damageRelations.Add(new PokemonDamageRelationsModel()
-                        {
-                            TypeDefense = typeDefense,
-                            DamageRelations = damageRelation,
-                            AllTypeRelations = new ObservableRangeCollection<TypeRelationModel>(allTypeRelations)
-                        });
-                    }
-                }
-
-                if (damageRelations.Any())
-                {
-                    if (damageRelations.Count > 1)
-                    {
-                        foreach (var item in damageRelations[0].AllTypeRelations)
-                        {
-                            var multiplier = PokemonHelper.EffectToMultiplier(item.Effect) *
-                                PokemonHelper.EffectToMultiplier(
-                                        damageRelations[1].AllTypeRelations
-                                        .Where(w => w.Type == item.Type)
-                                        .Select(s => s.Effect).FirstOrDefault()
-                                    );
-
-                            Pokemon.TypeDefenses.Add(new PokemonTypeDefenseModel()
-                            {
-                                Effect = PokemonHelper.MultiplierToEffect(multiplier),
-                                Multiplier = PokemonHelper.MultiplierToDescription(multiplier),
-                                Type = item.Type
-                            });
+                            var lastEvolution = evolutions.Where(w => !w.HasEvolution).FirstOrDefault();
+                            if (lastEvolution != null)
+                                evolutions.Remove(lastEvolution);
                         }
                     }
                     else
-                    {
-                        foreach (var item in damageRelations[0].AllTypeRelations)
-                        {
-                            var multiplier = PokemonHelper.EffectToMultiplier(item.Effect);
-
-                            Pokemon.TypeDefenses.Add(new PokemonTypeDefenseModel()
-                            {
-                                Effect = PokemonHelper.MultiplierToEffect(multiplier),
-                                Multiplier = PokemonHelper.MultiplierToDescription(multiplier),
-                                Type = item.Type
-                            });
-                        }
-                    }
+                        evolutions.Add(evolution);
                 }
-
-                if (Pokemon.TypeDefenses != null)
-                    Pokemon.Weaknesses.AddRange(Pokemon.TypeDefenses.Where(w => w.Effect == EffectEnum.SuperEffective).ToList());
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Erro", ex.Message);
             }
-        }
 
-        private async Task GetPokemonLocationDescription(PokemonPokedexNumberModel pokedexNumber)
-        {
-            try
-            {
-                var descriptions = await _service.GetPokemonLocationDescription(pokedexNumber.Pokedex.Url);
+            return evolutions?.OrderByDescending(o => o.IsBaby).ThenBy(o => o.Id).ToList();
+        } 
 
-                if (!descriptions.Any())
-                    return;
-
-                Pokemon.Locations.Add(new PokemonLocationModel()
-                {
-                    EntryNumber = pokedexNumber.EntryNumber,
-                    Description = $"({descriptions.Where(w => w.Language.Name == "en").Select(s => s.description).FirstOrDefault()})"
-                });
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Erro", ex.Message);
-            }
-        }
-
-        private async Task GetPokemonChain(string url)
-        {
-            try
-            {
-                var chain = await _service.GetPokemonChain(url);
-
-                if (chain == null)
-                    return;
-
-                List<EvolutionModel> evolutions = new List<EvolutionModel>();
-
-                if (chain.EvolvesTo.Any())
-                {
-                    var pokemonRoot = await GetEvolutionPokemon(chain);
-
-                    foreach (var item in chain.EvolvesTo)
-                    {
-                        EvolutionModel evolutionOne = new EvolutionModel();
-                        evolutionOne.Name = pokemonRoot.Name;
-                        evolutionOne.Id = pokemonRoot.Id;
-                        evolutionOne.Image = pokemonRoot.Sprites.Other.OfficialArtwork.FrontDefault;
-                        evolutionOne.HasEvolution = true;
-                        evolutionOne.EnvolvesToMinLevel = item.EvolutionDetails.Select(s => s.MinLevel).FirstOrDefault();
-                        evolutionOne.EnvolvesToName = item.Species.Name;
-
-                        var pokemonEvolutionOne = await GetEvolutionPokemon(item);
-
-                        evolutionOne.EnvolvesToImage = pokemonEvolutionOne.Sprites.Other.OfficialArtwork.FrontDefault;
-                        evolutionOne.EnvolvesToId = pokemonEvolutionOne.Id;
-
-                        evolutions.Add(evolutionOne);
-
-                        if (item.EvolvesTo.Any())
-                        {
-                            foreach (var envolves in item.EvolvesTo)
-                            {
-                                EvolutionModel evolutionTwo = new EvolutionModel();
-                                evolutionTwo.Id = evolutionOne.EnvolvesToId;
-                                evolutionTwo.Name = item.Species.Name;
-                                evolutionTwo.Image = evolutionOne.EnvolvesToImage;
-                                evolutionTwo.HasEvolution = true;
-                                evolutionTwo.EnvolvesToMinLevel = envolves.EvolutionDetails.Select(s => s.MinLevel).FirstOrDefault();
-                                evolutionTwo.EnvolvesToName = envolves.Species.Name;
-
-                                var pokemonEvolution = await GetEvolutionPokemon(envolves);
-
-                                evolutionTwo.EnvolvesToImage = pokemonEvolution.Sprites.Other.OfficialArtwork.FrontDefault;
-                                evolutionTwo.EnvolvesToId = pokemonEvolution.Id;
-
-                                evolutions.Add(evolutionTwo);
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    evolutions.Add(new EvolutionModel()
-                    {
-                        Name = Pokemon.Name,
-                        Image = Pokemon.Sprites.Other.OfficialArtwork.FrontDefault,
-                        HasEvolution = false
-                    });
-                }
-
-                Pokemon.Evolutions = new ObservableRangeCollection<EvolutionModel>(evolutions);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Erro", ex.Message);
-            }
-        }
-
-        private async Task<PokemonModel> GetEvolutionPokemon(ChainModel evolution)
+        private async Task<PokemonModel> GetEvolutionPokemon(ChainLinkModel evolution)
         {
             PokemonModel pokemon = new PokemonModel();
 
             try
             {
-
-                var id = evolution.Species.Url.Remove(evolution.Species.Url.Length - 1).Split('/')[6];
-
-                pokemon = _dbService.FindAll().Where(s => s.Id == Convert.ToInt32(id)).FirstOrDefault();
+                pokemon = _dbService.FindAll().Where(s => s.Name == evolution.Species.Name).FirstOrDefault();
 
                 if (pokemon == null)
-                    pokemon = await _service.GetPokemon($"{Constants.BASE_URL}pokemon/{id}");
+                    pokemon = await _service.GetResourceByNameAsync<PokemonModel>(Constants.ENDPOINT_POKEMON, evolution.Species.Name);
 
                 return pokemon;
             }
@@ -352,40 +234,6 @@ namespace PokedexXF.ViewModels
             {
                 IsBusy = false;
             }
-        }
-
-        private void CalculateStats()
-        {
-            Pokemon.TotalStat = 0;
-            foreach (var item in Pokemon.Stats)
-            {
-                if (item.Stat.Name.ToLower() == "hp")
-                {
-                    item.MaxStat = (((2 * item.BaseStat) + Constants.IV_MAX + (Constants.EV_MAX / 4)) * Constants.POKEMON_MAX_LEVEL / 100) + Constants.POKEMON_MAX_LEVEL + 10;
-                    item.MinStat = (((2 * item.BaseStat) + Constants.IV_MIN + (Constants.EV_MIN / 4)) * Constants.POKEMON_MAX_LEVEL / 100) + Constants.POKEMON_MAX_LEVEL + 10;
-                }
-                else
-                {
-                    item.MaxStat = (int)(((((2 * item.BaseStat) + Constants.IV_MAX + (Constants.EV_MAX / 4)) * Constants.POKEMON_MAX_LEVEL / 100) + 5) * Constants.NATURE_MAX);
-                    item.MinStat = (int)(((((2 * item.BaseStat) + Constants.IV_MIN + (Constants.EV_MIN / 4)) * Constants.POKEMON_MAX_LEVEL / 100) + 5) * Constants.NATURE_MIN);
-                }
-
-                item.PercentageStat = (double)item.BaseStat / ((item.MaxStat + item.MinStat) / 2);
-                Pokemon.TotalStat += item.BaseStat;
-            }
-        }
-
-        private void CalculateCatchRateProbability()
-        {
-            int hp = Pokemon.Stats.Where(w => w.Stat.Name.ToLower() == "hp").Select(s => s.BaseStat).FirstOrDefault();
-            double alpha = (double)(((3 * hp) - (2 * hp)) * Pokemon.CaptureRate * 1 / (3 * hp)) * 1;
-            Pokemon.CaptureProbability = (alpha/255) * 100;
-        }
-
-        private void CalculateEggSteps()
-        {
-            Pokemon.MaxSteps = Pokemon.HatchCounter * Constants.EGG_CYCLE_STEPS;
-            Pokemon.MinSteps = Pokemon.MaxSteps - (Constants.EGG_CYCLE_STEPS - 1);
         }
     }
 }

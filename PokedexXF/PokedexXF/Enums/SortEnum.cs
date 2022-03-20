@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PokedexXF.Enums
+﻿namespace PokedexXF.Enums
 {
     public enum SortEnum
     {

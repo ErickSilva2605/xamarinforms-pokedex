@@ -1,10 +1,11 @@
 ﻿using Newtonsoft.Json;
 using PokedexXF.Extensions;
 using PokedexXF.Helpers;
+using System.Collections.Generic;
 
 namespace PokedexXF.Models
 {
-    public class StatModel : ResourceBaseModel
+    public class PokedexModel : ResourceBaseModel
     {
         [JsonProperty("id")]
         public override int Id { get; set; }
@@ -16,8 +17,12 @@ namespace PokedexXF.Models
 
         public override string NameUpperCase => Name.ToUpper();
 
-        public override string ApiEndpoint => Constants.ENDPOINT_STAT;
+        public override string ApiEndpoint => Constants.ENDPOINT_POKEDEX;
 
-        public string StatDescription { get; set; }
+        [JsonProperty("is_main_series")]
+        public bool IsMainSeries { get; set; }
+
+        [JsonProperty("descriptions")]
+        public IEnumerable<DescriptionModel> Descriptions { get; set; }
     }
 }

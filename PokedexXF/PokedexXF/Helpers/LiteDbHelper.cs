@@ -1,8 +1,6 @@
 ﻿using PokedexXF.Models;
 using PokedexXF.Services;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PokedexXF.Helpers
 {

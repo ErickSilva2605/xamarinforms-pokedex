@@ -1,7 +1,4 @@
 ﻿using PokedexXF.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PokedexXF.Models
 {

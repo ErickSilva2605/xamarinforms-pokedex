@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace PokedexXF.Enums
+﻿namespace PokedexXF.Enums
 {
     public enum GenerationEnum
     {

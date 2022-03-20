@@ -139,7 +139,7 @@
                             Margin="30,70,0,0"
                             HeightRequest="125"
                             HorizontalOptions="Start"
-                            Source="{Binding Pokemon.Sprites.Other.OfficialArtwork.FrontDefault}"
+                            Source="{Binding Pokemon.ImageUrl}"
                             VerticalOptions="Start"
                             WidthRequest="125"
                             />
@@ -161,7 +161,7 @@
                                     <Span Text="{x:Static system:Environment.NewLine}" />
                                     <Span
                                         Style="{StaticResource LabelAplicationTitle}"
-                                        Text="{Binding Pokemon.Name}"
+                                        Text="{Binding Pokemon.NameFirstCharUpper}"
                                         TextColor="{StaticResource ColorTextWhite}"
                                         />
                                 </FormattedString>
@@ -187,7 +187,7 @@
                         <magic:CssGradientSource>
                             <x:String>
                                 <![CDATA[
-                                    linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 76.04%)
+                                    linear-gradient(180deg, rgba(255, 255, 255, 0.3) 40%, rgba(255, 255, 255, 0) 76.04%)
                                 ]]>
                             </x:String>
                         </magic:CssGradientSource>
@@ -196,7 +196,7 @@
                                 ClipMode="Include"
                                 FontAttributes="Bold"
                                 FontFamily="FontBold"
-                                FontSize="105"
+                                FontSize="108"
                                 Text="{Binding Pokemon.NameUpperCase}"
                                 />
                         </magic:GradientView.Mask>

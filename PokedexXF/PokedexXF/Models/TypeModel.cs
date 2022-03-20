@@ -1,22 +1,40 @@
 ﻿using Newtonsoft.Json;
+using PokedexXF.Enums;
+using PokedexXF.Extensions;
+using PokedexXF.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
 
 namespace PokedexXF.Models
 {
-    public class TypeModel
+    public class TypeModel : ResourceBaseModel
     {
-        [JsonProperty("name")]
-        private string _name;
-        public string Name
-        {
-            get => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(_name.ToLower());
-            set => _name = value;
-        }
+        [JsonProperty("id")]
+        public override int Id { get; set; }
 
-        [JsonProperty("url")]
-        public string Url { get; set; }
+        [JsonProperty("name")]
+        public override string Name { get; set; }
+
+        public override string NameFirstCharUpper => Name.FirstCharToUpper();
+
+        public override string NameUpperCase => Name.ToUpper();
+
+        public override string ApiEndpoint => Constants.ENDPOINT_TYPE;
+
+        [JsonProperty("damage_relations")]
+        public TypeRelationsModel DamageRelations { get; set; }
+
+        public IEnumerable<TypeRelationModel> AllTypeRelations { get; set; }
+
+        public TypeEnum Type
+        {
+            get
+            {
+                if (Enum.TryParse(NameFirstCharUpper, out TypeEnum type))
+                    return type;
+                else
+                    return TypeEnum.Undefined;
+            }
+        }
     }
 }

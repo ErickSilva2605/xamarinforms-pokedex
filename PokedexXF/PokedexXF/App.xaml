@@ -17,7 +17,7 @@
         <Color x:Key="ColorBackgroundWhite">#FFFFFF</Color>
         <Color x:Key="ColorBackgroundDefaultInput">#F2F2F2</Color>
         <Color x:Key="ColorBackgroundPressedInput">#E2E2E2</Color>
-        <Color x:Key="ColorBackgroundModal">#000000</Color>
+        <Color x:Key="ColorBackgroundModal">#17171B</Color>
 
         <Color x:Key="ColorBackgroundTypeBug">#8BD674</Color>
         <Color x:Key="ColorBackgroundTypeDark">#6F6E78</Color>

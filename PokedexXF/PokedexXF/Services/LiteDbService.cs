@@ -1,7 +1,5 @@
 ﻿using LiteDB;
 using System.Collections.Generic;
-using System.IO;
-using Xamarin.Essentials;
 
 namespace PokedexXF.Services
 {

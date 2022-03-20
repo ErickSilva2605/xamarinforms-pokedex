@@ -1,22 +1,16 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
 
 namespace PokedexXF.Models
 {
-    public class PokemonAbilityModel
+    public class PokemonAbilityModel 
     {
-        [JsonProperty("name")]
-        private string _name;
-        public string Name
-        {
-            get => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(_name.ToLower());
-            set => _name = value;
-        }
+        [JsonProperty("is_hidden")]
+        public bool IsHidden { get; set; }
 
-        [JsonProperty("url")]
-        public string Url { get; set; }
+        [JsonProperty("slot")]
+        public int Slot { get; set; }
+
+        [JsonProperty("ability")]
+        public AbilityModel Ability { get; set; }
     }
 }
