@@ -15,7 +15,8 @@ namespace PokedexXF.ViewModels
     public class DetailViewModel : BaseViewModel
     {
         private readonly IRestService _service;
-        private readonly LiteDbService<PokemonModel> _dbService;
+        private readonly LiteDbService<PokemonModel> _pokemonDbService;
+        private readonly LiteDbService<PokemonSpeciesModel> _pokemonSpeciesDbService;
         private PokemonModel _pokemon;
         private PokemonSpeciesModel _pokemonSpecies;
 
@@ -38,7 +39,8 @@ namespace PokedexXF.ViewModels
         public DetailViewModel(INavigation navigation, IRestService restService, PokemonModel pokemon) : base(navigation)
         {
             _service = restService;
-            _dbService = new LiteDbService<PokemonModel>();
+            _pokemonDbService = new LiteDbService<PokemonModel>();
+            _pokemonSpeciesDbService = new LiteDbService<PokemonSpeciesModel>();
             Pokemon = pokemon;
             PokemonSpecies = new PokemonSpeciesModel();
 
@@ -61,8 +63,21 @@ namespace PokedexXF.ViewModels
                     return;
                 }
 
-                PokemonSpecies = await GetPokemonSpeciesAsync();
-            }
+                var dbSpecies = _pokemonSpeciesDbService.FindById(Pokemon.Id);
+
+                if (dbSpecies == null)
+                {
+                    PokemonSpecies = await GetPokemonSpeciesAsync();
+
+                    if(PokemonSpecies != null)
+                        LiteDbHelper.UpdatePokemonSpeciesDataBase(_pokemonSpeciesDbService, PokemonSpecies);
+                }
+                else
+                {
+                    await Task.Delay(2000);
+                    PokemonSpecies = dbSpecies;
+                }
+            } 
             catch (Exception ex)
             {
                 Debug.WriteLine("Erro", ex.Message);
@@ -200,7 +215,7 @@ namespace PokedexXF.ViewModels
 
             try
             {
-                pokemon = _dbService.FindAll().Where(s => s.Name == evolution.Species.Name).FirstOrDefault();
+                pokemon = _pokemonDbService.FindAll().Where(s => s.Name == evolution.Species.Name).FirstOrDefault();
 
                 if (pokemon == null)
                     pokemon = await _service.GetResourceByNameAsync<PokemonModel>(Constants.ENDPOINT_POKEMON, evolution.Species.Name);

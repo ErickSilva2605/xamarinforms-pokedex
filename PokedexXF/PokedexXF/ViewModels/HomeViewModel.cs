@@ -166,7 +166,7 @@ namespace PokedexXF.ViewModels
                     Pokemons = new ObservableRangeCollection<PokemonModel>(await GetPokemonsAsync());
 
                     if (Pokemons.Any())
-                        LiteDbHelper.UpdateDataBase(_dbService, Pokemons);
+                        LiteDbHelper.UpdatePokemonListDataBase(_dbService, Pokemons);
                 }
                 else
                 {
@@ -223,7 +223,7 @@ namespace PokedexXF.ViewModels
                         Pokemons.AddRange(pokemonList);
 
                     if (Pokemons.Any())
-                        LiteDbHelper.UpdateDataBase(_dbService, Pokemons);
+                        LiteDbHelper.UpdatePokemonListDataBase(_dbService, Pokemons);
                 }
                 else
                 {

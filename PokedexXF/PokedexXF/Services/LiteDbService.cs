@@ -16,6 +16,11 @@ namespace PokedexXF.Services
             return _collection.FindAll();
         }
 
+        public T FindById(int id)
+        {
+            return _collection.FindById(id);
+        }
+
         public bool UpsertItem(T item)
         {
             return _collection.Upsert(item);
