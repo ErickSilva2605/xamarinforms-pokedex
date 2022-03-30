@@ -1,8 +1,9 @@
 ﻿using Newtonsoft.Json;
+using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace PokedexXF.Models
 {
-    public class PokemonStatModel 
+    public class PokemonStatModel : ObservableObject
     {
         [JsonProperty("stat")]
         public StatModel Stat { get; set; }
@@ -18,5 +19,8 @@ namespace PokedexXF.Models
         public int MinStat { get; set; }
 
         public double PercentageStat { get; set; }
+
+        private bool _isBusy;
+        public bool IsBusy { get => _isBusy; set => SetProperty(ref _isBusy, value); }
     }
 }

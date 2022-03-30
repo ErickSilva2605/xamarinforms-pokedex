@@ -28,7 +28,10 @@
                     <pancake:PancakeView
                         Margin="0"
                         Padding="6"
-                        skeleton:Skeleton.BackgroundColor="{StaticResource ColorDarkGray}"
+                        skeleton:Skeleton.Animation="{skeleton:DefaultAnimation Source=Fade,
+                                                                                Interval='600',
+                                                                                Parameter='0.3'}"
+                        skeleton:Skeleton.BackgroundColor="{StaticResource ColorTextWhite}"
                         skeleton:Skeleton.IsBusy="{Binding IsBusy}"
                         BackgroundColor="{Binding Type.NameFirstCharUpper, Converter={StaticResource converterTypeToColorType}}"
                         CornerRadius="3"

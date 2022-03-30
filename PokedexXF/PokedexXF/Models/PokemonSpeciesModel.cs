@@ -86,5 +86,7 @@ namespace PokedexXF.Models
 
         public IEnumerable<EvolutionModel> Evolutions { get; set; }
 
+        public bool IsBusy { get; set; }
+
     }
 }

@@ -45,18 +45,88 @@ namespace PokedexXF.Helpers
         {
             return new List<PokemonTypeModel>
             {
-                new PokemonTypeModel()
+                new PokemonTypeModel { Slot = 1, Type = new TypeModel() { Name = "xxxxx" }, IsBusy = true },
+                new PokemonTypeModel { Slot = 1, Type = new TypeModel() { Name = "xxxxx" }, IsBusy = true }
+            };
+        }
+
+        public static PokemonSpeciesModel GetMockPokemonSpecies()
+        {
+            return new PokemonSpeciesModel()
+            {
+                BaseHappiness = 0,
+                CaptureProbability = 0,
+                CaptureRate = 0,
+                EggGroups = new List<EggGroupModel>(),
+                EggGroupsDescription = "XXXXXXXXXXXXXX",
+                EvolutionChain = new EvolutionChainModel(),
+                Evolutions = GetMockPokemonEvolutions(),
+                EvYield = "XXXXXXXXXXXXXX",
+                FlavorText = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                FlavorTextEntries = new List<PokemonSpeciesFlavorTextsModel>(),
+                GenderDescription = "XXXXXXXXXXXXXX",
+                GenderRate = 0,
+                Genera = new List<GenusesModel>(),
+                GenusDescription = "XXXXXXXXXXXXXX",
+                GrowthRate = new GrowthRateModel(),
+                GrowthRateDescription = "XXXXXXXXXXXXXX",
+                HasGenderDifferences = false,
+                HatchCounter = 0,
+                Id = 0,
+                IsBaby = false,
+                IsBusy = true,
+                IsLegendary = false,
+                IsMythical = false,
+                Locations = GetMockPokemonLocations(),
+                MaxEggSteps = 0,
+                MinEggSteps = 0,
+                Name = "XXXXXXXXXXXXXX",
+                Order = 0,
+                PokedexNumbers = new List<PokemonSpeciesDexEntryModel>()
+            };
+        }
+
+        public static IEnumerable<EvolutionModel> GetMockPokemonEvolutions()
+        {
+            return new List<EvolutionModel>
+            {
+                new EvolutionModel 
                 {
-                    Slot = 1,
-                    Type = new TypeModel() { Name = "xxxxx" },
-                    IsBusy = true
+                    Id = 0,
+                    Name = "XXXXXXXXX",
+                    Image = string.Empty,
+                    EnvolvesToId = 0,
+                    EnvolvesToImage = string.Empty,
+                    EnvolvesToMinLevel = "XX",
+                    EnvolvesToName = "XXXXXXXXX",
+                    IsBaby = false,
+                    HasEvolution = true,
+                    IsBusy = true 
                 },
-                new PokemonTypeModel()
+                new EvolutionModel
                 {
-                    Slot = 1,
-                    Type = new TypeModel() { Name = "xxxxx" },
+                    Id = 0,
+                    Name = "XXXXXXXXX",
+                    Image = string.Empty,
+                    EnvolvesToId = 0,
+                    EnvolvesToImage = string.Empty,
+                    EnvolvesToMinLevel = "XX",
+                    EnvolvesToName = "XXXXXXXXX",
+                    IsBaby = false,
+                    HasEvolution = true,
                     IsBusy = true
                 }
+            };
+        }
+
+        public static IEnumerable<LocationModel> GetMockPokemonLocations()
+        {
+            return new List<LocationModel>
+            {
+                new LocationModel { Description = "XXXXXXXXXXXXXX", EntryNumber = 100000, IsBusy = true },
+                new LocationModel { Description = "XXXXXXXXXXXXXX", EntryNumber = 100000, IsBusy = true },
+                new LocationModel { Description = "XXXXXXXXXXXXXX", EntryNumber = 100000, IsBusy = true },
+                new LocationModel { Description = "XXXXXXXXXXXXXX", EntryNumber = 100000, IsBusy = true }
             };
         }
 

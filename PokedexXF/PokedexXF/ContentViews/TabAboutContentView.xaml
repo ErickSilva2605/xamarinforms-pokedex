@@ -5,11 +5,20 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converters="clr-namespace:PokedexXF.Converters"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:skeleton="clr-namespace:Xamarin.Forms.Skeleton;assembly=Xamarin.Forms.Skeleton"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     >
     <ContentView.Resources>
         <converters:ConverterTypeToColorType x:Key="converterTypeToColorType" />
         <converters:ConverterTypeToImageType x:Key="converterTypeToImageType" />
+
+        <Style
+            x:Key="cardSkeletonAbout"
+            BasedOn="{StaticResource CardSkeleton}"
+            TargetType="{x:Type pancake:PancakeView}"
+            >
+            <Setter Property="skeleton:Skeleton.IsBusy" Value="{Binding PokemonSpecies.IsBusy}" />
+        </Style>
     </ContentView.Resources>
     <ContentView.Content>
         <StackLayout VerticalOptions="FillAndExpand">
@@ -27,22 +36,33 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Label
-                    Margin="0,0,0,15"
-                    HorizontalOptions="Start"
-                    Style="{StaticResource LabelDescription}"
-                    Text="{Binding PokemonSpecies.FlavorText}"
-                    TextColor="{StaticResource ColorTextGray}"
-                    VerticalOptions="Start"
-                    />
+
+                <pancake:PancakeView Style="{StaticResource cardSkeletonAbout}">
+                    <Label
+                        HorizontalOptions="Start"
+                        Style="{StaticResource LabelDescription}"
+                        Text="{Binding PokemonSpecies.FlavorText}"
+                        TextColor="{StaticResource ColorTextGray}"
+                        VerticalOptions="Start"
+                        />
+                </pancake:PancakeView>
+
 
                 <!--  Pokédex Data Section  -->
-                <Label
+                <pancake:PancakeView
                     Grid.Row="1"
-                    Style="{StaticResource LabelFilterTitle}"
-                    Text="Pokédex Data"
-                    TextColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorType}}"
-                    />
+                    HorizontalOptions="Start"
+                    Style="{StaticResource cardSkeletonAbout}"
+                    WidthRequest="120"
+                    >
+                    <Label
+                        HorizontalOptions="Start"
+                        Style="{StaticResource LabelFilterTitle}"
+                        Text="Pokédex Data"
+                        TextColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorType}}"
+                        />
+                </pancake:PancakeView>
+
                 <Grid
                     Grid.Row="2"
                     ColumnSpacing="10"
@@ -59,84 +79,101 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <Label
-                        HorizontalOptions="Start"
-                        Style="{StaticResource LabelPokemonType}"
-                        Text="Species"
-                        TextColor="{StaticResource ColorTextBlack}"
-                        VerticalOptions="Center"
-                        />
-                    <Label
-                        Grid.Row="1"
-                        HorizontalOptions="Start"
-                        Style="{StaticResource LabelPokemonType}"
-                        Text="Height"
-                        TextColor="{StaticResource ColorTextBlack}"
-                        VerticalOptions="Center"
-                        />
-                    <Label
-                        Grid.Row="2"
-                        HorizontalOptions="Start"
-                        Style="{StaticResource LabelPokemonType}"
-                        Text="Weight"
-                        TextColor="{StaticResource ColorTextBlack}"
-                        VerticalOptions="Center"
-                        />
-                    <Label
-                        Grid.Row="3"
-                        HorizontalOptions="Start"
-                        Style="{StaticResource LabelPokemonType}"
-                        Text="Abilities"
-                        TextColor="{StaticResource ColorTextBlack}"
-                        VerticalOptions="Center"
-                        />
-                    <Label
-                        Grid.Row="4"
-                        HorizontalOptions="Start"
-                        Style="{StaticResource LabelPokemonType}"
-                        Text="Weaknesses"
-                        TextColor="{StaticResource ColorTextBlack}"
-                        VerticalOptions="Center"
-                        />
 
-                    <Label
-                        Grid.Column="1"
-                        HorizontalOptions="Start"
-                        Style="{StaticResource LabelDescription}"
-                        Text="{Binding PokemonSpecies.GenusDescription}"
-                        TextColor="{StaticResource ColorTextGray}"
-                        VerticalOptions="Center"
-                        />
-                    <Label
+                    <pancake:PancakeView Style="{StaticResource cardSkeletonAbout}">
+                        <Label
+                            HorizontalOptions="Start"
+                            Style="{StaticResource LabelPokemonType}"
+                            Text="Species"
+                            TextColor="{StaticResource ColorTextBlack}"
+                            VerticalOptions="Center"
+                            />
+                    </pancake:PancakeView>
+                    <pancake:PancakeView Grid.Row="1" Style="{StaticResource cardSkeletonAbout}">
+                        <Label
+                            HorizontalOptions="Start"
+                            Style="{StaticResource LabelPokemonType}"
+                            Text="Height"
+                            TextColor="{StaticResource ColorTextBlack}"
+                            VerticalOptions="Center"
+                            />
+                    </pancake:PancakeView>
+                    <pancake:PancakeView Grid.Row="2" Style="{StaticResource cardSkeletonAbout}">
+                        <Label
+                            HorizontalOptions="Start"
+                            Style="{StaticResource LabelPokemonType}"
+                            Text="Weight"
+                            TextColor="{StaticResource ColorTextBlack}"
+                            VerticalOptions="Center"
+                            />
+                    </pancake:PancakeView>
+                    <pancake:PancakeView Grid.Row="3" Style="{StaticResource cardSkeletonAbout}">
+                        <Label
+                            HorizontalOptions="Start"
+                            Style="{StaticResource LabelPokemonType}"
+                            Text="Abilities"
+                            TextColor="{StaticResource ColorTextBlack}"
+                            VerticalOptions="Center"
+                            />
+                    </pancake:PancakeView>
+                    <pancake:PancakeView Grid.Row="4" Style="{StaticResource cardSkeletonAbout}">
+                        <Label
+                            HorizontalOptions="Start"
+                            Style="{StaticResource LabelPokemonType}"
+                            Text="Weaknesses"
+                            TextColor="{StaticResource ColorTextBlack}"
+                            VerticalOptions="Center"
+                            />
+                    </pancake:PancakeView>
+
+                    <pancake:PancakeView Grid.Column="1" Style="{StaticResource cardSkeletonAbout}">
+                        <Label
+                            HorizontalOptions="Start"
+                            Style="{StaticResource LabelDescription}"
+                            Text="{Binding PokemonSpecies.GenusDescription}"
+                            TextColor="{StaticResource ColorTextGray}"
+                            VerticalOptions="Center"
+                            />
+                    </pancake:PancakeView>
+                    <pancake:PancakeView
                         Grid.Row="1"
                         Grid.Column="1"
-                        HorizontalOptions="Start"
-                        TextColor="{StaticResource ColorTextGray}"
-                        VerticalOptions="Center"
+                        Style="{StaticResource cardSkeletonAbout}"
                         >
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Style="{StaticResource LabelDescription}" Text="{Binding Pokemon.Meters, StringFormat='{0:N1}m'}" />
-                                <Span Text=" " />
-                                <Span Style="{StaticResource LabelPokemonType}" Text="{Binding Pokemon.Inches}" />
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <Label
+                        <Label
+                            HorizontalOptions="Start"
+                            TextColor="{StaticResource ColorTextGray}"
+                            VerticalOptions="Center"
+                            >
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Style="{StaticResource LabelDescription}" Text="{Binding Pokemon.Meters, StringFormat='{0:N1}m'}" />
+                                    <Span Text=" " />
+                                    <Span Style="{StaticResource LabelPokemonType}" Text="{Binding Pokemon.Inches}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </pancake:PancakeView>
+                    <pancake:PancakeView
                         Grid.Row="2"
                         Grid.Column="1"
-                        HorizontalOptions="Start"
-                        TextColor="{StaticResource ColorTextGray}"
-                        VerticalOptions="Center"
+                        Style="{StaticResource cardSkeletonAbout}"
                         >
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Style="{StaticResource LabelDescription}" Text="{Binding Pokemon.Kilograms, StringFormat='{0:N1}kg'}" />
-                                <Span Text=" " />
-                                <Span Style="{StaticResource LabelPokemonType}" Text="{Binding Pokemon.Pounds, StringFormat='({0:N1} lbs)'}" />
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
+                        <Label
+                            HorizontalOptions="Start"
+                            TextColor="{StaticResource ColorTextGray}"
+                            VerticalOptions="Center"
+                            >
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Style="{StaticResource LabelDescription}" Text="{Binding Pokemon.Kilograms, StringFormat='{0:N1}kg'}" />
+                                    <Span Text=" " />
+                                    <Span Style="{StaticResource LabelPokemonType}" Text="{Binding Pokemon.Pounds, StringFormat='({0:N1} lbs)'}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </pancake:PancakeView>
+
                     <StackLayout
                         Grid.Row="3"
                         Grid.Column="1"
@@ -147,24 +184,26 @@
                         >
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
-                                <Label
-                                    HorizontalOptions="Start"
-                                    Style="{StaticResource LabelDescription}"
-                                    Text="{Binding Ability.NameFirstCharUpper}"
-                                    TextColor="{StaticResource ColorTextGray}"
-                                    VerticalOptions="Center"
-                                    >
-                                    <Label.Triggers>
-                                        <DataTrigger
-                                            Binding="{Binding IsHidden}"
-                                            TargetType="Label"
-                                            Value="True"
-                                            >
-                                            <Setter Property="Style" Value="{StaticResource LabelPokemonType}" />
-                                            <Setter Property="Text" Value="{Binding Ability.NameFirstCharUpper, StringFormat='{0} (hidden ability)'}" />
-                                        </DataTrigger>
-                                    </Label.Triggers>
-                                </Label>
+                                <pancake:PancakeView skeleton:Skeleton.IsBusy="{Binding IsBusy}" Style="{StaticResource CardSkeleton}">
+                                    <Label
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelDescription}"
+                                        Text="{Binding Ability.NameFirstCharUpper}"
+                                        TextColor="{StaticResource ColorTextGray}"
+                                        VerticalOptions="Center"
+                                        >
+                                        <Label.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding IsHidden}"
+                                                TargetType="Label"
+                                                Value="True"
+                                                >
+                                                <Setter Property="Style" Value="{StaticResource LabelPokemonType}" />
+                                                <Setter Property="Text" Value="{Binding Ability.NameFirstCharUpper, StringFormat='{0} (hidden ability)'}" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                </pancake:PancakeView>
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
                     </StackLayout>
@@ -180,20 +219,22 @@
                         >
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
-                                <pancake:PancakeView
-                                    Padding="5"
-                                    BackgroundColor="{Binding Type, Converter={StaticResource converterTypeToColorType}}"
-                                    CornerRadius="3"
-                                    HeightRequest="25"
-                                    WidthRequest="25"
-                                    >
-                                    <Image
-                                        xct:IconTintColorEffect.TintColor="{StaticResource ColorTextWhite}"
-                                        HeightRequest="18"
-                                        HorizontalOptions="Center"
-                                        Source="{Binding Type, Converter={StaticResource converterTypeToImageType}}"
-                                        VerticalOptions="Center"
-                                        />
+                                <pancake:PancakeView skeleton:Skeleton.IsBusy="{Binding IsBusy}" Style="{StaticResource CardSkeleton}">
+                                    <pancake:PancakeView
+                                        Padding="5"
+                                        BackgroundColor="{Binding Type, Converter={StaticResource converterTypeToColorType}}"
+                                        CornerRadius="3"
+                                        HeightRequest="25"
+                                        WidthRequest="25"
+                                        >
+                                        <Image
+                                            xct:IconTintColorEffect.TintColor="{StaticResource ColorTextWhite}"
+                                            HeightRequest="18"
+                                            HorizontalOptions="Center"
+                                            Source="{Binding Type, Converter={StaticResource converterTypeToImageType}}"
+                                            VerticalOptions="Center"
+                                            />
+                                    </pancake:PancakeView>
                                 </pancake:PancakeView>
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
@@ -201,12 +242,19 @@
                 </Grid>
 
                 <!--  Training Section  -->
-                <Label
+                <pancake:PancakeView
                     Grid.Row="3"
-                    Style="{StaticResource LabelFilterTitle}"
-                    Text="Training"
-                    TextColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorType}}"
-                    />
+                    HorizontalOptions="Start"
+                    Style="{StaticResource cardSkeletonAbout}"
+                    WidthRequest="120"
+                    >
+                    <Label
+                        HorizontalOptions="Start"
+                        Style="{StaticResource LabelFilterTitle}"
+                        Text="Training"
+                        TextColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorType}}"
+                        />
+                </pancake:PancakeView>
                 <Grid
                     Grid.Row="4"
                     ColumnSpacing="10"
@@ -223,111 +271,141 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <Label
-                        HorizontalOptions="Start"
-                        Style="{StaticResource LabelPokemonType}"
-                        Text="EV Yield"
-                        TextColor="{StaticResource ColorTextBlack}"
-                        VerticalOptions="Center"
-                        />
-                    <Label
-                        Grid.Row="1"
-                        HorizontalOptions="Start"
-                        Style="{StaticResource LabelPokemonType}"
-                        Text="Catch Rate"
-                        TextColor="{StaticResource ColorTextBlack}"
-                        VerticalOptions="Center"
-                        />
-                    <Label
-                        Grid.Row="2"
-                        HorizontalOptions="Start"
-                        Style="{StaticResource LabelPokemonType}"
-                        Text="Base Friendship"
-                        TextColor="{StaticResource ColorTextBlack}"
-                        VerticalOptions="Center"
-                        />
-                    <Label
-                        Grid.Row="3"
-                        HorizontalOptions="Start"
-                        Style="{StaticResource LabelPokemonType}"
-                        Text="Base Exp"
-                        TextColor="{StaticResource ColorTextBlack}"
-                        VerticalOptions="Center"
-                        />
-                    <Label
-                        Grid.Row="4"
-                        HorizontalOptions="Start"
-                        Style="{StaticResource LabelPokemonType}"
-                        Text="Growth Rate"
-                        TextColor="{StaticResource ColorTextBlack}"
-                        VerticalOptions="Center"
-                        />
+                    <pancake:PancakeView Style="{StaticResource cardSkeletonAbout}">
+                        <Label
+                            HorizontalOptions="Start"
+                            Style="{StaticResource LabelPokemonType}"
+                            Text="EV Yield"
+                            TextColor="{StaticResource ColorTextBlack}"
+                            VerticalOptions="Center"
+                            />
+                    </pancake:PancakeView>
+                    <pancake:PancakeView Grid.Row="1" Style="{StaticResource cardSkeletonAbout}">
+                        <Label
+                            HorizontalOptions="Start"
+                            Style="{StaticResource LabelPokemonType}"
+                            Text="Catch Rate"
+                            TextColor="{StaticResource ColorTextBlack}"
+                            VerticalOptions="Center"
+                            />
+                    </pancake:PancakeView>
+                    <pancake:PancakeView Grid.Row="2" Style="{StaticResource cardSkeletonAbout}">
+                        <Label
+                            HorizontalOptions="Start"
+                            Style="{StaticResource LabelPokemonType}"
+                            Text="Base Friendship"
+                            TextColor="{StaticResource ColorTextBlack}"
+                            VerticalOptions="Center"
+                            />
+                    </pancake:PancakeView>
+                    <pancake:PancakeView Grid.Row="3" Style="{StaticResource cardSkeletonAbout}">
+                        <Label
+                            HorizontalOptions="Start"
+                            Style="{StaticResource LabelPokemonType}"
+                            Text="Base Exp"
+                            TextColor="{StaticResource ColorTextBlack}"
+                            VerticalOptions="Center"
+                            />
+                    </pancake:PancakeView>
+                    <pancake:PancakeView Grid.Row="4" Style="{StaticResource cardSkeletonAbout}">
+                        <Label
+                            HorizontalOptions="Start"
+                            Style="{StaticResource LabelPokemonType}"
+                            Text="Growth Rate"
+                            TextColor="{StaticResource ColorTextBlack}"
+                            VerticalOptions="Center"
+                            />
+                    </pancake:PancakeView>
 
-                    <Label
-                        Grid.Column="1"
-                        HorizontalOptions="Start"
-                        Style="{StaticResource LabelDescription}"
-                        Text="{Binding PokemonSpecies.EvYield}"
-                        TextColor="{StaticResource ColorTextGray}"
-                        VerticalOptions="Center"
-                        />
-                    <Label
+                    <pancake:PancakeView Grid.Column="1" Style="{StaticResource cardSkeletonAbout}">
+                        <Label
+                            HorizontalOptions="Start"
+                            Style="{StaticResource LabelDescription}"
+                            Text="{Binding PokemonSpecies.EvYield}"
+                            TextColor="{StaticResource ColorTextGray}"
+                            VerticalOptions="Center"
+                            />
+                    </pancake:PancakeView>
+                    <pancake:PancakeView
                         Grid.Row="1"
                         Grid.Column="1"
-                        HorizontalOptions="Start"
-                        TextColor="{StaticResource ColorTextGray}"
-                        VerticalOptions="Center"
+                        Style="{StaticResource cardSkeletonAbout}"
                         >
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Style="{StaticResource LabelDescription}" Text="{Binding PokemonSpecies.CaptureRate}" />
-                                <Span Text=" " />
-                                <Span Style="{StaticResource LabelPokemonType}" Text="{Binding PokemonSpecies.CaptureProbability, StringFormat='({0:P1} with PokéBall, full HP)'}" />
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <Label
+                        <Label
+                            HorizontalOptions="Start"
+                            TextColor="{StaticResource ColorTextGray}"
+                            VerticalOptions="Center"
+                            >
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Style="{StaticResource LabelDescription}" Text="{Binding PokemonSpecies.CaptureRate}" />
+                                    <Span Text=" " />
+                                    <Span Style="{StaticResource LabelPokemonType}" Text="{Binding PokemonSpecies.CaptureProbability, StringFormat='({0:P1} with PokéBall, full HP)'}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </pancake:PancakeView>
+                    <pancake:PancakeView
                         Grid.Row="2"
                         Grid.Column="1"
-                        HorizontalOptions="Start"
-                        TextColor="{StaticResource ColorTextGray}"
-                        VerticalOptions="Center"
+                        Style="{StaticResource cardSkeletonAbout}"
                         >
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Style="{StaticResource LabelDescription}" Text="{Binding PokemonSpecies.BaseHappiness}" />
-                                <Span Text=" " />
-                                <Span Style="{StaticResource LabelPokemonType}" Text="(normal)" />
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <Label
+                        <Label
+                            HorizontalOptions="Start"
+                            TextColor="{StaticResource ColorTextGray}"
+                            VerticalOptions="Center"
+                            >
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Style="{StaticResource LabelDescription}" Text="{Binding PokemonSpecies.BaseHappiness}" />
+                                    <Span Text=" " />
+                                    <Span Style="{StaticResource LabelPokemonType}" Text="(normal)" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </pancake:PancakeView>
+                    <pancake:PancakeView
                         Grid.Row="3"
                         Grid.Column="1"
-                        HorizontalOptions="Start"
-                        Style="{StaticResource LabelDescription}"
-                        Text="{Binding Pokemon.BaseExperience}"
-                        TextColor="{StaticResource ColorTextGray}"
-                        VerticalOptions="Center"
-                        />
-                    <Label
+                        Style="{StaticResource cardSkeletonAbout}"
+                        >
+                        <Label
+                            HorizontalOptions="Start"
+                            Style="{StaticResource LabelDescription}"
+                            Text="{Binding Pokemon.BaseExperience}"
+                            TextColor="{StaticResource ColorTextGray}"
+                            VerticalOptions="Center"
+                            />
+                    </pancake:PancakeView>
+                    <pancake:PancakeView
                         Grid.Row="4"
                         Grid.Column="1"
-                        HorizontalOptions="Start"
-                        Style="{StaticResource LabelDescription}"
-                        Text="{Binding PokemonSpecies.GrowthRateDescription}"
-                        TextColor="{StaticResource ColorTextGray}"
-                        VerticalOptions="Center"
-                        />
+                        Style="{StaticResource cardSkeletonAbout}"
+                        >
+                        <Label
+                            HorizontalOptions="Start"
+                            Style="{StaticResource LabelDescription}"
+                            Text="{Binding PokemonSpecies.GrowthRateDescription}"
+                            TextColor="{StaticResource ColorTextGray}"
+                            VerticalOptions="Center"
+                            />
+                    </pancake:PancakeView>
                 </Grid>
 
                 <!--  Breeding Section  -->
-                <Label
+                <pancake:PancakeView
                     Grid.Row="5"
-                    Style="{StaticResource LabelFilterTitle}"
-                    Text="Breeding"
-                    TextColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorType}}"
-                    />
+                    HorizontalOptions="Start"
+                    Style="{StaticResource cardSkeletonAbout}"
+                    WidthRequest="120"
+                    >
+                    <Label
+                        HorizontalOptions="Start"
+                        Style="{StaticResource LabelFilterTitle}"
+                        Text="Breeding"
+                        TextColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorType}}"
+                        />
+                </pancake:PancakeView>
                 <Grid
                     Grid.Row="6"
                     ColumnSpacing="10"
@@ -342,76 +420,96 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <Label
-                        HorizontalOptions="Start"
-                        Style="{StaticResource LabelPokemonType}"
-                        Text="Gender"
-                        TextColor="{StaticResource ColorTextBlack}"
-                        VerticalOptions="Center"
-                        />
-                    <Label
-                        Grid.Row="1"
-                        HorizontalOptions="Start"
-                        Style="{StaticResource LabelPokemonType}"
-                        Text="Egg Groups"
-                        TextColor="{StaticResource ColorTextBlack}"
-                        VerticalOptions="Center"
-                        />
-                    <Label
-                        Grid.Row="2"
-                        HorizontalOptions="Start"
-                        Style="{StaticResource LabelPokemonType}"
-                        Text="Egg Cycles"
-                        TextColor="{StaticResource ColorTextBlack}"
-                        VerticalOptions="Center"
-                        />
+                    <pancake:PancakeView Style="{StaticResource cardSkeletonAbout}">
+                        <Label
+                            HorizontalOptions="Start"
+                            Style="{StaticResource LabelPokemonType}"
+                            Text="Gender"
+                            TextColor="{StaticResource ColorTextBlack}"
+                            VerticalOptions="Center"
+                            />
+                    </pancake:PancakeView>
+                    <pancake:PancakeView Grid.Row="1" Style="{StaticResource cardSkeletonAbout}">
+                        <Label
+                            HorizontalOptions="Start"
+                            Style="{StaticResource LabelPokemonType}"
+                            Text="Egg Groups"
+                            TextColor="{StaticResource ColorTextBlack}"
+                            VerticalOptions="Center"
+                            />
+                    </pancake:PancakeView>
+                    <pancake:PancakeView Grid.Row="2" Style="{StaticResource cardSkeletonAbout}">
+                        <Label
+                            HorizontalOptions="Start"
+                            Style="{StaticResource LabelPokemonType}"
+                            Text="Egg Cycles"
+                            TextColor="{StaticResource ColorTextBlack}"
+                            VerticalOptions="Center"
+                            />
+                    </pancake:PancakeView>
 
-                    <Label
-                        Grid.Column="1"
-                        HorizontalOptions="Start"
-                        Style="{StaticResource LabelDescription}"
-                        Text="{Binding PokemonSpecies.GenderDescription}"
-                        TextColor="{StaticResource ColorTextGray}"
-                        VerticalOptions="Center"
-                        />
-                    <Label
+                    <pancake:PancakeView Grid.Column="1" Style="{StaticResource cardSkeletonAbout}">
+                        <Label
+                            HorizontalOptions="Start"
+                            Style="{StaticResource LabelDescription}"
+                            Text="{Binding PokemonSpecies.GenderDescription}"
+                            TextColor="{StaticResource ColorTextGray}"
+                            VerticalOptions="Center"
+                            />
+                    </pancake:PancakeView>
+                    <pancake:PancakeView
                         Grid.Row="1"
                         Grid.Column="1"
-                        HorizontalOptions="Start"
-                        Style="{StaticResource LabelDescription}"
-                        Text="{Binding PokemonSpecies.EggGroupsDescription}"
-                        TextColor="{StaticResource ColorTextGray}"
-                        VerticalOptions="Center"
-                        />
-                    <Label
+                        Style="{StaticResource cardSkeletonAbout}"
+                        >
+                        <Label
+                            HorizontalOptions="Start"
+                            Style="{StaticResource LabelDescription}"
+                            Text="{Binding PokemonSpecies.EggGroupsDescription}"
+                            TextColor="{StaticResource ColorTextGray}"
+                            VerticalOptions="Center"
+                            />
+                    </pancake:PancakeView>
+                    <pancake:PancakeView
                         Grid.Row="2"
                         Grid.Column="1"
-                        HorizontalOptions="Start"
-                        TextColor="{StaticResource ColorTextGray}"
-                        VerticalOptions="Center"
+                        Style="{StaticResource cardSkeletonAbout}"
                         >
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Style="{StaticResource LabelDescription}" Text="{Binding PokemonSpecies.HatchCounter}" />
-                                <Span Text=" " />
-                                <Span Style="{StaticResource LabelPokemonType}" Text="{Binding PokemonSpecies.MinEggSteps, StringFormat='({0:N0} -'}" />
-                                <Span Style="{StaticResource LabelPokemonType}" Text="{Binding PokemonSpecies.MaxEggSteps, StringFormat=' {0:N0} steps)'}" />
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
+                        <Label
+                            HorizontalOptions="Start"
+                            TextColor="{StaticResource ColorTextGray}"
+                            VerticalOptions="Center"
+                            >
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Style="{StaticResource LabelDescription}" Text="{Binding PokemonSpecies.HatchCounter}" />
+                                    <Span Text=" " />
+                                    <Span Style="{StaticResource LabelPokemonType}" Text="{Binding PokemonSpecies.MinEggSteps, StringFormat='({0:N0} -'}" />
+                                    <Span Style="{StaticResource LabelPokemonType}" Text="{Binding PokemonSpecies.MaxEggSteps, StringFormat=' {0:N0} steps)'}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </pancake:PancakeView>
                 </Grid>
 
                 <!--  Location Section  -->
-                <Label
+                <pancake:PancakeView
                     Grid.Row="7"
-                    Style="{StaticResource LabelFilterTitle}"
-                    Text="Location"
-                    TextColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorType}}"
-                    />
-
+                    HorizontalOptions="Start"
+                    Style="{StaticResource cardSkeletonAbout}"
+                    WidthRequest="120"
+                    >
+                    <Label
+                        HorizontalOptions="Start"
+                        Style="{StaticResource LabelFilterTitle}"
+                        Text="Location"
+                        TextColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorType}}"
+                        />
+                </pancake:PancakeView>
                 <StackLayout
                     Grid.Row="8"
                     BindableLayout.ItemsSource="{Binding PokemonSpecies.Locations}"
+                    HorizontalOptions="FillAndExpand"
                     Orientation="Vertical"
                     Spacing="15"
                     >
@@ -422,21 +520,28 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="2.5*" />
                                 </Grid.ColumnDefinitions>
-                                <Label
-                                    HorizontalOptions="Start"
-                                    Style="{StaticResource LabelPokemonType}"
-                                    Text="{Binding EntryNumber, StringFormat='{0:000}'}"
-                                    TextColor="{StaticResource ColorTextBlack}"
-                                    VerticalOptions="Center"
-                                    />
-                                <Label
+                                <pancake:PancakeView skeleton:Skeleton.IsBusy="{Binding IsBusy}" Style="{StaticResource CardSkeleton}">
+                                    <Label
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelPokemonType}"
+                                        Text="{Binding EntryNumber, StringFormat='{0:000}'}"
+                                        TextColor="{StaticResource ColorTextBlack}"
+                                        VerticalOptions="Center"
+                                        />
+                                </pancake:PancakeView>
+                                <pancake:PancakeView
                                     Grid.Column="1"
-                                    HorizontalOptions="Start"
-                                    Style="{StaticResource LabelDescription}"
-                                    Text="{Binding Description}"
-                                    TextColor="{StaticResource ColorTextGray}"
-                                    VerticalOptions="Center"
-                                    />
+                                    skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                                    Style="{StaticResource CardSkeleton}"
+                                    >
+                                    <Label
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelDescription}"
+                                        Text="{Binding Description}"
+                                        TextColor="{StaticResource ColorTextGray}"
+                                        VerticalOptions="Center"
+                                        />
+                                </pancake:PancakeView>
                             </Grid>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>

@@ -30,6 +30,14 @@
             <Setter Property="VerticalOptions" Value="Center" />
             <Setter Property="WidthRequest" Value="27" />
         </Style>
+        <Style
+            x:Key="cardSkeletonHome"
+            BasedOn="{StaticResource CardSkeleton}"
+            TargetType="{x:Type pancake:PancakeView}"
+            >
+            <Setter Property="skeleton:Skeleton.IsBusy" Value="{Binding IsBusy}" />
+            <Setter Property="skeleton:Skeleton.BackgroundColor" Value="{StaticResource ColorTextWhite}" />
+        </Style>
         <Style x:Key="imageFilter" TargetType="Image">
             <Setter Property="HeightRequest" Value="20" />
             <Setter Property="HorizontalOptions" Value="Center" />
@@ -236,25 +244,32 @@
                                                     <RowDefinition Height="Auto" />
                                                     <RowDefinition Height="Auto" />
                                                 </Grid.RowDefinitions>
-                                                <Label
+                                                <pancake:PancakeView
                                                     Margin="20,15,20,0"
-                                                    skeleton:Skeleton.BackgroundColor="{StaticResource ColorDarkGray}"
-                                                    skeleton:Skeleton.IsBusy="{Binding IsBusy}"
-                                                    Style="{StaticResource LabelPokemonNumber}"
-                                                    Text="{Binding Id, StringFormat='#{0:000}'}"
-                                                    TextColor="{StaticResource ColorTextNumber}"
+                                                    Style="{StaticResource cardSkeletonHome}"
                                                     WidthRequest="190"
-                                                    />
-                                                <Label
+                                                    >
+                                                    <Label
+                                                        HorizontalOptions="Start"
+                                                        Style="{StaticResource LabelPokemonNumber}"
+                                                        Text="{Binding Id, StringFormat='#{0:000}'}"
+                                                        TextColor="{StaticResource ColorTextNumber}"
+                                                        />
+                                                </pancake:PancakeView>
+                                                <pancake:PancakeView
                                                     Grid.Row="1"
                                                     Margin="20,2,20,5"
-                                                    skeleton:Skeleton.BackgroundColor="{StaticResource ColorDarkGray}"
-                                                    skeleton:Skeleton.IsBusy="{Binding IsBusy}"
-                                                    Style="{StaticResource LabelPokemonName}"
-                                                    Text="{Binding NameFirstCharUpper}"
-                                                    TextColor="{StaticResource ColorTextWhite}"
+                                                    Style="{StaticResource cardSkeletonHome}"
                                                     WidthRequest="190"
-                                                    />
+                                                    >
+                                                    <Label
+                                                        HorizontalOptions="Start"
+                                                        Style="{StaticResource LabelPokemonName}"
+                                                        Text="{Binding NameFirstCharUpper}"
+                                                        TextColor="{StaticResource ColorTextWhite}"
+                                                        />
+                                                </pancake:PancakeView>
+
                                                 <contentViews:BadgeTypeContentView Grid.Row="2" Margin="20,0,0,20" />
                                             </Grid>
                                             <magic:GradientView

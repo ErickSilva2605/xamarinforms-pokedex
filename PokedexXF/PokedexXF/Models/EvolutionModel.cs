@@ -19,5 +19,7 @@
         public bool HasEvolution { get; set; }
 
         public bool IsBaby { get; set; }
+
+        public bool IsBusy { get; set; }
     }
 }

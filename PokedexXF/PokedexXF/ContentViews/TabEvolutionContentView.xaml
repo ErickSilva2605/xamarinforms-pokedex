@@ -5,6 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converters="clr-namespace:PokedexXF.Converters"
     xmlns:magic="http://magic.com/schemas/gradients"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:skeleton="clr-namespace:Xamarin.Forms.Skeleton;assembly=Xamarin.Forms.Skeleton"
     xmlns:system="clr-namespace:System;assembly=netstandard"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     >
@@ -20,11 +22,18 @@
                 </Grid.RowDefinitions>
 
                 <!--  Evolution Chart Section  -->
-                <Label
-                    Style="{StaticResource LabelFilterTitle}"
-                    Text="Evolution Chart"
-                    TextColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorType}}"
-                    />
+                <pancake:PancakeView
+                    skeleton:Skeleton.IsBusy="{Binding PokemonSpecies.IsBusy}"
+                    HorizontalOptions="Start"
+                    Style="{StaticResource CardSkeleton}"
+                    >
+                    <Label
+                        HorizontalOptions="Start"
+                        Style="{StaticResource LabelFilterTitle}"
+                        Text="Evolution Chart"
+                        TextColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorType}}"
+                        />
+                </pancake:PancakeView>
                 <StackLayout
                     Grid.Row="1"
                     BindableLayout.ItemsSource="{Binding PokemonSpecies.Evolutions}"
@@ -32,7 +41,7 @@
                     >
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                            <Grid ColumnSpacing="30" RowSpacing="0">
+                            <Grid ColumnSpacing="30" RowSpacing="2">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
@@ -41,148 +50,199 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
 
-                                <Grid RowSpacing="0" VerticalOptions="End">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <magic:GradientView
-                                        Margin="0,0,0,0"
-                                        HeightRequest="100"
-                                        HorizontalOptions="Center"
-                                        VerticalOptions="Center"
-                                        WidthRequest="100"
-                                        >
-                                        <magic:CssGradientSource>
-                                            <x:String>
-                                                <![CDATA[
-                                                                    linear-gradient(180deg, #F5F5F5 50%, #FFFFFF 94.81%)
-                                                                ]]>
-                                            </x:String>
-                                        </magic:CssGradientSource>
-                                        <magic:GradientView.Mask>
-                                            <magic:PathMask
-                                                ClipMode="Include"
-                                                Data="M37.5 0C56.798 0 72.7167 14.361 75 32.9032H56.6974C54.6135 24.298 46.8091 17.9032 37.5 17.9032C28.1909 17.9032 20.3865 24.298 18.3026 32.9032H0C2.28333 14.361 18.202 0 37.5 0Z M56.6974 42.0968H75C72.7167 60.639 56.798 75 37.5 75C18.202 75 2.28333 60.639 0 42.0968H18.3026C20.3865 50.702 28.1909 57.0968 37.5 57.0968C46.8091 57.0968 54.6135 50.702 56.6974 42.0968Z M37.5 49.8387C44.3655 49.8387 49.9312 44.3145 49.9312 37.5C49.9312 30.6855 44.3655 25.1613 37.5 25.1613C30.6345 25.1613 25.0688 30.6855 25.0688 37.5C25.0688 44.3145 30.6345 49.8387 37.5 49.8387Z"
-                                                Stretch="Fill"
-                                                />
-                                        </magic:GradientView.Mask>
-                                    </magic:GradientView>
-                                    <Image
-                                        HeightRequest="75"
-                                        HorizontalOptions="Center"
-                                        Source="{Binding Image}"
-                                        VerticalOptions="Center"
-                                        WidthRequest="75"
-                                        />
-                                </Grid>
-                                <Label
-                                    Grid.Row="1"
-                                    HorizontalTextAlignment="Center"
-                                    VerticalOptions="End"
-                                    VerticalTextAlignment="End"
+                                <pancake:PancakeView
+                                    skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                                    CornerRadius="50"
+                                    HorizontalOptions="Center"
+                                    Style="{StaticResource CardSkeleton}"
+                                    VerticalOptions="Center"
                                     >
-                                    <Label.FormattedText>
-                                        <FormattedString>
-                                            <Span
-                                                Style="{StaticResource LabelPokemonType}"
-                                                Text="{Binding Id, StringFormat='#{0:000}'}"
-                                                TextColor="{StaticResource ColorTextGray}"
-                                                />
-                                            <Span Text="{x:Static system:Environment.NewLine}" />
-                                            <Span
-                                                Style="{StaticResource LabelFilterTitle}"
-                                                Text="{Binding Name}"
-                                                TextColor="{StaticResource ColorTextBlack}"
-                                                />
-                                        </FormattedString>
-                                    </Label.FormattedText>
-                                </Label>
+                                    <Grid RowSpacing="0" VerticalOptions="End">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <magic:GradientView
+                                            Margin="0,0,0,0"
+                                            HeightRequest="100"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center"
+                                            WidthRequest="100"
+                                            >
+                                            <magic:CssGradientSource>
+                                                <x:String>
+                                                    <![CDATA[
+                                                        linear-gradient(180deg, #F5F5F5 50%, #FFFFFF 94.81%)
+                                                    ]]>
+                                                </x:String>
+                                            </magic:CssGradientSource>
+                                            <magic:GradientView.Mask>
+                                                <magic:PathMask
+                                                    ClipMode="Include"
+                                                    Data="M37.5 0C56.798 0 72.7167 14.361 75 32.9032H56.6974C54.6135 24.298 46.8091 17.9032 37.5 17.9032C28.1909 17.9032 20.3865 24.298 18.3026 32.9032H0C2.28333 14.361 18.202 0 37.5 0Z M56.6974 42.0968H75C72.7167 60.639 56.798 75 37.5 75C18.202 75 2.28333 60.639 0 42.0968H18.3026C20.3865 50.702 28.1909 57.0968 37.5 57.0968C46.8091 57.0968 54.6135 50.702 56.6974 42.0968Z M37.5 49.8387C44.3655 49.8387 49.9312 44.3145 49.9312 37.5C49.9312 30.6855 44.3655 25.1613 37.5 25.1613C30.6345 25.1613 25.0688 30.6855 25.0688 37.5C25.0688 44.3145 30.6345 49.8387 37.5 49.8387Z"
+                                                    Stretch="Fill"
+                                                    />
+                                            </magic:GradientView.Mask>
+                                        </magic:GradientView>
+                                        <Image
+                                            skeleton:Skeleton.Hide="True"
+                                            skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                                            HeightRequest="75"
+                                            HorizontalOptions="Center"
+                                            Source="{Binding Image}"
+                                            VerticalOptions="Center"
+                                            WidthRequest="75"
+                                            />
+                                    </Grid>
+                                </pancake:PancakeView>
+
+                                <pancake:PancakeView
+                                    Grid.Row="1"
+                                    skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                                    HorizontalOptions="Center"
+                                    Style="{StaticResource CardSkeleton}"
+                                    >
+                                    <Label
+                                        HorizontalOptions="Center"
+                                        HorizontalTextAlignment="Center"
+                                        Style="{StaticResource LabelPokemonType}"
+                                        Text="{Binding Id, StringFormat='#{0:000}'}"
+                                        TextColor="{StaticResource ColorTextGray}"
+                                        VerticalOptions="End"
+                                        VerticalTextAlignment="End"
+                                        />
+                                </pancake:PancakeView>
+                                <pancake:PancakeView
+                                    Grid.Row="2"
+                                    skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                                    HorizontalOptions="Center"
+                                    Style="{StaticResource CardSkeleton}"
+                                    >
+                                    <Label
+                                        HorizontalOptions="Center"
+                                        HorizontalTextAlignment="Center"
+                                        Style="{StaticResource LabelFilterTitle}"
+                                        Text="{Binding Name}"
+                                        TextColor="{StaticResource ColorTextBlack}"
+                                        VerticalOptions="End"
+                                        VerticalTextAlignment="End"
+                                        />
+                                </pancake:PancakeView>
+
                                 <StackLayout
                                     Grid.Column="1"
+                                    Margin="0,15,0,0"
                                     HorizontalOptions="Center"
                                     IsVisible="{Binding HasEvolution}"
                                     VerticalOptions="Center"
                                     >
-                                    <Image
-                                        xct:IconTintColorEffect.TintColor="{StaticResource ColorTextGray}"
-                                        HeightRequest="20"
+                                    <pancake:PancakeView
+                                        skeleton:Skeleton.IsBusy="{Binding IsBusy}"
                                         HorizontalOptions="Center"
-                                        Opacity="0.20"
-                                        Source="icon_front"
+                                        Style="{StaticResource CardSkeleton}"
                                         VerticalOptions="Center"
-                                        WidthRequest="20"
-                                        />
-                                    <Label
-                                        Style="{StaticResource LabelPokemonNumber}"
-                                        Text="{Binding EnvolvesToMinLevel, StringFormat='(Level {0})'}"
-                                        TextColor="{StaticResource ColorTextBlack}"
-                                        VerticalOptions="CenterAndExpand"
-                                        />
-                                </StackLayout>
-                                <Grid
-                                    Grid.Column="2"
-                                    IsVisible="{Binding HasEvolution}"
-                                    RowSpacing="0"
-                                    >
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <magic:GradientView
-                                        Margin="0,0,0,0"
-                                        HeightRequest="100"
-                                        HorizontalOptions="Center"
-                                        VerticalOptions="Center"
-                                        WidthRequest="100"
                                         >
-                                        <magic:CssGradientSource>
-                                            <x:String>
-                                                <![CDATA[
-                                                                    linear-gradient(180deg, #F5F5F5 50%, #FFFFFF 94.81%)
-                                                                ]]>
-                                            </x:String>
-                                        </magic:CssGradientSource>
-                                        <magic:GradientView.Mask>
-                                            <magic:PathMask
-                                                ClipMode="Include"
-                                                Data="M37.5 0C56.798 0 72.7167 14.361 75 32.9032H56.6974C54.6135 24.298 46.8091 17.9032 37.5 17.9032C28.1909 17.9032 20.3865 24.298 18.3026 32.9032H0C2.28333 14.361 18.202 0 37.5 0Z M56.6974 42.0968H75C72.7167 60.639 56.798 75 37.5 75C18.202 75 2.28333 60.639 0 42.0968H18.3026C20.3865 50.702 28.1909 57.0968 37.5 57.0968C46.8091 57.0968 54.6135 50.702 56.6974 42.0968Z M37.5 49.8387C44.3655 49.8387 49.9312 44.3145 49.9312 37.5C49.9312 30.6855 44.3655 25.1613 37.5 25.1613C30.6345 25.1613 25.0688 30.6855 25.0688 37.5C25.0688 44.3145 30.6345 49.8387 37.5 49.8387Z"
-                                                Stretch="Fill"
-                                                />
-                                        </magic:GradientView.Mask>
-                                    </magic:GradientView>
-                                    <Image
-                                        HeightRequest="75"
-                                        HorizontalOptions="Center"
-                                        Source="{Binding EnvolvesToImage}"
-                                        VerticalOptions="Center"
-                                        WidthRequest="75"
-                                        />
-                                </Grid>
-                                <Label
+                                        <Image
+                                            xct:IconTintColorEffect.TintColor="{StaticResource ColorTextGray}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Opacity="0.20"
+                                            Source="icon_front"
+                                            WidthRequest="20"
+                                            />
+                                    </pancake:PancakeView>
+                                    <pancake:PancakeView skeleton:Skeleton.IsBusy="{Binding IsBusy}" Style="{StaticResource CardSkeleton}">
+                                        <Label
+                                            Style="{StaticResource LabelPokemonNumber}"
+                                            Text="{Binding EnvolvesToMinLevel, StringFormat='(Level {0})'}"
+                                            TextColor="{StaticResource ColorTextBlack}"
+                                            VerticalOptions="CenterAndExpand"
+                                            />
+                                    </pancake:PancakeView>
+                                </StackLayout>
+                                <pancake:PancakeView
+                                    Grid.Column="2"
+                                    skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                                    CornerRadius="50"
+                                    HorizontalOptions="Center"
+                                    Style="{StaticResource CardSkeleton}"
+                                    VerticalOptions="Center"
+                                    >
+                                    <Grid IsVisible="{Binding HasEvolution}" RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <magic:GradientView
+                                            Margin="0,0,0,0"
+                                            HeightRequest="100"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center"
+                                            WidthRequest="100"
+                                            >
+                                            <magic:CssGradientSource>
+                                                <x:String>
+                                                    <![CDATA[
+                                                        linear-gradient(180deg, #F5F5F5 50%, #FFFFFF 94.81%)
+                                                    ]]>
+                                                </x:String>
+                                            </magic:CssGradientSource>
+                                            <magic:GradientView.Mask>
+                                                <magic:PathMask
+                                                    ClipMode="Include"
+                                                    Data="M37.5 0C56.798 0 72.7167 14.361 75 32.9032H56.6974C54.6135 24.298 46.8091 17.9032 37.5 17.9032C28.1909 17.9032 20.3865 24.298 18.3026 32.9032H0C2.28333 14.361 18.202 0 37.5 0Z M56.6974 42.0968H75C72.7167 60.639 56.798 75 37.5 75C18.202 75 2.28333 60.639 0 42.0968H18.3026C20.3865 50.702 28.1909 57.0968 37.5 57.0968C46.8091 57.0968 54.6135 50.702 56.6974 42.0968Z M37.5 49.8387C44.3655 49.8387 49.9312 44.3145 49.9312 37.5C49.9312 30.6855 44.3655 25.1613 37.5 25.1613C30.6345 25.1613 25.0688 30.6855 25.0688 37.5C25.0688 44.3145 30.6345 49.8387 37.5 49.8387Z"
+                                                    Stretch="Fill"
+                                                    />
+                                            </magic:GradientView.Mask>
+                                        </magic:GradientView>
+                                        <Image
+                                            skeleton:Skeleton.Hide="True"
+                                            skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                                            HeightRequest="75"
+                                            HorizontalOptions="Center"
+                                            Source="{Binding EnvolvesToImage}"
+                                            VerticalOptions="Center"
+                                            WidthRequest="75"
+                                            />
+                                    </Grid>
+                                </pancake:PancakeView>
+                                <pancake:PancakeView
                                     Grid.Row="1"
                                     Grid.Column="2"
-                                    HorizontalTextAlignment="Center"
-                                    IsVisible="{Binding HasEvolution}"
-                                    VerticalOptions="End"
-                                    VerticalTextAlignment="End"
+                                    skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                                    HorizontalOptions="Center"
+                                    Style="{StaticResource CardSkeleton}"
                                     >
-                                    <Label.FormattedText>
-                                        <FormattedString>
-                                            <Span
-                                                Style="{StaticResource LabelPokemonType}"
-                                                Text="{Binding EnvolvesToId, StringFormat='#{0:000}'}"
-                                                TextColor="{StaticResource ColorTextGray}"
-                                                />
-                                            <Span Text="{x:Static system:Environment.NewLine}" />
-                                            <Span
-                                                Style="{StaticResource LabelFilterTitle}"
-                                                Text="{Binding EnvolvesToName}"
-                                                TextColor="{StaticResource ColorTextBlack}"
-                                                />
-                                        </FormattedString>
-                                    </Label.FormattedText>
-                                </Label>
+                                    <Label
+                                        HorizontalOptions="Center"
+                                        HorizontalTextAlignment="Center"
+                                        IsVisible="{Binding HasEvolution}"
+                                        Style="{StaticResource LabelPokemonType}"
+                                        Text="{Binding EnvolvesToId, StringFormat='#{0:000}'}"
+                                        TextColor="{StaticResource ColorTextGray}"
+                                        VerticalOptions="End"
+                                        VerticalTextAlignment="End"
+                                        />
+                                </pancake:PancakeView>
+                                <pancake:PancakeView
+                                    Grid.Row="2"
+                                    Grid.Column="2"
+                                    skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                                    HorizontalOptions="Center"
+                                    Style="{StaticResource CardSkeleton}"
+                                    >
+                                    <Label
+                                        HorizontalOptions="Center"
+                                        HorizontalTextAlignment="Center"
+                                        IsVisible="{Binding HasEvolution}"
+                                        Style="{StaticResource LabelFilterTitle}"
+                                        Text="{Binding EnvolvesToName}"
+                                        TextColor="{StaticResource ColorTextBlack}"
+                                        VerticalOptions="End"
+                                        VerticalTextAlignment="End"
+                                        />
+                                </pancake:PancakeView>
                             </Grid>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>

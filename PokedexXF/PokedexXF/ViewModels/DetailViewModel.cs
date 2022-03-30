@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace PokedexXF.ViewModels
 {
@@ -63,19 +64,34 @@ namespace PokedexXF.ViewModels
                     return;
                 }
 
+                PokemonSpecies = PokemonHelper.GetMockPokemonSpecies();
+                Pokemon.Abilities.ForEach(i => i.IsBusy = true);
+                Pokemon.Weaknesses.ForEach(i => i.IsBusy = true);
+                Pokemon.Stats.ForEach(i => i.IsBusy = true);
+                Pokemon.TypeDefenses.ForEach(i => i.IsBusy = true);
+
                 var dbSpecies = _pokemonSpeciesDbService.FindById(Pokemon.Id);
 
                 if (dbSpecies == null)
                 {
                     PokemonSpecies = await GetPokemonSpeciesAsync();
+                    Pokemon.Abilities.ForEach(i => i.IsBusy = false);
+                    Pokemon.Weaknesses.ForEach(i => i.IsBusy = false);
+                    Pokemon.Stats.ForEach(i => i.IsBusy = false);
+                    Pokemon.TypeDefenses.ForEach(i => i.IsBusy = false);
 
-                    if(PokemonSpecies != null)
+                    if (PokemonSpecies != null)
                         LiteDbHelper.UpdatePokemonSpeciesDataBase(_pokemonSpeciesDbService, PokemonSpecies);
                 }
                 else
                 {
-                    await Task.Delay(2000);
+                    await Task.Delay(5000);
+
                     PokemonSpecies = dbSpecies;
+                    Pokemon.Abilities.ForEach(i => i.IsBusy = false);
+                    Pokemon.Weaknesses.ForEach(i => i.IsBusy = false);
+                    Pokemon.Stats.ForEach(i => i.IsBusy = false);
+                    Pokemon.TypeDefenses.ForEach(i => i.IsBusy = false);
                 }
             } 
             catch (Exception ex)

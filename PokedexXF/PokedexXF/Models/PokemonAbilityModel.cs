@@ -1,8 +1,9 @@
 ﻿using Newtonsoft.Json;
+using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace PokedexXF.Models
 {
-    public class PokemonAbilityModel 
+    public class PokemonAbilityModel : ObservableObject
     {
         [JsonProperty("is_hidden")]
         public bool IsHidden { get; set; }
@@ -12,5 +13,8 @@ namespace PokedexXF.Models
 
         [JsonProperty("ability")]
         public AbilityModel Ability { get; set; }
+
+        private bool _isBusy;
+        public bool IsBusy { get => _isBusy; set => SetProperty(ref _isBusy, value); }
     }
 }
