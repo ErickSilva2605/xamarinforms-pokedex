@@ -31,7 +31,7 @@ namespace PokedexXF.Helpers
             {
                 pokemonMockList.Add(new PokemonModel()
                 {
-                    Name = "",
+                    Name = "XXXXXXXXXX",
                     Id = i,
                     Types = new ObservableRangeCollection<PokemonTypeModel>(GetMockPokemonTypes()),
                     IsBusy = true
