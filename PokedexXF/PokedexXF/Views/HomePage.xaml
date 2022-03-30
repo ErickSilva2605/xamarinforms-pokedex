@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:contentViews="clr-namespace:PokedexXF.ContentViews"
     xmlns:converters="clr-namespace:PokedexXF.Converters"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:magic="http://magic.com/schemas/gradients"
     xmlns:myControls="clr-namespace:PokedexXF.Controls"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
@@ -299,11 +300,13 @@
                                             </magic:GradientView>
                                         </Grid>
                                     </pancake:PancakeView>
-                                    <Image
+                                    <ffimageloading:CachedImage
                                         Grid.RowSpan="2"
                                         Margin="0,0,50,15"
                                         skeleton:Skeleton.Hide="True"
                                         skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                                        CacheDuration="7"
+                                        DownsampleWidth="300"
                                         HeightRequest="130"
                                         HorizontalOptions="End"
                                         Source="{Binding ImageUrl}"

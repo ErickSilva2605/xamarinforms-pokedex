@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using FFImageLoading.Forms.Platform;
 using Foundation;
 using Lottie.Forms.Platforms.Ios;
 using UIKit;
@@ -30,6 +30,7 @@ namespace PokedexXF.iOS
             {
                 Rg.Plugins.Popup.Popup.Init();
                 global::Xamarin.Forms.Forms.Init();
+                CachedImageRenderer.Init();
                 LoadApplication(new App());
 
                 return base.FinishedLaunching(app, options);
