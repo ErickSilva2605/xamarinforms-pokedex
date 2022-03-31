@@ -306,7 +306,7 @@
                                         skeleton:Skeleton.Hide="True"
                                         skeleton:Skeleton.IsBusy="{Binding IsBusy}"
                                         CacheDuration="7"
-                                        DownsampleWidth="300"
+                                        DownsampleWidth="500"
                                         HeightRequest="130"
                                         HorizontalOptions="End"
                                         Source="{Binding ImageUrl}"
