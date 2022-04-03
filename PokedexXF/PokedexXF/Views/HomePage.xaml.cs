@@ -26,6 +26,8 @@ namespace PokedexXF.Views
 
         protected override async void OnAppearing()
         {
+            await Task.Delay(2000);
+
             await Task.WhenAll(
                 labelTitle.TranslateTo(0, -300, DURATION_ANIMATION, Easing.Linear),
                 labelTitle.TranslateTo(0, -150, DURATION_ANIMATION, Easing.Linear),

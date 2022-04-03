@@ -17,7 +17,10 @@
   </style>
   <style name="MainTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
     <item name="windowActionModeOverlay">true</item>
+	<item name="android:windowNoTitle">true</item>
+	<item name="android:windowContentOverlay">@null</item>
     <item name="android:windowTranslucentStatus">true</item>
+	<item name="android:windowIsTranslucent">true</item>
   </style>
   <style name="Theme.Splash" parent="Theme.AppCompat.Light.NoActionBar">
     <item name="android:windowNoTitle">true</item>
