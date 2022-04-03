@@ -77,12 +77,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid
-            AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
-            AbsoluteLayout.LayoutFlags="All"
-            BackgroundColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorBackgroundType}}"
-            RowSpacing="0"
-            >
+        <Grid BackgroundColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorBackgroundType}}" RowSpacing="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -91,7 +86,7 @@
             <!--  Pokemon Header  -->
             <Grid Margin="0,38,0,0" RowSpacing="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="195" />
+                    <RowDefinition Height="265" />
                 </Grid.RowDefinitions>
 
                 <Grid HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
@@ -208,18 +203,17 @@
                 <!--  Gradient Pattern 10x5  -->
                 <magic:GradientView
                     x:Name="gradientPattern10x5"
-                    Margin="0,115,-75,0"
+                    Margin="0,0,-75,0"
                     HeightRequest="65"
                     HorizontalOptions="End"
-                    RotationY="180"
                     VerticalOptions="End"
                     WidthRequest="140"
                     >
                     <magic:CssGradientSource>
                         <x:String>
                             <![CDATA[
-                            linear-gradient(100.84deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%)
-                        ]]>
+                                linear-gradient(100.84deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%)
+                            ]]>
                         </x:String>
                     </magic:CssGradientSource>
                     <magic:GradientView.Mask>
@@ -235,7 +229,7 @@
             <!--  TabView  -->
             <xct:TabView
                 Grid.Row="1"
-                Margin="0,30,0,0"
+                Margin="0,15,0,0"
                 IsSwipeEnabled="False"
                 IsTabTransitionEnabled="False"
                 VerticalOptions="FillAndExpand"
@@ -265,15 +259,6 @@
 
             <!--  Fake NavBar  -->
             <Grid Padding="20,45,0,5" VerticalOptions="Start">
-                <Label
-                    HorizontalOptions="FillAndExpand"
-                    HorizontalTextAlignment="Center"
-                    IsVisible="False"
-                    Style="{StaticResource LabelPokemonName}"
-                    Text="{Binding Pokemon.Name}"
-                    TextColor="{StaticResource ColorTextWhite}"
-                    VerticalOptions="Center"
-                    />
                 <pancake:PancakeView
                     Margin="0"
                     Padding="5"
