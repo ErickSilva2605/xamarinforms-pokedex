@@ -35,7 +35,7 @@ namespace PokedexXF.ViewModels
             set => SetProperty(ref _pokemonSpecies, value);
         }
 
-        public ICommand NavigateToBackCommand { get; private set; }
+        public ICommand NavigateToBackCommand { get; }
 
         public DetailViewModel(INavigation navigation, IRestService restService, PokemonModel pokemon) : base(navigation)
         {
@@ -85,7 +85,7 @@ namespace PokedexXF.ViewModels
                 }
                 else
                 {
-                    await Task.Delay(5000);
+                    await Task.Delay(8000);
 
                     PokemonSpecies = dbSpecies;
                     Pokemon.Abilities.ForEach(i => i.IsBusy = false);
@@ -93,7 +93,7 @@ namespace PokedexXF.ViewModels
                     Pokemon.Stats.ForEach(i => i.IsBusy = false);
                     Pokemon.TypeDefenses.ForEach(i => i.IsBusy = false);
                 }
-            } 
+            }
             catch (Exception ex)
             {
                 Debug.WriteLine("Erro", ex.Message);
@@ -187,7 +187,7 @@ namespace PokedexXF.ViewModels
                 {
                     EvolutionModel evolution = new EvolutionModel();
                     evolution.Id = pokemon.Id;
-                    evolution.Name = pokemon.NameFirstCharUpper; 
+                    evolution.Name = pokemon.NameFirstCharUpper;
                     evolution.Image = pokemon.ImageUrl;
                     evolution.IsBaby = chain.IsBaby;
 
@@ -195,8 +195,8 @@ namespace PokedexXF.ViewModels
                     {
                         foreach (var item in chain.EvolvesTo)
                         {
-                            evolution.EnvolvesToMinLevel = item.EvolutionDetails.Any() ? 
-                                item.EvolutionDetails.Select(s => s.MinLevel).FirstOrDefault().HasValue ? 
+                            evolution.EnvolvesToMinLevel = item.EvolutionDetails.Any() ?
+                                item.EvolutionDetails.Select(s => s.MinLevel).FirstOrDefault().HasValue ?
                                 item.EvolutionDetails.Select(s => s.MinLevel).FirstOrDefault().Value.ToString() : "???" : "???";
 
                             evolution.EnvolvesToName = item.Species.NameFirstCharUpper;
@@ -223,7 +223,7 @@ namespace PokedexXF.ViewModels
             }
 
             return evolutions?.OrderByDescending(o => o.IsBaby).ThenBy(o => o.Id).ToList();
-        } 
+        }
 
         private async Task<PokemonModel> GetEvolutionPokemon(ChainLinkModel evolution)
         {

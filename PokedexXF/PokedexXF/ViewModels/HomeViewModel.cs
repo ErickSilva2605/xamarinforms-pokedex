@@ -20,7 +20,10 @@ namespace PokedexXF.ViewModels
         private readonly IRestService _service;
         private readonly LiteDbService<PokemonModel> _dbService;
         private ObservableRangeCollection<PokemonModel> _pokemons;
+        private ObservableRangeCollection<PokemonModel> _pokemonsHelp;
+        private IEnumerable<PokemonModel> DbPokemons;
         private FiltersModel _filters;
+        private string _searchParameter;
         private int _itemTreshold;
         private bool _drawerIsOpen;
         private double[] _lockStates = new double[] { };
@@ -60,6 +63,12 @@ namespace PokedexXF.ViewModels
             set => SetProperty(ref _filtersVisible, value);
         }
 
+        public string SearchParameter
+        {
+            get => _searchParameter;
+            set => SetProperty(ref _searchParameter, value);
+        }
+
         public int Offset
         {
             get;
@@ -95,20 +104,28 @@ namespace PokedexXF.ViewModels
             set => SetProperty(ref _pokemons, value);
         }
 
-        public ICommand LoadMorePokemonsCommand { get; set; }
-        public ICommand OpenModalFiltersCommand { get; set; }
-        public ICommand OpenModalSortCommand { get; set; }
-        public ICommand OpenModalGenerationCommand { get; set; }
-        public ICommand CloseModalCommand { get; set; }
-        public ICommand NavigateToDetailCommand { get; set; }
-        public ICommand SelectGenerationCommand { get; set; }
-        public ICommand SelectSortCommand { get; set; }
-        public ICommand SelectFilterTypeCommand { get; set; }
-        public ICommand SelectFilterWeaknessCommand { get; set; }
-        public ICommand SelectFilterHeightCommand { get; set; }
-        public ICommand SelectFilterWeightCommand { get; set; }
-        public ICommand ResetFiltersCommand { get; set; }
-        public ICommand ApplyFiltersCommand { get; set; }
+        public ObservableRangeCollection<PokemonModel> PokemonsHelp
+        {
+            get => _pokemonsHelp;
+            set => SetProperty(ref _pokemonsHelp, value);
+        }
+
+        public ICommand LoadMorePokemonsCommand { get; }
+        public ICommand OpenModalFiltersCommand { get; }
+        public ICommand OpenModalSortCommand { get; }
+        public ICommand OpenModalGenerationCommand { get; }
+        public ICommand CloseModalCommand { get; }
+        public ICommand NavigateToDetailCommand { get; }
+        public ICommand SelectGenerationCommand { get; }
+        public ICommand SelectSortCommand { get; }
+        public ICommand SelectFilterTypeCommand { get; }
+        public ICommand SelectFilterWeaknessCommand { get; }
+        public ICommand SelectFilterHeightCommand { get; }
+        public ICommand SelectFilterWeightCommand { get; }
+        public ICommand ResetFiltersCommand { get; }
+        public ICommand ApplyFiltersCommand { get; }
+        public ICommand SearchTextChangedCommand { get; }
+        public ICommand SearchCompletedCommand { get; }
 
         public HomeViewModel(INavigation navigation, IRestService restService) : base(navigation)
         {
@@ -118,6 +135,8 @@ namespace PokedexXF.ViewModels
             _dbService = new LiteDbService<PokemonModel>();
             Pages = new ResourceListModel();
             Pokemons = new ObservableRangeCollection<PokemonModel>();
+            PokemonsHelp = new ObservableRangeCollection<PokemonModel>();
+            DbPokemons = new List<PokemonModel>();
             LoadMorePokemonsCommand = new Command(async () => await ExecuteLoadMorePokemonsCommand());
             NavigateToDetailCommand = new Command<PokemonModel>(async (item) => await ExecuteNavigateToDetailCommand(item));
             OpenModalGenerationCommand = new Command(async () => await ExecuteOpenModalGenerationCommand());
@@ -132,6 +151,8 @@ namespace PokedexXF.ViewModels
             SelectFilterWeightCommand = new Command<WeightFilterModel>((type) => ExecuteSelectFilterWeightCommand(type));
             ResetFiltersCommand = new Command(async () => await ExecuteResetFiltersCommand());
             ApplyFiltersCommand = new Command(async () => await ExecuteApplyFiltersCommand());
+            SearchTextChangedCommand = new Command(ExecuteSearchTextChangedCommand);
+            SearchCompletedCommand = new Command(async () => await ExecuteSearchCompletedCommand());
             Initialization = InitializeAsync();
         }
 
@@ -163,7 +184,7 @@ namespace PokedexXF.ViewModels
 
                 if (!dbPokemons.Any() || dbPokemons.Count() < Constants.PAGE_LIMIT)
                 {
-                    Pokemons = new ObservableRangeCollection<PokemonModel>(await GetPokemonsAsync());
+                    Pokemons = new ObservableRangeCollection<PokemonModel>(await GetPokemonListAsync());
 
                     if (Pokemons.Any())
                         LiteDbHelper.UpdatePokemonListDataBase(_dbService, Pokemons);
@@ -216,10 +237,10 @@ namespace PokedexXF.ViewModels
                 if (!dbPokemons.Any() || dbPokemons.Count() <= Offset)
                 {
                     await GetResourcePageAsync(Pages.Next);
-                    var pokemonList = await GetPokemonsAsync();
+                    var pokemonList = await GetPokemonListAsync();
                     Pokemons.RemoveRange(mock);
 
-                    if(pokemonList.Any())
+                    if (pokemonList.Any())
                         Pokemons.AddRange(pokemonList);
 
                     if (Pokemons.Any())
@@ -227,7 +248,7 @@ namespace PokedexXF.ViewModels
                 }
                 else
                 {
-                    await Task.Delay(2000);
+                    await Task.Delay(5000);
                     Pokemons.RemoveRange(mock);
                     Pokemons.AddRange(dbPokemons.Skip(Offset).Take(Constants.PAGE_LIMIT));
                 }
@@ -263,7 +284,7 @@ namespace PokedexXF.ViewModels
             }
         }
 
-        private async Task<List<PokemonModel>> GetPokemonsAsync()
+        private async Task<List<PokemonModel>> GetPokemonListAsync()
         {
             try
             {
@@ -297,6 +318,43 @@ namespace PokedexXF.ViewModels
             }
 
             return new List<PokemonModel>();
+        }
+
+        private async Task<PokemonModel> GetPokemonAsync(string searchParameter)
+        {
+            IsBusy = true;
+            PokemonModel pokemon = new PokemonModel();
+            try
+            {
+                pokemon = await _service.GetResourceByNameAsync<PokemonModel>(pokemon.ApiEndpoint, searchParameter);
+
+                if (pokemon != null)
+                {
+                    pokemon.Stats = PokemonHelper.GetFullStats(pokemon.Stats);
+                    pokemon.TotalStat = PokemonHelper.GetTotalStats(pokemon.Stats);
+                    pokemon.Meters = PokemonHelper.DecimetresToMeters(pokemon.Height);
+                    pokemon.Inches = PokemonHelper.MetersToInches(pokemon.Meters);
+                    pokemon.Kilograms = PokemonHelper.HectogramsToKilograms(pokemon.Weight);
+                    pokemon.Pounds = PokemonHelper.KilogramsToPounds(pokemon.Kilograms);
+
+                    pokemon.TypeDefenses = await GetPokemonTypeDefensesAsync(pokemon);
+                    pokemon.Weaknesses = PokemonHelper.GetPokemonWeaknesses(pokemon.TypeDefenses);
+
+                    return pokemon;
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Erro", ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+
+            return null;
         }
 
         private async Task<IEnumerable<PokemonTypeDefenseModel>> GetPokemonTypeDefensesAsync(PokemonModel pokemon)
@@ -568,6 +626,62 @@ namespace PokedexXF.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        private void ExecuteSearchTextChangedCommand()
+        {
+            if (string.IsNullOrWhiteSpace(SearchParameter))
+                ClearSearch();
+        }
+
+        private async Task ExecuteSearchCompletedCommand()
+        {
+            if (string.IsNullOrWhiteSpace(SearchParameter))
+            {
+                ClearSearch();
+                return;
+            }
+
+            ItemTreshold = -1;
+
+            if (!DbPokemons.Any())
+                DbPokemons = _dbService.FindAll();
+
+            if (!PokemonsHelp.Any())
+                PokemonsHelp = new ObservableRangeCollection<PokemonModel>(Pokemons);
+
+            Pokemons = new ObservableRangeCollection<PokemonModel>(
+                DbPokemons.Where(w =>
+                w.Id.ToString().Contains(SearchParameter) ||
+                w.NameUpperCase.Contains(SearchParameter.ToUpper()))
+            );
+
+            if (Pokemons.Any())
+                return;
+
+            var mock = PokemonHelper.GetMockPokemon();
+            Pokemons.Add(mock);
+
+            var pokemon = await GetPokemonAsync(SearchParameter);
+
+            await Task.Delay(1000);
+            Pokemons.Remove(mock);
+
+            if (pokemon != null)
+                Pokemons.Add(pokemon);
+        }
+
+        private void ClearSearch()
+        {
+            if (PokemonsHelp.Any())
+            {
+                Pokemons = new ObservableRangeCollection<PokemonModel>(PokemonsHelp);
+                PokemonsHelp = new ObservableRangeCollection<PokemonModel>();
+            }
+
+            ItemTreshold = 1;
+            SearchParameter = string.Empty;
+            DbPokemons = new List<PokemonModel>();
         }
     }
 }

@@ -41,6 +41,18 @@ namespace PokedexXF.Helpers
             return pokemonMockList;
         }
 
+        public static PokemonModel GetMockPokemon()
+        {
+
+            return new PokemonModel()
+            {
+                Name = "XXXXXXXXXX",
+                Id = 1,
+                Types = new ObservableRangeCollection<PokemonTypeModel>(GetMockPokemonTypes()),
+                IsBusy = true
+            };
+        }
+
         private static IEnumerable<PokemonTypeModel> GetMockPokemonTypes()
         {
             return new List<PokemonTypeModel>

@@ -152,10 +152,16 @@
                             HorizontalOptions="Start"
                             Placeholder="What Pokémon are you looking for?"
                             PlaceholderColor="{StaticResource ColorTextGray}"
+                            Text="{Binding SearchParameter}"
                             TextColor="{StaticResource ColorTextBlack}"
                             Unfocused="CustomEntryBorderless_Unfocused"
                             VerticalOptions="Center"
-                            />
+                            >
+                            <myControls:CustomEntryBorderless.Behaviors>
+                                <xct:EventToCommandBehavior Command="{Binding SearchTextChangedCommand}" EventName="TextChanged" />
+                                <xct:EventToCommandBehavior Command="{Binding SearchCompletedCommand}" EventName="Completed" />
+                            </myControls:CustomEntryBorderless.Behaviors>
+                        </myControls:CustomEntryBorderless>
                     </StackLayout>
                 </pancake:PancakeView>
                 <CollectionView
