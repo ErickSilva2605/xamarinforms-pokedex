@@ -380,7 +380,7 @@ namespace PokedexXF.Helpers
         public static string FlavorTextsToDescription(IEnumerable<PokemonSpeciesFlavorTextsModel> flavorTexts)
         {
             return flavorTexts
-                .Where(w => w.Language.Name == "en" && w.Version.Name == "ruby")
+                .Where(w => w.Language.Name == "en")
                 .Select(s => s.FlavorText)
                 .FirstOrDefault()
                 .Replace('\n', ' ')
