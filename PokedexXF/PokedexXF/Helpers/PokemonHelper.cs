@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Linq;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
+using Xamarin.Forms.Internals;
 
 namespace PokedexXF.Helpers
 {
@@ -417,12 +418,19 @@ namespace PokedexXF.Helpers
             return growthRateDescription.Trim();
         }
 
-        public static LocationModel GetLocation(int entryNumber, PokedexModel pokedex)
+        public static LocationModel GetLocation(int entryNumber, IEnumerable<VersionModel> versions, PokedexModel pokedex)
         {
+            var description = string.Join("/", versions.Select(s => s.NameFirstCharUpper));
+
+            if(description.EndsWith("/"))
+                description = description.Remove(description.Length - 1);
+
+            description = $"{description} - {pokedex.Names.Where(w => w.Language.Name == "en").Select(s => s.Name).FirstOrDefault()}";
+
             return new LocationModel
             {
                 EntryNumber = entryNumber,
-                Description = $"({pokedex.Descriptions.Where(w => w.Language.Name == "en").Select(s => s.Description).FirstOrDefault()})"
+                Description = $"({description})"
             };
         }
 

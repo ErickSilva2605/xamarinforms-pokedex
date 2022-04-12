@@ -144,12 +144,17 @@ namespace PokedexXF.ViewModels
             {
                 foreach (var item in pokedexNumbers)
                 {
+                    if(item.Pokedex.Name.ToLower() == "national")
+                        continue;
+
                     var pokedex = await _service.GetResourceByNameAsync<PokedexModel>(item.Pokedex.ApiEndpoint, item.Pokedex.Name.ToLower());
 
                     if (pokedex == null || !pokedex.Descriptions.Any())
                         continue;
 
-                    locations.Add(PokemonHelper.GetLocation(item.EntryNumber, pokedex));
+                    var versions = await GetPokemonVersionGroupAsync(pokedex.VersionGroups);
+
+                    locations.Add(PokemonHelper.GetLocation(item.EntryNumber, versions, pokedex));
                 }
             }
             catch (Exception ex)
@@ -158,6 +163,28 @@ namespace PokedexXF.ViewModels
             }
 
             return locations;
+        }
+
+        private async Task<IEnumerable<VersionModel>> GetPokemonVersionGroupAsync(IEnumerable<VersionGroupModel> versionGroups)
+        {
+            List<VersionModel> versions = new List<VersionModel>();
+
+            try
+            {
+                foreach (var versionGroup in versionGroups)
+                {
+                    var response = await _service.GetResourceByNameAsync<VersionGroupModel>(versionGroup.ApiEndpoint, versionGroup.Name.ToLower());
+
+                    if (response != null)
+                        versions.AddRange(response.Versions);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Erro", ex.Message);
+            }
+
+            return versions;
         }
 
         private async Task<IEnumerable<EvolutionModel>> GetPokemonEvolutionChainAsync(PokemonSpeciesModel species)

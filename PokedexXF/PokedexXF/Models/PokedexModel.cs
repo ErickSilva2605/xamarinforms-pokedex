@@ -24,5 +24,11 @@ namespace PokedexXF.Models
 
         [JsonProperty("descriptions")]
         public IEnumerable<DescriptionModel> Descriptions { get; set; }
+
+        [JsonProperty("version_groups")]
+        public IEnumerable<VersionGroupModel> VersionGroups { get; set; }
+
+        [JsonProperty("names")]
+        public IEnumerable<NameModel> Names { get; set; }
     }
 }
