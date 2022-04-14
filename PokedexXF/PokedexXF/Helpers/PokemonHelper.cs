@@ -13,17 +13,6 @@ namespace PokedexXF.Helpers
 {
     public static class PokemonHelper
     {
-        public static string RefreshAndValidateNextPage(int offset, int pagesCount, string nextPage)
-        {
-            if (offset >= pagesCount || string.IsNullOrEmpty(nextPage))
-                return null;
-
-            if (nextPage.Contains($"?offset={offset}"))
-                return nextPage;
-            else
-                return string.Format(Constants.BASE_URL_NEXT_PAGE, offset);
-        }
-
         public static IEnumerable<PokemonModel> GetMockPokemonList(int offset, int amount)
         {
             List<PokemonModel> pokemonMockList = new List<PokemonModel>();
@@ -103,7 +92,7 @@ namespace PokedexXF.Helpers
         {
             return new List<EvolutionModel>
             {
-                new EvolutionModel 
+                new EvolutionModel
                 {
                     Id = 0,
                     Name = "XXXXXXXXX",
@@ -114,7 +103,7 @@ namespace PokedexXF.Helpers
                     EnvolvesToName = "XXXXXXXXX",
                     IsBaby = false,
                     HasEvolution = true,
-                    IsBusy = true 
+                    IsBusy = true
                 },
                 new EvolutionModel
                 {
@@ -252,6 +241,22 @@ namespace PokedexXF.Helpers
             };
         }
 
+        public static int ExtractIdFromUrl(string url)
+        {
+            if (string.IsNullOrEmpty(url))
+                return default;
+
+            if (url.EndsWith("/"))
+                url = url.Remove(url.Length - 1);
+
+            var splitUrl = url.Split('/');
+
+            if (int.TryParse(splitUrl[splitUrl.Count() - 1], out int result))
+                return result;
+
+            return default;
+        }
+
         public static IEnumerable<TypeRelationModel> GetAllTypeRelations(TypeRelationsModel typeRelations)
         {
             List<TypeRelationModel> allTypeRelations = new List<TypeRelationModel>();
@@ -262,8 +267,7 @@ namespace PokedexXF.Helpers
                 if ((TypeEnum)typeItem == TypeEnum.Undefined)
                     continue;
 
-                TypeRelationModel typeRelation = new TypeRelationModel();
-                typeRelation.Type = (TypeEnum)typeItem;
+                TypeRelationModel typeRelation = new TypeRelationModel { Type = (TypeEnum)typeItem };
 
                 if (typeRelations.DoubleDamageFrom.Any() && typeRelations.DoubleDamageFrom.Any(x => x.Type == typeRelation.Type))
                     typeRelation.Effect = EffectEnum.SuperEffective;
@@ -422,7 +426,7 @@ namespace PokedexXF.Helpers
         {
             var description = string.Join("/", versions.Select(s => s.NameFirstCharUpper));
 
-            if(description.EndsWith("/"))
+            if (description.EndsWith("/"))
                 description = description.Remove(description.Length - 1);
 
             description = $"{description} - {pokedex.Names.Where(w => w.Language.Name == "en").Select(s => s.Name).FirstOrDefault()}";

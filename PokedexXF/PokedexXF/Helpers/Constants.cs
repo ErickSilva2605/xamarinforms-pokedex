@@ -3,7 +3,7 @@
     public class Constants
     {
         internal const string BASE_URL = "https://pokeapi.co/api/v2/";
-        internal const string BASE_URL_NEXT_PAGE = "https://pokeapi.co/api/v2/pokemon/?offset={0}&limit=20";
+        internal const string BASE_URL_RESOURCE_LIST = "https://pokeapi.co/api/v2/pokemon/?offset={0}&limit={1}";
         internal const string BASE_IMAGE_URL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{0}.png";
         internal const string ENDPOINT_POKEMON = "pokemon";
         internal const string ENDPOINT_ABILITY = "ability";
@@ -31,5 +31,6 @@
         internal const double FEET_CONVERTER_VALUE = 0.3048;
         internal const double INCH_CONVERTER_VALUE = 0.0833;
         internal const int PAGE_LIMIT = 20;
+        internal const int POKEMON_LIMIT = 898;
     }
 }
