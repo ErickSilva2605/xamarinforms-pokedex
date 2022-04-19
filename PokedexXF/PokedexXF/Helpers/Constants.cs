@@ -17,6 +17,7 @@
         internal const string ENDPOINT_VERSION = "version";
         internal const string ENDPOINT_VERSION_GROUP = "version-group";
         internal const string ENDPOINT_STAT = "stat";
+        internal const string ENDPOINT_GENERATION = "generation";
         internal const int EGG_CYCLE_STEPS = 257;
         internal const int POKEMON_MAX_LEVEL = 100;
         internal const int EV_MAX = 252;

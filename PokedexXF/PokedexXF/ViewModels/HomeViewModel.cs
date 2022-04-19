@@ -98,6 +98,12 @@ namespace PokedexXF.ViewModels
             private set;
         }
 
+        public GenerationModel Generation
+        {
+            get;
+            private set;
+        }
+
         public ObservableRangeCollection<PokemonModel> Pokemons
         {
             get => _pokemons;
@@ -134,6 +140,7 @@ namespace PokedexXF.ViewModels
             _service = restService;
             _dbService = new LiteDbService<PokemonModel>();
             ResourceList = new ResourceListModel();
+            Generation = new GenerationModel();
             Pokemons = new ObservableRangeCollection<PokemonModel>();
             PokemonsHelp = new ObservableRangeCollection<PokemonModel>();
             DbPokemons = new List<PokemonModel>();
@@ -158,15 +165,6 @@ namespace PokedexXF.ViewModels
 
         private async Task InitializeAsync()
         {
-            // TODO - Ordenação
-            // Controlar paginação mostrando apenas 20 de acordo com a ordenação
-
-            // TODO - Geração
-            // Obter todos os pokemons da geração seleionada
-            // Com a lista contendo todos os pokemons extrair id da url
-            // Controlar paginação mostrando apenas 20 de acordo com a geração
-            // https://pokeapi.co/api/v2/generation/1 - "pokemon_species"
-
             Filters = PokemonHelper.GetFilters();
             Pokemons.AddRange(PokemonHelper.GetMockPokemonList(Offset, Amount));
             await GetResourcePageAsync(string.Format(Constants.BASE_URL_RESOURCE_LIST, 0, Constants.POKEMON_LIMIT));
@@ -363,6 +361,27 @@ namespace PokedexXF.ViewModels
             return null;
         }
 
+        private async Task GetGenerationAsync(string url)
+        {
+            try
+            {
+                if (!InternetConnectivity())
+                    return;
+
+                var generation = await _service.GetResourceAsync<GenerationModel>(url);
+
+                if (generation == null)
+                    return;
+
+                Generation = generation;
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Erro", ex.Message);
+            }
+        }
+
         private async Task<IEnumerable<PokemonTypeDefenseModel>> GetPokemonTypeDefensesAsync(PokemonModel pokemon)
         {
             List<PokemonTypeDefenseModel> typeDefenses = new List<PokemonTypeDefenseModel>();
@@ -549,9 +568,28 @@ namespace PokedexXF.ViewModels
             });
 
             generation.Selected = !generation.Selected;
-
-            await Task.Delay(500);
+            Offset = 0;
+            Pokemons = new ObservableRangeCollection<PokemonModel>(PokemonHelper.GetMockPokemonList(Offset, Amount));
             DrawerIsOpen = false;
+
+            if (Filters.Generations.Any(a => a.Selected == true))
+            {
+                await GetGenerationAsync($"{Constants.BASE_URL}/{Generation.ApiEndpoint}/{(int)generation.Generation}");
+                ResourceList.Results = PokemonHelper.ConvertGenerationSpeciesInResourceItems(Generation);
+                SortResourceList();
+                var pokemonList = await GetPokemonListAsync();
+
+                if (pokemonList.Any())
+                    Pokemons = new ObservableRangeCollection<PokemonModel>(pokemonList);
+                else
+                    Pokemons = new ObservableRangeCollection<PokemonModel>();
+            }
+            else
+            {
+                await GetResourcePageAsync(string.Format(Constants.BASE_URL_RESOURCE_LIST, 0, Constants.POKEMON_LIMIT));
+                SortResourceList();
+                await LoadPokemonsAsync();
+            }
         }
 
         private async Task ExecuteSelectSortCommand(SortFilterModel sort)
@@ -564,8 +602,25 @@ namespace PokedexXF.ViewModels
 
             Offset = 0;
             Pokemons = new ObservableRangeCollection<PokemonModel>(PokemonHelper.GetMockPokemonList(Offset, Amount));
+            SortResourceList();
+            DrawerIsOpen = false;
 
-            switch (sort.Sort)
+            var pokemonList = await GetPokemonListAsync();
+
+            if (pokemonList.Any())
+                Pokemons = new ObservableRangeCollection<PokemonModel>(pokemonList);
+            else
+                Pokemons = new ObservableRangeCollection<PokemonModel>();
+        }
+
+        private void SortResourceList()
+        {
+            if (!Filters.Orders.Any(a => a.Selected == true))
+                return;
+
+            var sort = Filters.Orders.Where(w => w.Selected == true).FirstOrDefault().Sort;
+
+            switch (sort)
             {
                 case Enums.SortEnum.Ascending:
                     ResourceList.Results = ResourceList.Results.OrderBy(o => o.Id);
@@ -583,16 +638,6 @@ namespace PokedexXF.ViewModels
                     ResourceList.Results = ResourceList.Results.OrderBy(o => o.Id);
                     break;
             }
-
-            DrawerIsOpen = false;
-
-            var pokemonList = await GetPokemonListAsync();
-
-            if (pokemonList.Any())
-                Pokemons = new ObservableRangeCollection<PokemonModel>(pokemonList);
-
-            if (Pokemons.Any())
-                LiteDbHelper.UpdatePokemonListDataBase(_dbService, Pokemons);
         }
 
         private void ExecuteSelectFilterTypeCommand(TypeFilterModel type)

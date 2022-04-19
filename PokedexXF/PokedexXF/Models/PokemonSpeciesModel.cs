@@ -19,6 +19,9 @@ namespace PokedexXF.Models
 
         public override string ApiEndpoint => Constants.ENDPOINT_SPECIES;
 
+        [JsonProperty("url")]
+        public string Url { get; set; }
+
         [JsonProperty("base_happiness")]
         public int BaseHappiness { get; set; }
 

@@ -241,6 +241,23 @@ namespace PokedexXF.Helpers
             };
         }
 
+        public static IEnumerable<ResourceItemModel> ConvertGenerationSpeciesInResourceItems(GenerationModel generation)
+        {
+            List<ResourceItemModel> resourceItems = new List<ResourceItemModel>();
+
+            generation.Species?.ForEach(specie =>
+            {
+                resourceItems.Add(
+                    new ResourceItemModel 
+                    { 
+                        Name = specie.Name, 
+                        Url = $"{Constants.BASE_URL}/{Constants.ENDPOINT_POKEMON}/{ExtractIdFromUrl(specie.Url)}" 
+                    });
+            });
+
+            return resourceItems;
+        }
+
         public static int ExtractIdFromUrl(string url)
         {
             if (string.IsNullOrEmpty(url))
