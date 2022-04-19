@@ -77,7 +77,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="35" />
                     </Grid.RowDefinitions>
 
                     <pancake:PancakeView Style="{StaticResource cardSkeletonAbout}">
@@ -208,18 +208,24 @@
                         </BindableLayout.ItemTemplate>
                     </StackLayout>
 
-                    <StackLayout
+                    <CollectionView
                         Grid.Row="4"
                         Grid.Column="1"
-                        BindableLayout.ItemsSource="{Binding Pokemon.Weaknesses}"
                         HorizontalOptions="FillAndExpand"
-                        Orientation="Horizontal"
-                        Spacing="10"
+                        ItemsSource="{Binding Pokemon.Weaknesses}"
                         VerticalOptions="CenterAndExpand"
                         >
-                        <BindableLayout.ItemTemplate>
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <pancake:PancakeView skeleton:Skeleton.IsBusy="{Binding IsBusy}" Style="{StaticResource CardSkeleton}">
+                                <pancake:PancakeView
+                                    skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                                    HorizontalOptions="Start"
+                                    Style="{StaticResource CardSkeleton}"
+                                    VerticalOptions="Start"
+                                    >
                                     <pancake:PancakeView
                                         Padding="5"
                                         BackgroundColor="{Binding Type, Converter={StaticResource converterTypeToColorType}}"
@@ -237,8 +243,8 @@
                                     </pancake:PancakeView>
                                 </pancake:PancakeView>
                             </DataTemplate>
-                        </BindableLayout.ItemTemplate>
-                    </StackLayout>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
                 </Grid>
 
                 <!--  Training Section  -->
