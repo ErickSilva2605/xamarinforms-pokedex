@@ -6,6 +6,18 @@ namespace PokedexXF.Helpers
 {
     public class LiteDbHelper
     {
+        public static void UpdateFiltersDataBase(LiteDbService<FiltersModel> db, FiltersModel filters)
+        {
+            db.DeleteAll();
+            db.UpsertItem(filters);
+        }
+
+        public static void UpdateResourceListDataBase(LiteDbService<ResourceListModel> db, ResourceListModel resourceList)
+        {
+            db.DeleteAll();
+            db.UpsertItem(resourceList);
+        }
+
         public static void UpdatePokemonListDataBase(LiteDbService<PokemonModel> db, IEnumerable<PokemonModel> pokemons)
         {
             db.DeleteAll();

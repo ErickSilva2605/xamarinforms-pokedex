@@ -18,7 +18,9 @@ namespace PokedexXF.ViewModels
     public class HomeViewModel : BaseViewModel, IInitializeAsync
     {
         private readonly IRestService _service;
-        private readonly LiteDbService<PokemonModel> _dbService;
+        private readonly LiteDbService<PokemonModel> _dbServicePokemons;
+        private readonly LiteDbService<FiltersModel> _dbServiceFilters;
+        private readonly LiteDbService<ResourceListModel> _dbServiceResourceList;
         private ObservableRangeCollection<PokemonModel> _pokemons;
         private ObservableRangeCollection<PokemonModel> _pokemonsHelp;
         private IEnumerable<PokemonModel> DbPokemons;
@@ -138,7 +140,9 @@ namespace PokedexXF.ViewModels
             ItemTreshold = 1;
             DrawerIsOpen = false;
             _service = restService;
-            _dbService = new LiteDbService<PokemonModel>();
+            _dbServicePokemons = new LiteDbService<PokemonModel>();
+            _dbServiceFilters = new LiteDbService<FiltersModel>();
+            _dbServiceResourceList = new LiteDbService<ResourceListModel>();
             ResourceList = new ResourceListModel();
             Generation = new GenerationModel();
             Pokemons = new ObservableRangeCollection<PokemonModel>();
@@ -165,10 +169,27 @@ namespace PokedexXF.ViewModels
 
         private async Task InitializeAsync()
         {
-            Filters = PokemonHelper.GetFilters();
+            LoadFilters();
             Pokemons.AddRange(PokemonHelper.GetMockPokemonList(Offset, Amount));
-            await GetResourcePageAsync(string.Format(Constants.BASE_URL_RESOURCE_LIST, 0, Constants.POKEMON_LIMIT));
+            await GetResourceListAsync(string.Format(Constants.BASE_URL_RESOURCE_LIST, 0, Constants.POKEMON_LIMIT));
             await LoadPokemonsAsync();
+        }
+
+        private void LoadFilters()
+        {
+            try
+            {
+                var dbFilters = _dbServiceFilters.FindAll();
+
+                if (!dbFilters.Any())
+                    Filters = PokemonHelper.GetFilters();
+                else
+                    Filters = dbFilters.FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Erro", ex.Message);
+            }
         }
 
         private async Task LoadPokemonsAsync()
@@ -186,19 +207,22 @@ namespace PokedexXF.ViewModels
                     return;
                 }
 
-                var dbPokemons = _dbService.FindAll();
+                DbPokemons = _dbServicePokemons.FindAll();
 
-                if (!dbPokemons.Any() || dbPokemons.Count() < Constants.PAGE_LIMIT)
+                if (DbPokemons.Any())
+                    SortPokemonDbList();
+
+                if (!DbPokemons.Any() || DbPokemons.Count() < Constants.PAGE_LIMIT)
                 {
                     Pokemons = new ObservableRangeCollection<PokemonModel>(await GetPokemonListAsync());
 
                     if (Pokemons.Any())
-                        LiteDbHelper.UpdatePokemonListDataBase(_dbService, Pokemons);
+                        LiteDbHelper.UpdatePokemonListDataBase(_dbServicePokemons, Pokemons);
                 }
                 else
                 {
                     await Task.Delay(5000);
-                    Pokemons = new ObservableRangeCollection<PokemonModel>(dbPokemons.Take(Constants.PAGE_LIMIT));
+                    Pokemons = new ObservableRangeCollection<PokemonModel>(DbPokemons.Take(Constants.PAGE_LIMIT));
                 }
 
             }
@@ -237,9 +261,7 @@ namespace PokedexXF.ViewModels
                 var mock = PokemonHelper.GetMockPokemonList(Offset, Amount);
                 Pokemons.AddRange(mock);
 
-                var dbPokemons = _dbService.FindAll();
-
-                if (!dbPokemons.Any() || dbPokemons.Count() <= Offset)
+                if (!DbPokemons.Any() || DbPokemons.Count() <= Offset)
                 {
                     var pokemonList = await GetPokemonListAsync();
                     Pokemons.RemoveRange(mock);
@@ -248,13 +270,13 @@ namespace PokedexXF.ViewModels
                         Pokemons.AddRange(pokemonList);
 
                     if (Pokemons.Any())
-                        LiteDbHelper.UpdatePokemonListDataBase(_dbService, Pokemons);
+                        LiteDbHelper.UpdatePokemonListDataBase(_dbServicePokemons, Pokemons);
                 }
                 else
                 {
                     await Task.Delay(5000);
                     Pokemons.RemoveRange(mock);
-                    Pokemons.AddRange(dbPokemons.Skip(Offset).Take(Constants.PAGE_LIMIT));
+                    Pokemons.AddRange(DbPokemons.Skip(Offset).Take(Constants.PAGE_LIMIT));
                 }
             }
             catch (Exception ex)
@@ -267,20 +289,28 @@ namespace PokedexXF.ViewModels
             }
         }
 
-        private async Task GetResourcePageAsync(string url)
+        private async Task GetResourceListAsync(string url)
         {
             try
             {
                 if (!InternetConnectivity())
                     return;
 
-                var resourceList = await _service.GetResourceAsync<ResourceListModel>(url);
+                var dbResourceList = _dbServiceResourceList.FindAll();
+                if (!dbResourceList.Any())
+                {
+                    var resourceList = await _service.GetResourceAsync<ResourceListModel>(url);
 
-                if (resourceList == null)
-                    return;
+                    if (resourceList == null)
+                        return;
 
-                ResourceList = resourceList;
+                    ResourceList = resourceList;
+                    LiteDbHelper.UpdateResourceListDataBase(_dbServiceResourceList, ResourceList);
+                }
+                else
+                    ResourceList = dbResourceList.FirstOrDefault();
 
+                SortResourceList();
             }
             catch (Exception ex)
             {
@@ -568,6 +598,7 @@ namespace PokedexXF.ViewModels
             });
 
             generation.Selected = !generation.Selected;
+            LiteDbHelper.UpdateFiltersDataBase(_dbServiceFilters, Filters);
             Offset = 0;
             Pokemons = new ObservableRangeCollection<PokemonModel>(PokemonHelper.GetMockPokemonList(Offset, Amount));
             DrawerIsOpen = false;
@@ -580,13 +611,18 @@ namespace PokedexXF.ViewModels
                 var pokemonList = await GetPokemonListAsync();
 
                 if (pokemonList.Any())
+                {
                     Pokemons = new ObservableRangeCollection<PokemonModel>(pokemonList);
+                    LiteDbHelper.UpdatePokemonListDataBase(_dbServicePokemons, Pokemons);
+                }
                 else
                     Pokemons = new ObservableRangeCollection<PokemonModel>();
             }
             else
             {
-                await GetResourcePageAsync(string.Format(Constants.BASE_URL_RESOURCE_LIST, 0, Constants.POKEMON_LIMIT));
+                _dbServiceResourceList.DeleteAll();
+                _dbServicePokemons.DeleteAll();
+                await GetResourceListAsync(string.Format(Constants.BASE_URL_RESOURCE_LIST, 0, Constants.POKEMON_LIMIT));
                 SortResourceList();
                 await LoadPokemonsAsync();
             }
@@ -599,7 +635,7 @@ namespace PokedexXF.ViewModels
 
             Filters.Orders.ForEach((item) => { item.Selected = false; });
             sort.Selected = true;
-
+            LiteDbHelper.UpdateFiltersDataBase(_dbServiceFilters, Filters);
             Offset = 0;
             Pokemons = new ObservableRangeCollection<PokemonModel>(PokemonHelper.GetMockPokemonList(Offset, Amount));
             SortResourceList();
@@ -608,36 +644,12 @@ namespace PokedexXF.ViewModels
             var pokemonList = await GetPokemonListAsync();
 
             if (pokemonList.Any())
+            {
                 Pokemons = new ObservableRangeCollection<PokemonModel>(pokemonList);
+                LiteDbHelper.UpdatePokemonListDataBase(_dbServicePokemons, Pokemons);
+            }
             else
                 Pokemons = new ObservableRangeCollection<PokemonModel>();
-        }
-
-        private void SortResourceList()
-        {
-            if (!Filters.Orders.Any(a => a.Selected == true))
-                return;
-
-            var sort = Filters.Orders.Where(w => w.Selected == true).FirstOrDefault().Sort;
-
-            switch (sort)
-            {
-                case Enums.SortEnum.Ascending:
-                    ResourceList.Results = ResourceList.Results.OrderBy(o => o.Id);
-                    break;
-                case Enums.SortEnum.Descending:
-                    ResourceList.Results = ResourceList.Results.OrderByDescending(o => o.Id);
-                    break;
-                case Enums.SortEnum.AlphabeticalAscending:
-                    ResourceList.Results = ResourceList.Results.OrderBy(o => o.Name);
-                    break;
-                case Enums.SortEnum.AlphabeticalDescending:
-                    ResourceList.Results = ResourceList.Results.OrderByDescending(o => o.Name);
-                    break;
-                default:
-                    ResourceList.Results = ResourceList.Results.OrderBy(o => o.Id);
-                    break;
-            }
         }
 
         private void ExecuteSelectFilterTypeCommand(TypeFilterModel type)
@@ -675,6 +687,7 @@ namespace PokedexXF.ViewModels
                 Filters.Weights = new ObservableRangeCollection<WeightFilterModel>(PokemonHelper.GetFilterWeights());
                 Filters.NumberRangeMin = 1;
                 Filters.NumberRangeMax = 898;
+                LiteDbHelper.UpdateFiltersDataBase(_dbServiceFilters, Filters);
 
                 await Task.Delay(800);
                 DrawerIsOpen = false;
@@ -698,6 +711,7 @@ namespace PokedexXF.ViewModels
             {
                 IsBusy = true;
 
+                LiteDbHelper.UpdateFiltersDataBase(_dbServiceFilters, Filters);
                 await Task.Delay(500);
                 DrawerIsOpen = false;
             }
@@ -728,7 +742,7 @@ namespace PokedexXF.ViewModels
             ItemTreshold = -1;
 
             if (!DbPokemons.Any())
-                DbPokemons = _dbService.FindAll();
+                DbPokemons = _dbServicePokemons.FindAll();
 
             if (!PokemonsHelp.Any())
                 PokemonsHelp = new ObservableRangeCollection<PokemonModel>(Pokemons);
@@ -752,6 +766,62 @@ namespace PokedexXF.ViewModels
 
             if (pokemon != null)
                 Pokemons.Add(pokemon);
+        }
+
+        private void SortResourceList()
+        {
+            if (!Filters.Orders.Any(a => a.Selected == true))
+                return;
+
+            var sort = Filters.Orders.Where(w => w.Selected == true).FirstOrDefault().Sort;
+
+            switch (sort)
+            {
+                case Enums.SortEnum.Ascending:
+                    ResourceList.Results = ResourceList.Results.OrderBy(o => o.Id);
+                    break;
+                case Enums.SortEnum.Descending:
+                    ResourceList.Results = ResourceList.Results.OrderByDescending(o => o.Id);
+                    break;
+                case Enums.SortEnum.AlphabeticalAscending:
+                    ResourceList.Results = ResourceList.Results.OrderBy(o => o.Name);
+                    break;
+                case Enums.SortEnum.AlphabeticalDescending:
+                    ResourceList.Results = ResourceList.Results.OrderByDescending(o => o.Name);
+                    break;
+                default:
+                    ResourceList.Results = ResourceList.Results.OrderBy(o => o.Id);
+                    break;
+            }
+
+            LiteDbHelper.UpdateResourceListDataBase(_dbServiceResourceList, ResourceList);
+        }
+
+        private void SortPokemonDbList()
+        {
+            if (!Filters.Orders.Any(a => a.Selected == true))
+                return;
+
+            var sort = Filters.Orders.Where(w => w.Selected == true).FirstOrDefault().Sort;
+
+            switch (sort)
+            {
+                case Enums.SortEnum.Ascending:
+                    DbPokemons = DbPokemons.OrderBy(o => o.Id);
+                    break;
+                case Enums.SortEnum.Descending:
+                    DbPokemons = DbPokemons.OrderByDescending(o => o.Id);
+                    break;
+                case Enums.SortEnum.AlphabeticalAscending:
+                    DbPokemons = DbPokemons.OrderBy(o => o.Name);
+                    break;
+                case Enums.SortEnum.AlphabeticalDescending:
+                    DbPokemons = DbPokemons.OrderByDescending(o => o.Name);
+                    break;
+                default:
+                    DbPokemons = DbPokemons.OrderBy(o => o.Id);
+                    break;
+            }
         }
 
         private void ClearSearch()
