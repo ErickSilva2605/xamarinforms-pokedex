@@ -123,7 +123,7 @@ Dados:
 <h2 align="center">Licença</h2>
 
 <p align="center">
-   Este repositório está sob licença MIT. Você pode ver o arquivo <a href="https://github.com/ErickSilva2605/rocketseat_nlw_heat/blob/main/LICENSE">LICENSE</a> para mais detalhes.
+   Este repositório está sob licença MIT. Você pode ver o arquivo <a href=https://github.com/ErickSilva2605/xamarinforms-pokedex/blob/main/LICENSE">LICENSE</a> para mais detalhes.
 </p><br>
 
 ---
