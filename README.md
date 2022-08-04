@@ -1,3 +1,6 @@
+<a href="https://www.snppts.dev/snippet/pokedexXF">
+   <img src="./Images/snppts-badge.png" width="100" alt="Snppts Badge"/>
+</a>
 <p align="center">
       <img src="./Images/Pokeball.png" width="100" alt="Pokedex XF"/>
 </p>
