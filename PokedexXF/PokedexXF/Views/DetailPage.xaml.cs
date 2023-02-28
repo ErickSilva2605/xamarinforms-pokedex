@@ -2,7 +2,8 @@
 using PokedexXF.Services;
 using PokedexXF.ViewModels;
 using System.Threading.Tasks;
-using Xamarin.Forms;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
 using Xamarin.Forms.Xaml;
 
 namespace PokedexXF.Views
