@@ -1,15 +1,10 @@
-﻿using System;
-using Microsoft.Maui;
-using Microsoft.Maui.Controls;
-using Xamarin.Forms.Internals;
+﻿using Microsoft.Maui.Controls.Internals;
 
-/// <summary>
-/// This class was imported from the Xam.Plugin.SimpleBottomDrawer project with some modifications
-/// Ref: https://github.com/galadril/Xam.Plugin.SimpleBottomDrawer
-/// </summary>
 namespace PokedexXF.Controls
 {
     /// <summary>
+    /// This class was imported from the Xam.Plugin.SimpleBottomDrawer project with some modifications
+    /// Ref: https://github.com/galadril/Xam.Plugin.SimpleBottomDrawer
     /// Bottom drawer control with a border
     /// </summary>
     [Preserve(AllMembers = true)]
@@ -78,7 +73,7 @@ namespace PokedexXF.Controls
         public CustomBottomDrawer()
         {
             // Set the default values for this control
-            BackgroundColor = Color.White;
+            BackgroundColor = Colors.White;
             CornerRadius = 0;
             HasShadow = false;
 
@@ -179,7 +174,7 @@ namespace PokedexXF.Controls
             {
                 if (!drawer.isDragging)
                 {
-                    var finalTranslation = Math.Max(Math.Min(0, -1000), -Math.Abs(drawer.getProportionCoordinate(expandValue)));
+                    var finalTranslation = Math.Max(Math.Min(0, -1000), -Math.Abs(drawer.GetProportionCoordinate(expandValue)));
                     if (expandValue < 0)
                         drawer.TranslateTo(drawer.X, finalTranslation, 250, Easing.SpringIn);
                     else
@@ -197,7 +192,7 @@ namespace PokedexXF.Controls
             {
                 case GestureStatus.Running:
                     isDragging = true;
-                    var Y = (Device.RuntimePlatform == Device.Android ? this.TranslationY : translationYStart) + e.TotalY;
+                    var Y = (DeviceInfo.Current.Platform == DevicePlatform.Android ? this.TranslationY : translationYStart) + e.TotalY;
                     // Translate and ensure we don't y + e.TotalY pan beyond the wrapped user interface element bounds.
                     var translateY = Math.Max(Math.Min(0, Y), -Math.Abs((Height * .10) - Height));
                     this.TranslateTo(this.X, translateY, 1);
@@ -205,10 +200,10 @@ namespace PokedexXF.Controls
                     break;
                 case GestureStatus.Completed:
                     // At the end of the event - snap to the closest location
-                    var finalTranslation = Math.Max(Math.Min(0, -1000), -Math.Abs(getProportionCoordinate(GetClosestLockState(e.TotalY + this.TranslationY))));
+                    var finalTranslation = Math.Max(Math.Min(0, -1000), -Math.Abs(GetProportionCoordinate(GetClosestLockState(e.TotalY + this.TranslationY))));
 
                     // Depending on Swipe Up or Down - change the snapping animation
-                    if (DetectSwipeUp(e))
+                    if (CustomBottomDrawer.DetectSwipeUp(e))
                         this.TranslateTo(this.X, finalTranslation, 250, Easing.SpringIn);
                     else
                         this.TranslateTo(this.X, finalTranslation, 250, Easing.SpringOut);
@@ -221,8 +216,8 @@ namespace PokedexXF.Controls
                     break;
             }
 
-            if (ExpandedPercentage > LockStates[LockStates.Length - 1])
-                ExpandedPercentage = LockStates[LockStates.Length - 1];
+            if (ExpandedPercentage > LockStates[^1])
+                ExpandedPercentage = LockStates[^1];
 
             IsOpen = ExpandedPercentage > 0;
         }
@@ -242,7 +237,7 @@ namespace PokedexXF.Controls
         /// <summary>
         /// Check if the action is a swipe up
         /// </summary>
-        private bool DetectSwipeUp(PanUpdatedEventArgs e)
+        private static bool DetectSwipeUp(PanUpdatedEventArgs e)
         {
             return e.TotalY < 0;
         }
@@ -284,7 +279,7 @@ namespace PokedexXF.Controls
         /// <summary>
         /// Get proportion coordinates
         /// </summary>
-        private double getProportionCoordinate(double proportion)
+        private double GetProportionCoordinate(double proportion)
         {
             return proportion * Height;
         }
@@ -298,8 +293,8 @@ namespace PokedexXF.Controls
         /// </summary>
         public void Close()
         {
-            var finalTranslation = Math.Max(Math.Min(0, -1000), -Math.Abs(getProportionCoordinate(LockStates[0])));
-            this.TranslateTo(this.X, finalTranslation, 450, Device.RuntimePlatform == Device.Android ? Easing.SpringOut : null);
+            var finalTranslation = Math.Max(Math.Min(0, -1000), -Math.Abs(GetProportionCoordinate(LockStates[0])));
+            this.TranslateTo(this.X, finalTranslation, 450, DeviceInfo.Current.Platform == DevicePlatform.Android ? Easing.SpringOut : null);
         }
 
         /// <summary>
@@ -307,8 +302,8 @@ namespace PokedexXF.Controls
         /// </summary>
         public void Open()
         {
-            var finalTranslation = Math.Max(Math.Min(0, -1000), -Math.Abs(getProportionCoordinate(LockStates[1])));
-            this.TranslateTo(this.X, finalTranslation, 150, Device.RuntimePlatform == Device.Android ? Easing.SpringIn : null);
+            var finalTranslation = Math.Max(Math.Min(0, -1000), -Math.Abs(GetProportionCoordinate(LockStates[1])));
+            this.TranslateTo(this.X, finalTranslation, 150, DeviceInfo.Current.Platform == DevicePlatform.Android ? Easing.SpringIn : null);
         }
 
         #endregion Public
