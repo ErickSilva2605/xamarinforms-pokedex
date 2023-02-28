@@ -1,16 +1,46 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+	  <TargetFrameworks>net7.0-android;net7.0-ios</TargetFrameworks>
+	  <OutputType>Exe</OutputType>
+	  <RootNamespace>PokedexXF</RootNamespace>
+	  <UseMaui>true</UseMaui>
+	  <SingleProject>true</SingleProject>
+	  <ImplicitUsings>enable</ImplicitUsings>
+
+	  <!-- Display name -->
+	  <ApplicationTitle>PokedexXF</ApplicationTitle>
+
+	  <!-- App Identifier -->
+	  <ApplicationId>com.ericksilva.pokedexxf</ApplicationId>
+	  <ApplicationIdGuid>0175ab63-4752-4da3-b0aa-763fc5b02b92</ApplicationIdGuid>
+
+	  <!-- Versions -->
+	  <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+	  <ApplicationVersion>1</ApplicationVersion>
+
+	  <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
+	  <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DebugType>portable</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
+	<ItemGroup>
+		<!-- App Icon -->
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 
-  <ItemGroup>
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+  <!--<ItemGroup>
     <None Remove="Resources\Fonts\sf-pro-display-bold.ttf" />
     <None Remove="Resources\Fonts\sf-pro-display-medium.ttf" />
     <None Remove="Resources\Fonts\sf-pro-display-regular.ttf" />
@@ -20,9 +50,9 @@
     <EmbeddedResource Include="Resources\Fonts\sf-pro-display-bold.ttf" />
     <EmbeddedResource Include="Resources\Fonts\sf-pro-display-medium.ttf" />
     <EmbeddedResource Include="Resources\Fonts\sf-pro-display-regular.ttf" />
-  </ItemGroup>
+  </ItemGroup>-->
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="4.1.0" />
     <PackageReference Include="Flurl" Version="3.0.7" />
     <PackageReference Include="Flurl.Http" Version="3.2.4" />
@@ -36,9 +66,9 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.7.5" />
     <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
     <PackageReference Include="Xamarin.Forms.Skeleton" Version="2.0.0" />
-  </ItemGroup>
+  </ItemGroup>-->
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <EmbeddedResource Update="ContentViews\BadgeTypeContentView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -66,5 +96,5 @@
     <EmbeddedResource Update="Views\HomePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-  </ItemGroup>
+  </ItemGroup>-->
 </Project>
