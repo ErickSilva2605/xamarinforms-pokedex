@@ -40,6 +40,12 @@
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
+	<ItemGroup>
+		<PackageReference Include="Flurl" Version="3.0.7" />
+		<PackageReference Include="Flurl.Http" Version="3.2.4" />
+		<PackageReference Include="LiteDB" Version="5.0.15" />
+	</ItemGroup>
+
   <!--<ItemGroup>
     <None Remove="Resources\Fonts\sf-pro-display-bold.ttf" />
     <None Remove="Resources\Fonts\sf-pro-display-medium.ttf" />
