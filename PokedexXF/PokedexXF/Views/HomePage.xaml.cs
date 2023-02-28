@@ -3,7 +3,7 @@ using PokedexXF.ViewModels;
 using System.Threading.Tasks;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
-using Xamarin.Forms.Xaml;
+using Microsoft.Maui.Controls.Xaml;
 
 namespace PokedexXF.Views
 {

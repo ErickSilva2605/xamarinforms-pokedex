@@ -1,6 +1,6 @@
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
-using Xamarin.Forms.Xaml;
+using Microsoft.Maui.Controls.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 [assembly: ExportFont("sf-pro-display-regular.ttf", Alias = "FontRegular")]
