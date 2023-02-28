@@ -2,7 +2,6 @@
 using PokedexXF.Views;
 using System.Globalization;
 using System.IO;
-using Xamarin.Essentials;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 
