@@ -3,6 +3,7 @@
     x:Class="PokedexXF.Views.HomePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:compat="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
     xmlns:contentViews="clr-namespace:PokedexXF.ContentViews"
     xmlns:converters="clr-namespace:PokedexXF.Converters"
     xmlns:myControls="clr-namespace:PokedexXF.Controls"
@@ -50,7 +51,7 @@
         </Style>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <RelativeLayout>
+        <compat:RelativeLayout>
             <Grid HorizontalOptions="FillAndExpand">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -337,17 +338,17 @@
             </Grid>
 
             <ContentView
+                compat:RelativeLayout.HeightConstraint="{compat:ConstraintExpression Type=RelativeToParent,
+                                                                                     Property=Height,
+                                                                                     Factor=1,
+                                                                                     Constant=0}"
+                compat:RelativeLayout.WidthConstraint="{compat:ConstraintExpression Type=RelativeToParent,
+                                                                                    Property=Width,
+                                                                                    Factor=1,
+                                                                                    Constant=0}"
                 BackgroundColor="{StaticResource ColorBackgroundModal}"
                 IsVisible="{Binding DrawerIsOpen}"
                 Opacity=".50"
-                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                                       Property=Height,
-                                                                       Factor=1,
-                                                                       Constant=0}"
-                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                                      Property=Width,
-                                                                      Factor=1,
-                                                                      Constant=0}"
                 >
                 <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding CloseModalCommand}" />
@@ -356,22 +357,22 @@
 
             <myControls:CustomBottomDrawer
                 Padding="0"
+                compat:RelativeLayout.HeightConstraint="{compat:ConstraintExpression Type=RelativeToParent,
+                                                                                     Property=Height,
+                                                                                     Factor=1,
+                                                                                     Constant=0}"
+                compat:RelativeLayout.WidthConstraint="{compat:ConstraintExpression Type=RelativeToParent,
+                                                                                    Property=Width,
+                                                                                    Factor=1,
+                                                                                    Constant=0}"
+                compat:RelativeLayout.YConstraint="{compat:ConstraintExpression Type=RelativeToParent,
+                                                                                Property=Height,
+                                                                                Factor=1,
+                                                                                Constant=0}"
                 BackgroundColor="Transparent"
                 HasShadow="False"
                 IsOpen="{Binding DrawerIsOpen}"
                 LockStates="{Binding LockStates}"
-                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                                       Property=Height,
-                                                                       Factor=1,
-                                                                       Constant=0}"
-                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                                      Property=Width,
-                                                                      Factor=1,
-                                                                      Constant=0}"
-                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                                  Property=Height,
-                                                                  Factor=1,
-                                                                  Constant=0}"
                 >
                 <Grid
                     Margin="0,15,0,0"
@@ -406,6 +407,6 @@
                     </pancake:PancakeView>-->
                 </Grid>
             </myControls:CustomBottomDrawer>
-        </RelativeLayout>
+        </compat:RelativeLayout>
     </ContentPage.Content>
 </ContentPage>
