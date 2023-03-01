@@ -4,12 +4,14 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converters="clr-namespace:PokedexXF.Converters"
-    xmlns:skeleton="clr-namespace:Xamarin.Forms.Skeleton;assembly=Xamarin.Forms.Skeleton"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="statsView"
     >
 
-    <!--  xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"  -->
+    <!--
+        xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+        xmlns:skeleton="clr-namespace:Xamarin.Forms.Skeleton;assembly=Xamarin.Forms.Skeleton"
+    -->
     <ContentView.Resources>
         <converters:ConverterTypeToColorType x:Key="converterTypeToColorType" />
         <converters:ConverterTypeToImageType x:Key="converterTypeToImageType" />
@@ -91,7 +93,7 @@
                                         VerticalTextAlignment="Center"
                                         />
                                 </pancake:PancakeView-->
-                                &gt;
+
                                 <!--  Column 2  -->
                                 <!--<pancake:PancakeView
                                     Grid.Column="2"
@@ -286,10 +288,13 @@
                                             />
                                     </pancake:PancakeView>
                                 </pancake:PancakeView>-->
-                                <Label
-                                    Grid.Row="1"
+
+                                <!--
                                     skeleton:Skeleton.Hide="True"
                                     skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                                -->
+                                <Label
+                                    Grid.Row="1"
                                     HorizontalOptions="Center"
                                     Style="{StaticResource LabelDescription}"
                                     Text="{Binding Multiplier}"

@@ -12,7 +12,6 @@ using System.Windows.Input;
 using PokedexXF.ObjectModel;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
-using Xamarin.Forms.Internals;
 
 namespace PokedexXF.ViewModels
 {
@@ -592,7 +591,7 @@ namespace PokedexXF.ViewModels
 
         private async Task ExecuteSelectGenerationCommand(GenerationFilterModel generation)
         {
-            Filters.Generations.ForEach((item) =>
+            Filters.Generations.ToList().ForEach((item) =>
             {
                 if (!item.Equals(generation))
                     item.Selected = false;
@@ -634,7 +633,7 @@ namespace PokedexXF.ViewModels
             if (Filters.Orders.Any(a => a.Sort == sort.Sort && a.Selected == true))
                 return;
 
-            Filters.Orders.ForEach((item) => { item.Selected = false; });
+            Filters.Orders.ToList().ForEach((item) => { item.Selected = false; });
             sort.Selected = true;
             LiteDbHelper.UpdateFiltersDataBase(_dbServiceFilters, Filters);
             Offset = 0;
