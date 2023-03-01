@@ -1,38 +1,13 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using Xamarin.Essentials;
-using Microsoft.Maui;
-using Microsoft.Maui.Controls;
+﻿using PokedexXF.ObjectModel;
 
 namespace PokedexXF.ViewModels
 {
-    public class BaseViewModel : INotifyPropertyChanged
+    public class BaseViewModel : ObservableObject
     {
         public INavigation Navigation;
         public BaseViewModel(INavigation navigation)
         {
             Navigation = navigation;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        protected bool SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(field, value))
-            {
-                return false;
-            }
-
-            field = value;
-            OnPropertyChanged(propertyName);
-
-            return true;
         }
 
         public virtual void OnDisappearing() { }

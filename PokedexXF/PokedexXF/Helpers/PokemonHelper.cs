@@ -1,12 +1,9 @@
 ﻿using PokedexXF.Enums;
 using PokedexXF.Extensions;
 using PokedexXF.Models;
-using System;
-using System.Collections.Generic;
+using PokedexXF.ObjectModel;
 using System.Globalization;
-using System.Linq;
-using Xamarin.CommunityToolkit.ObjectModel;
-using Xamarin.Forms.Internals;
+
 
 namespace PokedexXF.Helpers
 {

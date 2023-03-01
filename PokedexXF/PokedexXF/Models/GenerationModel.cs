@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json;
 using PokedexXF.Extensions;
 using PokedexXF.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PokedexXF.Models
 {

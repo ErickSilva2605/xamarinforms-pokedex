@@ -1,4 +1,4 @@
-﻿using Xamarin.CommunityToolkit.ObjectModel;
+﻿using PokedexXF.ObjectModel;
 
 namespace PokedexXF.Models
 {

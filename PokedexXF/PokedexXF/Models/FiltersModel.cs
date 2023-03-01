@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Xamarin.CommunityToolkit.ObjectModel;
+﻿using PokedexXF.ObjectModel;
 
 namespace PokedexXF.Models
 {

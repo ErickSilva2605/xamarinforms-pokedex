@@ -1,5 +1,5 @@
 ﻿using PokedexXF.Enums;
-using Xamarin.CommunityToolkit.ObjectModel;
+using PokedexXF.ObjectModel;
 
 namespace PokedexXF.Models
 {
