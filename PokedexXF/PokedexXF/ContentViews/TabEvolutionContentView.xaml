@@ -4,12 +4,12 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converters="clr-namespace:PokedexXF.Converters"
-    xmlns:magic="http://magic.com/schemas/gradients"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:skeleton="clr-namespace:Xamarin.Forms.Skeleton;assembly=Xamarin.Forms.Skeleton"
     xmlns:system="clr-namespace:System;assembly=netstandard"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     >
+    <!--xmlns:magic="http://magic.com/schemas/gradients"-->
     <ContentView.Resources>
         <converters:ConverterTypeToColorType x:Key="converterTypeToColorType" />
     </ContentView.Resources>
@@ -64,7 +64,7 @@
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
-                                        <magic:GradientView
+                                        <!--<magic:GradientView
                                             Margin="0,0,0,0"
                                             HeightRequest="100"
                                             HorizontalOptions="Center"
@@ -85,7 +85,7 @@
                                                     Stretch="Fill"
                                                     />
                                             </magic:GradientView.Mask>
-                                        </magic:GradientView>
+                                        </magic:GradientView>-->
                                         <Image
                                             skeleton:Skeleton.Hide="True"
                                             skeleton:Skeleton.IsBusy="{Binding IsBusy}"
@@ -174,7 +174,7 @@
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
-                                        <magic:GradientView
+                                        <!--<magic:GradientView
                                             Margin="0,0,0,0"
                                             HeightRequest="100"
                                             HorizontalOptions="Center"
@@ -195,7 +195,7 @@
                                                     Stretch="Fill"
                                                     />
                                             </magic:GradientView.Mask>
-                                        </magic:GradientView>
+                                        </magic:GradientView>-->
                                         <Image
                                             skeleton:Skeleton.Hide="True"
                                             skeleton:Skeleton.IsBusy="{Binding IsBusy}"

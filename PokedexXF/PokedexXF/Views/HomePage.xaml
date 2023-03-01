@@ -6,7 +6,6 @@
     xmlns:contentViews="clr-namespace:PokedexXF.ContentViews"
     xmlns:converters="clr-namespace:PokedexXF.Converters"
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:magic="http://magic.com/schemas/gradients"
     xmlns:myControls="clr-namespace:PokedexXF.Controls"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:skeleton="clr-namespace:Xamarin.Forms.Skeleton;assembly=Xamarin.Forms.Skeleton"
@@ -15,6 +14,8 @@
     x:Name="Home"
     NavigationPage.HasNavigationBar="False"
     >
+
+    <!--xmlns:magic="http://magic.com/schemas/gradients"-->
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:ConverterTypeToColorBackgroundType x:Key="converterTypeToColorBackgroundType" />
@@ -55,7 +56,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <magic:GradientView
+                <!--<magic:GradientView
                     Grid.RowSpan="2"
                     Margin="0,-180,0,0"
                     HorizontalOptions="FillAndExpand"
@@ -74,7 +75,7 @@
                             Stretch="Fill"
                             />
                     </magic:GradientView.Mask>
-                </magic:GradientView>
+                </magic:GradientView>-->
                 <StackLayout
                     Padding="43,45,20,30"
                     HorizontalOptions="EndAndExpand"
@@ -215,7 +216,7 @@
                                                 <ColumnDefinition Width="*" />
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
-                                            <magic:GradientView
+                                            <!--<magic:GradientView
                                                 Grid.Column="0"
                                                 Margin="90,5,0,0"
                                                 skeleton:Skeleton.Hide="True"
@@ -239,7 +240,7 @@
                                                         Stretch="Fill"
                                                         />
                                                 </magic:GradientView.Mask>
-                                            </magic:GradientView>
+                                            </magic:GradientView>-->
                                             <Grid
                                                 Grid.ColumnSpan="2"
                                                 HorizontalOptions="FillAndExpand"
@@ -279,7 +280,7 @@
 
                                                 <contentViews:BadgeTypeContentView Grid.Row="2" Margin="20,0,0,20" />
                                             </Grid>
-                                            <magic:GradientView
+                                            <!--<magic:GradientView
                                                 Grid.Column="1"
                                                 Margin="0,0,-25,-30"
                                                 skeleton:Skeleton.Hide="True"
@@ -303,7 +304,7 @@
                                                         Stretch="Fill"
                                                         />
                                                 </magic:GradientView.Mask>
-                                            </magic:GradientView>
+                                            </magic:GradientView>-->
                                         </Grid>
                                     </pancake:PancakeView>
                                     <ffimageloading:CachedImage

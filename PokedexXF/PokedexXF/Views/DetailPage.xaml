@@ -5,13 +5,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:contentViews="clr-namespace:PokedexXF.ContentViews"
     xmlns:converters="clr-namespace:PokedexXF.Converters"
-    xmlns:magic="http://magic.com/schemas/gradients"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:system="clr-namespace:System;assembly=netstandard"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="Detail"
     NavigationPage.HasNavigationBar="False"
     >
+
+    <!--xmlns:magic="http://magic.com/schemas/gradients"-->
+    
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:ConverterTypeToColorBackgroundType x:Key="converterTypeToColorBackgroundType" />
@@ -24,7 +26,7 @@
 
             <ControlTemplate x:Key="TabItemTemplate">
                 <Grid RowSpacing="0">
-                    <magic:GradientView
+                    <!--<magic:GradientView
                         Margin="0,0,0,-50"
                         HeightRequest="100"
                         HorizontalOptions="Center"
@@ -54,7 +56,7 @@
                                 <Setter Property="IsVisible" Value="False" />
                             </DataTrigger>
                         </magic:GradientView.Triggers>
-                    </magic:GradientView>
+                    </magic:GradientView>-->
                     <Label
                         HorizontalOptions="Center"
                         Style="{StaticResource LabelFilterTitle}"
@@ -100,7 +102,7 @@
                     </Grid.ColumnDefinitions>
 
                     <!--  Gradient Pattern Circle  -->
-                    <magic:GradientView
+                    <!--<magic:GradientView
                         x:Name="gradientPatternCircle"
                         Grid.RowSpan="2"
                         Margin="30,70,0,0"
@@ -126,7 +128,7 @@
                                 <magic:EllipseMask ClipMode="Exclude" Size="115,115" />
                             </magic:MaskCollection>
                         </magic:GradientView.Mask>
-                    </magic:GradientView>
+                    </magic:GradientView>-->
 
                     <!--  Pokemon Image  -->
                     <Image
@@ -176,7 +178,7 @@
                 </Grid>
 
                 <!--  Gradient Pokemon Name  -->
-                <magic:GradientView
+                <!--<magic:GradientView
                     x:Name="gradientPokemonName"
                     HeightRequest="120"
                     HorizontalOptions="FillAndExpand"
@@ -198,10 +200,10 @@
                             Text="{Binding Pokemon.NameUpperCase}"
                             />
                     </magic:GradientView.Mask>
-                </magic:GradientView>
+                </magic:GradientView>-->
 
                 <!--  Gradient Pattern 10x5  -->
-                <magic:GradientView
+                <!--<magic:GradientView
                     x:Name="gradientPattern10x5"
                     Margin="0,0,-75,0"
                     HeightRequest="65"
@@ -223,7 +225,7 @@
                             Stretch="Fill"
                             />
                     </magic:GradientView.Mask>
-                </magic:GradientView>
+                </magic:GradientView>-->
             </Grid>
 
             <!--  TabView  -->
