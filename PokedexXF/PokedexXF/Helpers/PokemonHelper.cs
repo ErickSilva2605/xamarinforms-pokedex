@@ -241,13 +241,13 @@ namespace PokedexXF.Helpers
         {
             List<ResourceItemModel> resourceItems = new List<ResourceItemModel>();
 
-            generation.Species?.ForEach(specie =>
+            generation.Species?.ToList().ForEach(specie =>
             {
                 resourceItems.Add(
-                    new ResourceItemModel 
-                    { 
-                        Name = specie.Name, 
-                        Url = $"{Constants.BASE_URL}/{Constants.ENDPOINT_POKEMON}/{ExtractIdFromUrl(specie.Url)}" 
+                    new ResourceItemModel
+                    {
+                        Name = specie.Name,
+                        Url = $"{Constants.BASE_URL}/{Constants.ENDPOINT_POKEMON}/{ExtractIdFromUrl(specie.Url)}"
                     });
             });
 

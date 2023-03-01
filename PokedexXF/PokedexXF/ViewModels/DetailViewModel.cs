@@ -59,20 +59,20 @@ namespace PokedexXF.ViewModels
                 }
 
                 PokemonSpecies = PokemonHelper.GetMockPokemonSpecies();
-                Pokemon.Abilities.ForEach(i => i.IsBusy = true);
-                Pokemon.Weaknesses.ForEach(i => i.IsBusy = true);
-                Pokemon.Stats.ForEach(i => i.IsBusy = true);
-                Pokemon.TypeDefenses.ForEach(i => i.IsBusy = true);
+                Pokemon.Abilities.ToList().ForEach(i => i.IsBusy = true);
+                Pokemon.Weaknesses.ToList().ForEach(i => i.IsBusy = true);
+                Pokemon.Stats.ToList().ForEach(i => i.IsBusy = true);
+                Pokemon.TypeDefenses.ToList().ForEach(i => i.IsBusy = true);
 
                 var dbSpecies = _pokemonSpeciesDbService.FindById(Pokemon.Id);
 
                 if (dbSpecies == null)
                 {
                     PokemonSpecies = await GetPokemonSpeciesAsync();
-                    Pokemon.Abilities.ForEach(i => i.IsBusy = false);
-                    Pokemon.Weaknesses.ForEach(i => i.IsBusy = false);
-                    Pokemon.Stats.ForEach(i => i.IsBusy = false);
-                    Pokemon.TypeDefenses.ForEach(i => i.IsBusy = false);
+                    Pokemon.Abilities.ToList().ForEach(i => i.IsBusy = false);
+                    Pokemon.Weaknesses.ToList().ForEach(i => i.IsBusy = false);
+                    Pokemon.Stats.ToList().ForEach(i => i.IsBusy = false);
+                    Pokemon.TypeDefenses.ToList().ForEach(i => i.IsBusy = false);
 
                     if (PokemonSpecies != null)
                         LiteDbHelper.UpdatePokemonSpeciesDataBase(_pokemonSpeciesDbService, PokemonSpecies);
@@ -82,10 +82,10 @@ namespace PokedexXF.ViewModels
                     await Task.Delay(8000);
 
                     PokemonSpecies = dbSpecies;
-                    Pokemon.Abilities.ForEach(i => i.IsBusy = false);
-                    Pokemon.Weaknesses.ForEach(i => i.IsBusy = false);
-                    Pokemon.Stats.ForEach(i => i.IsBusy = false);
-                    Pokemon.TypeDefenses.ForEach(i => i.IsBusy = false);
+                    Pokemon.Abilities.ToList().ForEach(i => i.IsBusy = false);
+                    Pokemon.Weaknesses.ToList().ForEach(i => i.IsBusy = false);
+                    Pokemon.Stats.ToList().ForEach(i => i.IsBusy = false);
+                    Pokemon.TypeDefenses.ToList().ForEach(i => i.IsBusy = false);
                 }
             }
             catch (Exception ex)
@@ -138,7 +138,7 @@ namespace PokedexXF.ViewModels
             {
                 foreach (var item in pokedexNumbers)
                 {
-                    if(item.Pokedex.Name.ToLower() == "national")
+                    if (item.Pokedex.Name.ToLower() == "national")
                         continue;
 
                     var pokedex = await _service.GetResourceByNameAsync<PokedexModel>(item.Pokedex.ApiEndpoint, item.Pokedex.Name.ToLower());
