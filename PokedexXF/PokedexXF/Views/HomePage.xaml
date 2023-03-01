@@ -7,7 +7,6 @@
     xmlns:converters="clr-namespace:PokedexXF.Converters"
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:myControls="clr-namespace:PokedexXF.Controls"
-    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:skeleton="clr-namespace:Xamarin.Forms.Skeleton;assembly=Xamarin.Forms.Skeleton"
     xmlns:system="clr-namespace:System;assembly=netstandard"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
@@ -15,12 +14,15 @@
     NavigationPage.HasNavigationBar="False"
     >
 
-    <!--xmlns:magic="http://magic.com/schemas/gradients"-->
+    <!--
+        xmlns:magic="http://magic.com/schemas/gradients"
+        xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    -->
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:ConverterTypeToColorBackgroundType x:Key="converterTypeToColorBackgroundType" />
         </ResourceDictionary>
-        <Style x:Key="cardFilter" TargetType="{x:Type pancake:PancakeView}">
+        <!--<Style x:Key="cardFilter" TargetType="{x:Type pancake:PancakeView}">
             <Setter Property="Margin" Value="0" />
             <Setter Property="Padding" Value="5" />
             <Setter Property="xct:TouchEffect.NativeAnimation" Value="True" />
@@ -39,7 +41,7 @@
             >
             <Setter Property="skeleton:Skeleton.IsBusy" Value="{Binding IsBusy}" />
             <Setter Property="skeleton:Skeleton.BackgroundColor" Value="{StaticResource ColorTextWhite}" />
-        </Style>
+        </Style>-->
         <Style x:Key="imageFilter" TargetType="Image">
             <Setter Property="HeightRequest" Value="20" />
             <Setter Property="HorizontalOptions" Value="Center" />
@@ -82,7 +84,7 @@
                     Orientation="Horizontal"
                     Spacing="15"
                     >
-                    <pancake:PancakeView
+                    <!--<pancake:PancakeView
                         x:Name="frameFilterGeneration"
                         xct:TouchEffect.Command="{Binding OpenModalGenerationCommand}"
                         Style="{StaticResource cardFilter}"
@@ -102,7 +104,7 @@
                         Style="{StaticResource cardFilter}"
                         >
                         <Image Source="icon_filter" Style="{StaticResource imageFilter}" />
-                    </pancake:PancakeView>
+                    </pancake:PancakeView>-->
                 </StackLayout>
                 <Label
                     x:Name="labelTitle"
@@ -128,7 +130,7 @@
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
-                <pancake:PancakeView
+                <!--<pancake:PancakeView
                     x:Name="frameSearch"
                     Grid.Row="2"
                     Margin="40,25,40,10"
@@ -164,7 +166,7 @@
                             </myControls:CustomEntryBorderless.Behaviors>
                         </myControls:CustomEntryBorderless>
                     </StackLayout>
-                </pancake:PancakeView>
+                </pancake:PancakeView>-->
                 <CollectionView
                     x:Name="collectionPokemons"
                     Grid.Row="3"
@@ -181,7 +183,7 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <pancake:PancakeView
+                            <!--<pancake:PancakeView
                                 Margin="0"
                                 Padding="0"
                                 xct:TouchEffect.Command="{Binding Source={x:Reference Home}, Path=BindingContext.NavigateToDetailCommand}"
@@ -216,7 +218,8 @@
                                                 <ColumnDefinition Width="*" />
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
-                                            <!--<magic:GradientView
+                            -->
+                            <!--<magic:GradientView
                                                 Grid.Column="0"
                                                 Margin="90,5,0,0"
                                                 skeleton:Skeleton.Hide="True"
@@ -241,6 +244,7 @@
                                                         />
                                                 </magic:GradientView.Mask>
                                             </magic:GradientView>-->
+                            <!--
                                             <Grid
                                                 Grid.ColumnSpan="2"
                                                 HorizontalOptions="FillAndExpand"
@@ -280,7 +284,8 @@
 
                                                 <contentViews:BadgeTypeContentView Grid.Row="2" Margin="20,0,0,20" />
                                             </Grid>
-                                            <!--<magic:GradientView
+                            -->
+                            <!--<magic:GradientView
                                                 Grid.Column="1"
                                                 Margin="0,0,-25,-30"
                                                 skeleton:Skeleton.Hide="True"
@@ -305,6 +310,7 @@
                                                         />
                                                 </magic:GradientView.Mask>
                                             </magic:GradientView>-->
+                            <!--
                                         </Grid>
                                     </pancake:PancakeView>
                                     <ffimageloading:CachedImage
@@ -320,7 +326,8 @@
                                         WidthRequest="130"
                                         />
                                 </Grid>
-                            </pancake:PancakeView>
+                            </pancake:PancakeView>-->
+                            <Frame />
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
@@ -381,7 +388,7 @@
                         VerticalOptions="Start"
                         WidthRequest="80"
                         />
-                    <pancake:PancakeView
+                    <!--<pancake:PancakeView
                         Grid.Row="1"
                         Margin="0"
                         BackgroundColor="{StaticResource ColorBackgroundWhite}"
@@ -393,7 +400,7 @@
                             <contentViews:SortContentView IsVisible="{Binding FilterSortVisible}" />
                             <contentViews:FiltersContentView IsVisible="{Binding FiltersVisible}" />
                         </Grid>
-                    </pancake:PancakeView>
+                    </pancake:PancakeView>-->
                 </Grid>
             </myControls:CustomBottomDrawer>
         </RelativeLayout>

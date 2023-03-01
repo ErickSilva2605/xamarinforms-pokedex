@@ -4,12 +4,14 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converters="clr-namespace:PokedexXF.Converters"
-    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:skeleton="clr-namespace:Xamarin.Forms.Skeleton;assembly=Xamarin.Forms.Skeleton"
     xmlns:system="clr-namespace:System;assembly=netstandard"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     >
-    <!--xmlns:magic="http://magic.com/schemas/gradients"-->
+    <!--
+        xmlns:magic="http://magic.com/schemas/gradients"
+        xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    -->
     <ContentView.Resources>
         <converters:ConverterTypeToColorType x:Key="converterTypeToColorType" />
     </ContentView.Resources>
@@ -22,7 +24,7 @@
                 </Grid.RowDefinitions>
 
                 <!--  Evolution Chart Section  -->
-                <pancake:PancakeView
+                <!--<pancake:PancakeView
                     skeleton:Skeleton.IsBusy="{Binding PokemonSpecies.IsBusy}"
                     HorizontalOptions="Start"
                     Style="{StaticResource CardSkeleton}"
@@ -33,7 +35,7 @@
                         Text="Evolution Chart"
                         TextColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorType}}"
                         />
-                </pancake:PancakeView>
+                </pancake:PancakeView>-->
                 <StackLayout
                     Grid.Row="1"
                     BindableLayout.ItemsSource="{Binding PokemonSpecies.Evolutions}"
@@ -53,7 +55,7 @@
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
 
-                                <pancake:PancakeView
+                                <!--<pancake:PancakeView
                                     skeleton:Skeleton.IsBusy="{Binding IsBusy}"
                                     CornerRadius="50"
                                     HorizontalOptions="Center"
@@ -64,7 +66,8 @@
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
-                                        <!--<magic:GradientView
+                                -->
+                                <!--<magic:GradientView
                                             Margin="0,0,0,0"
                                             HeightRequest="100"
                                             HorizontalOptions="Center"
@@ -86,6 +89,7 @@
                                                     />
                                             </magic:GradientView.Mask>
                                         </magic:GradientView>-->
+                                <!--
                                         <Image
                                             skeleton:Skeleton.Hide="True"
                                             skeleton:Skeleton.IsBusy="{Binding IsBusy}"
@@ -96,9 +100,9 @@
                                             WidthRequest="75"
                                             />
                                     </Grid>
-                                </pancake:PancakeView>
+                                </pancake:PancakeView>-->
 
-                                <pancake:PancakeView
+                                <!--<pancake:PancakeView
                                     Grid.Row="1"
                                     skeleton:Skeleton.IsBusy="{Binding IsBusy}"
                                     HorizontalOptions="Center"
@@ -129,7 +133,7 @@
                                         VerticalOptions="End"
                                         VerticalTextAlignment="End"
                                         />
-                                </pancake:PancakeView>
+                                </pancake:PancakeView>-->
 
                                 <StackLayout
                                     Grid.Column="1"
@@ -138,7 +142,7 @@
                                     IsVisible="{Binding HasEvolution}"
                                     VerticalOptions="Center"
                                     >
-                                    <pancake:PancakeView
+                                    <!--<pancake:PancakeView
                                         skeleton:Skeleton.IsBusy="{Binding IsBusy}"
                                         HorizontalOptions="Center"
                                         Style="{StaticResource CardSkeleton}"
@@ -160,9 +164,9 @@
                                             TextColor="{StaticResource ColorTextBlack}"
                                             VerticalOptions="CenterAndExpand"
                                             />
-                                    </pancake:PancakeView>
+                                    </pancake:PancakeView>-->
                                 </StackLayout>
-                                <pancake:PancakeView
+                                <!--<pancake:PancakeView
                                     Grid.Column="2"
                                     skeleton:Skeleton.IsBusy="{Binding IsBusy}"
                                     CornerRadius="50"
@@ -174,7 +178,8 @@
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
-                                        <!--<magic:GradientView
+                                -->
+                                <!--<magic:GradientView
                                             Margin="0,0,0,0"
                                             HeightRequest="100"
                                             HorizontalOptions="Center"
@@ -196,6 +201,7 @@
                                                     />
                                             </magic:GradientView.Mask>
                                         </magic:GradientView>-->
+                                <!--
                                         <Image
                                             skeleton:Skeleton.Hide="True"
                                             skeleton:Skeleton.IsBusy="{Binding IsBusy}"
@@ -242,7 +248,7 @@
                                         VerticalOptions="End"
                                         VerticalTextAlignment="End"
                                         />
-                                </pancake:PancakeView>
+                                </pancake:PancakeView>-->
                             </Grid>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>

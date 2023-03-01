@@ -4,11 +4,12 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converters="clr-namespace:PokedexXF.Converters"
-    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:skeleton="clr-namespace:Xamarin.Forms.Skeleton;assembly=Xamarin.Forms.Skeleton"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="statsView"
     >
+
+    <!--  xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"  -->
     <ContentView.Resources>
         <converters:ConverterTypeToColorType x:Key="converterTypeToColorType" />
         <converters:ConverterTypeToImageType x:Key="converterTypeToImageType" />
@@ -35,7 +36,7 @@
                 </Grid.RowDefinitions>
 
                 <!--  Base Stats Section  -->
-                <pancake:PancakeView
+                <!--<pancake:PancakeView
                     HorizontalOptions="Start"
                     Style="{StaticResource cardSkeletonStats}"
                     WidthRequest="120"
@@ -45,7 +46,7 @@
                         Text="Base Stats"
                         TextColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorType}}"
                         />
-                </pancake:PancakeView>
+                </pancake:PancakeView>-->
 
                 <StackLayout Grid.Row="1" BindableLayout.ItemsSource="{Binding Pokemon.Stats}">
                     <BindableLayout.ItemTemplate>
@@ -60,7 +61,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <!--  Column 0  -->
-                                <pancake:PancakeView
+                                <!--<pancake:PancakeView
                                     skeleton:Skeleton.IsBusy="{Binding IsBusy}"
                                     HorizontalOptions="FillAndExpand"
                                     Style="{StaticResource CardSkeleton}"
@@ -72,10 +73,10 @@
                                         TextColor="{StaticResource ColorTextBlack}"
                                         VerticalOptions="Center"
                                         />
-                                </pancake:PancakeView>
+                                </pancake:PancakeView>-->
 
                                 <!--  Column 1  -->
-                                <pancake:PancakeView
+                                <!--<pancake:PancakeView
                                     Grid.Column="1"
                                     skeleton:Skeleton.IsBusy="{Binding IsBusy}"
                                     HorizontalOptions="FillAndExpand"
@@ -89,10 +90,10 @@
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center"
                                         />
-                                </pancake:PancakeView>
-
+                                </pancake:PancakeView-->
+                                &gt;
                                 <!--  Column 2  -->
-                                <pancake:PancakeView
+                                <!--<pancake:PancakeView
                                     Grid.Column="2"
                                     skeleton:Skeleton.IsBusy="{Binding IsBusy}"
                                     HorizontalOptions="FillAndExpand"
@@ -103,10 +104,10 @@
                                         ProgressColor="{Binding Source={x:Reference statsView}, Path=BindingContext.Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorType}}"
                                         VerticalOptions="Center"
                                         />
-                                </pancake:PancakeView>
+                                </pancake:PancakeView>-->
 
                                 <!--  Column 3  -->
-                                <pancake:PancakeView
+                                <!--<pancake:PancakeView
                                     Grid.Column="3"
                                     skeleton:Skeleton.IsBusy="{Binding IsBusy}"
                                     HorizontalOptions="FillAndExpand"
@@ -119,10 +120,10 @@
                                         TextColor="{StaticResource ColorTextGray}"
                                         VerticalOptions="Center"
                                         />
-                                </pancake:PancakeView>
+                                </pancake:PancakeView>-->
 
                                 <!--  Column 4  -->
-                                <pancake:PancakeView
+                                <!--<pancake:PancakeView
                                     Grid.Column="4"
                                     skeleton:Skeleton.IsBusy="{Binding IsBusy}"
                                     HorizontalOptions="FillAndExpand"
@@ -135,7 +136,7 @@
                                         TextColor="{StaticResource ColorTextGray}"
                                         VerticalOptions="Center"
                                         />
-                                </pancake:PancakeView>
+                                </pancake:PancakeView>-->
                             </Grid>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
@@ -154,7 +155,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <pancake:PancakeView HorizontalOptions="FillAndExpand" Style="{StaticResource cardSkeletonStats}">
+                    <!--<pancake:PancakeView HorizontalOptions="FillAndExpand" Style="{StaticResource cardSkeletonStats}">
                         <Label
                             HorizontalOptions="Start"
                             Style="{StaticResource LabelPokemonType}"
@@ -204,10 +205,10 @@
                             TextColor="{StaticResource ColorTextBlack}"
                             VerticalOptions="Center"
                             />
-                    </pancake:PancakeView>
+                    </pancake:PancakeView>-->
                 </Grid>
 
-                <pancake:PancakeView
+                <!--<pancake:PancakeView
                     Grid.Row="3"
                     HorizontalOptions="FillAndExpand"
                     Style="{StaticResource cardSkeletonStats}"
@@ -217,10 +218,10 @@
                         Text="The ranges shown on the right are for a level 100 Pokémon. Maximum values are based on a beneficial nature, 252 EVs, 31 IVs; minimum values are based on a hindering nature, 0 EVs, 0 IVs."
                         TextColor="{StaticResource ColorTextGray}"
                         />
-                </pancake:PancakeView>
+                </pancake:PancakeView>-->
 
                 <!--  Type Defenses Section  -->
-                <pancake:PancakeView
+                <!--<pancake:PancakeView
                     Grid.Row="4"
                     HorizontalOptions="FillAndExpand"
                     Style="{StaticResource cardSkeletonStats}"
@@ -243,7 +244,7 @@
                         Text="{Binding Pokemon.Name, StringFormat='The effectiveness of each type on {0}.'}"
                         TextColor="{StaticResource ColorTextGray}"
                         />
-                </pancake:PancakeView>
+                </pancake:PancakeView>-->
 
                 <CollectionView
                     Grid.Row="6"
@@ -266,7 +267,7 @@
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
 
-                                <pancake:PancakeView skeleton:Skeleton.IsBusy="{Binding IsBusy}" Style="{StaticResource CardSkeleton}">
+                                <!--<pancake:PancakeView skeleton:Skeleton.IsBusy="{Binding IsBusy}" Style="{StaticResource CardSkeleton}">
                                     <pancake:PancakeView
                                         Padding="5"
                                         BackgroundColor="{Binding Type, Converter={StaticResource converterTypeToColorType}}"
@@ -284,7 +285,7 @@
                                             VerticalOptions="Center"
                                             />
                                     </pancake:PancakeView>
-                                </pancake:PancakeView>
+                                </pancake:PancakeView>-->
                                 <Label
                                     Grid.Row="1"
                                     skeleton:Skeleton.Hide="True"

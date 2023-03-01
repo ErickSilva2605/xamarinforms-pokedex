@@ -4,12 +4,15 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converters="clr-namespace:PokedexXF.Converters"
-    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:system="clr-namespace:System;assembly=netstandard"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-    x:Name="generationFilter">
+    x:Name="generationFilter"
+    >
 
-    <!--xmlns:magic="http://magic.com/schemas/gradients"-->
+    <!--
+        xmlns:magic="http://magic.com/schemas/gradients"
+        xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    -->
     <ContentView.Resources>
         <ResourceDictionary>
             <converters:ConverterGenerationToDescriptionGeneration x:Key="converterGenerationToDescriptionGeneration" />
@@ -26,18 +29,21 @@
                 Margin="40,0,40,35"
                 HorizontalOptions="Start"
                 HorizontalTextAlignment="Start"
-                VerticalOptions="Start">
+                VerticalOptions="Start"
+                >
                 <Label.FormattedText>
                     <FormattedString>
                         <Span
                             Style="{StaticResource LabelPokemonName}"
                             Text="Generations"
-                            TextColor="{StaticResource ColorTextBlack}" />
+                            TextColor="{StaticResource ColorTextBlack}"
+                            />
                         <Span Text="{x:Static system:Environment.NewLine}" />
                         <Span
                             Style="{StaticResource LabelDescription}"
                             Text="Use search for generations to explore your Pokémon!"
-                            TextColor="{StaticResource ColorTextGray}" />
+                            TextColor="{StaticResource ColorTextGray}"
+                            />
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
@@ -45,17 +51,19 @@
                 Grid.Row="1"
                 Margin="40,0"
                 ItemsSource="{Binding Filters.Generations}"
-                VerticalOptions="Start">
+                VerticalOptions="Start"
+                >
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout
                         HorizontalItemSpacing="10"
                         Orientation="Vertical"
                         Span="2"
-                        VerticalItemSpacing="10" />
+                        VerticalItemSpacing="10"
+                        />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <pancake:PancakeView
+                        <!--<pancake:PancakeView
                             Padding="0"
                             xct:TouchEffect.Command="{Binding Source={x:Reference generationFilter}, Path=BindingContext.SelectGenerationCommand}"
                             xct:TouchEffect.CommandParameter="{Binding .}"
@@ -68,7 +76,8 @@
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <!--<magic:GradientView
+                        -->
+                        <!--<magic:GradientView
                                     Margin="15,10,0,0"
                                     HeightRequest="35"
                                     HorizontalOptions="Start"
@@ -97,7 +106,7 @@
                                         </DataTrigger>
                                     </magic:GradientView.Triggers>
                                 </magic:GradientView>-->
-                                <!--<magic:GradientView
+                        <!--<magic:GradientView
                                     Margin="15,10,0,0"
                                     HeightRequest="35"
                                     HorizontalOptions="Start"
@@ -126,7 +135,7 @@
                                         </DataTrigger>
                                     </magic:GradientView.Triggers>
                                 </magic:GradientView>-->
-                                <!--<magic:GradientView
+                        <!--<magic:GradientView
                                     Margin="0,0,0,-105"
                                     HeightRequest="100"
                                     HorizontalOptions="End"
@@ -155,7 +164,7 @@
                                         </DataTrigger>
                                     </magic:GradientView.Triggers>
                                 </magic:GradientView>-->
-                                <!--<magic:GradientView
+                        <!--<magic:GradientView
                                     Margin="0,0,0,-105"
                                     HeightRequest="100"
                                     HorizontalOptions="End"
@@ -184,6 +193,7 @@
                                         </DataTrigger>
                                     </magic:GradientView.Triggers>
                                 </magic:GradientView>-->
+                        <!--
                                 <Image
                                     Margin="15,30,15,0"
                                     HeightRequest="45"
@@ -215,7 +225,8 @@
                                     <Setter Property="BackgroundColor" Value="{StaticResource ColorTypePsychic}" />
                                 </DataTrigger>
                             </pancake:PancakeView.Triggers>
-                        </pancake:PancakeView>
+                        </pancake:PancakeView>-->
+                        <Frame />
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

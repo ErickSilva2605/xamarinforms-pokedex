@@ -4,10 +4,12 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converters="clr-namespace:PokedexXF.Converters"
-    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:system="clr-namespace:System;assembly=netstandard"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-    x:Name="filters">
+    x:Name="filters"
+    >
+
+    <!--  xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"  -->
     <ContentView.Resources>
         <ResourceDictionary>
             <converters:ConverterTypeToColorType x:Key="converterTypeToColorType" />
@@ -28,18 +30,21 @@
                 Margin="40,0"
                 HorizontalOptions="Start"
                 HorizontalTextAlignment="Start"
-                VerticalOptions="Start">
+                VerticalOptions="Start"
+                >
                 <Label.FormattedText>
                     <FormattedString>
                         <Span
                             Style="{StaticResource LabelPokemonName}"
                             Text="Filters"
-                            TextColor="{StaticResource ColorTextBlack}" />
+                            TextColor="{StaticResource ColorTextBlack}"
+                            />
                         <Span Text="{x:Static system:Environment.NewLine}" />
                         <Span
                             Style="{StaticResource LabelDescription}"
                             Text="Use advanced search to explore Pokémon by type, weakness, height and more!"
-                            TextColor="{StaticResource ColorTextGray}" />
+                            TextColor="{StaticResource ColorTextGray}"
+                            />
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
@@ -61,11 +66,13 @@
                         Margin="0,15,0,0"
                         Style="{StaticResource LabelFilterTitle}"
                         Text="Types"
-                        TextColor="{StaticResource ColorTextBlack}" />
+                        TextColor="{StaticResource ColorTextBlack}"
+                        />
                     <CollectionView
                         Grid.Row="1"
                         ItemsSource="{Binding Filters.Types}"
-                        VerticalOptions="Start">
+                        VerticalOptions="Start"
+                        >
                         <CollectionView.ItemsLayout>
                             <LinearItemsLayout ItemSpacing="5" Orientation="Horizontal" />
                         </CollectionView.ItemsLayout>
@@ -74,8 +81,9 @@
                                 <Grid
                                     Padding="3"
                                     HorizontalOptions="FillAndExpand"
-                                    VerticalOptions="FillAndExpand">
-                                    <pancake:PancakeView
+                                    VerticalOptions="FillAndExpand"
+                                    >
+                                    <!--<pancake:PancakeView
                                         Padding="12"
                                         xct:TouchEffect.Command="{Binding Source={x:Reference filters}, Path=BindingContext.SelectFilterTypeCommand}"
                                         xct:TouchEffect.CommandParameter="{Binding .}"
@@ -109,7 +117,7 @@
                                                 <Setter Property="BackgroundColor" Value="{Binding Type, Converter={StaticResource converterTypeToColorType}}" />
                                             </DataTrigger>
                                         </pancake:PancakeView.Triggers>
-                                    </pancake:PancakeView>
+                                    </pancake:PancakeView>-->
                                 </Grid>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
@@ -119,11 +127,13 @@
                         Margin="0,10,0,0"
                         Style="{StaticResource LabelFilterTitle}"
                         Text="Weaknesses"
-                        TextColor="{StaticResource ColorTextBlack}" />
+                        TextColor="{StaticResource ColorTextBlack}"
+                        />
                     <CollectionView
                         Grid.Row="3"
                         ItemsSource="{Binding Filters.Weaknesses}"
-                        VerticalOptions="Start">
+                        VerticalOptions="Start"
+                        >
                         <CollectionView.ItemsLayout>
                             <LinearItemsLayout ItemSpacing="5" Orientation="Horizontal" />
                         </CollectionView.ItemsLayout>
@@ -132,8 +142,9 @@
                                 <Grid
                                     Padding="3"
                                     HorizontalOptions="FillAndExpand"
-                                    VerticalOptions="FillAndExpand">
-                                    <pancake:PancakeView
+                                    VerticalOptions="FillAndExpand"
+                                    >
+                                    <!--<pancake:PancakeView
                                         Padding="12"
                                         xct:TouchEffect.Command="{Binding Source={x:Reference filters}, Path=BindingContext.SelectFilterWeaknessCommand}"
                                         xct:TouchEffect.CommandParameter="{Binding .}"
@@ -167,7 +178,7 @@
                                                 <Setter Property="BackgroundColor" Value="{Binding Type, Converter={StaticResource converterTypeToColorType}}" />
                                             </DataTrigger>
                                         </pancake:PancakeView.Triggers>
-                                    </pancake:PancakeView>
+                                    </pancake:PancakeView>-->
                                 </Grid>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
@@ -177,11 +188,13 @@
                         Margin="0,10,0,0"
                         Style="{StaticResource LabelFilterTitle}"
                         Text="Heights"
-                        TextColor="{StaticResource ColorTextBlack}" />
+                        TextColor="{StaticResource ColorTextBlack}"
+                        />
                     <CollectionView
                         Grid.Row="5"
                         ItemsSource="{Binding Filters.Heights}"
-                        VerticalOptions="Start">
+                        VerticalOptions="Start"
+                        >
                         <CollectionView.ItemsLayout>
                             <LinearItemsLayout ItemSpacing="5" Orientation="Horizontal" />
                         </CollectionView.ItemsLayout>
@@ -190,8 +203,9 @@
                                 <Grid
                                     Padding="3"
                                     HorizontalOptions="FillAndExpand"
-                                    VerticalOptions="FillAndExpand">
-                                    <pancake:PancakeView
+                                    VerticalOptions="FillAndExpand"
+                                    >
+                                    <!--<pancake:PancakeView
                                         Padding="12"
                                         xct:TouchEffect.Command="{Binding Source={x:Reference filters}, Path=BindingContext.SelectFilterHeightCommand}"
                                         xct:TouchEffect.CommandParameter="{Binding .}"
@@ -225,7 +239,7 @@
                                                 <Setter Property="BackgroundColor" Value="{Binding Height, Converter={StaticResource converterHeightToColorHeight}}" />
                                             </DataTrigger>
                                         </pancake:PancakeView.Triggers>
-                                    </pancake:PancakeView>
+                                    </pancake:PancakeView>-->
                                 </Grid>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
@@ -235,11 +249,13 @@
                         Margin="0,10,0,0"
                         Style="{StaticResource LabelFilterTitle}"
                         Text="Weights"
-                        TextColor="{StaticResource ColorTextBlack}" />
+                        TextColor="{StaticResource ColorTextBlack}"
+                        />
                     <CollectionView
                         Grid.Row="7"
                         ItemsSource="{Binding Filters.Weights}"
-                        VerticalOptions="Start">
+                        VerticalOptions="Start"
+                        >
                         <CollectionView.ItemsLayout>
                             <LinearItemsLayout ItemSpacing="5" Orientation="Horizontal" />
                         </CollectionView.ItemsLayout>
@@ -248,8 +264,9 @@
                                 <Grid
                                     Padding="3"
                                     HorizontalOptions="FillAndExpand"
-                                    VerticalOptions="FillAndExpand">
-                                    <pancake:PancakeView
+                                    VerticalOptions="FillAndExpand"
+                                    >
+                                    <!--<pancake:PancakeView
                                         Padding="12"
                                         xct:TouchEffect.Command="{Binding Source={x:Reference filters}, Path=BindingContext.SelectFilterWeightCommand}"
                                         xct:TouchEffect.CommandParameter="{Binding .}"
@@ -283,7 +300,7 @@
                                                 <Setter Property="BackgroundColor" Value="{Binding Weight, Converter={StaticResource converterWeightToColorWeight}}" />
                                             </DataTrigger>
                                         </pancake:PancakeView.Triggers>
-                                    </pancake:PancakeView>
+                                    </pancake:PancakeView>-->
                                 </Grid>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
@@ -293,8 +310,9 @@
                         Margin="0,10,0,0"
                         Style="{StaticResource LabelFilterTitle}"
                         Text="Number Range"
-                        TextColor="{StaticResource ColorTextBlack}" />
-                    <xct:RangeSlider
+                        TextColor="{StaticResource ColorTextBlack}"
+                        />
+                    <!--<xct:RangeSlider
                         Grid.Row="9"
                         Margin="0,5"
                         LowerValue="{Binding Filters.NumberRangeMin}"
@@ -327,13 +345,14 @@
                                     VerticalOptions="Center" />
                             </pancake:PancakeView>
                         </xct:RangeSlider.UpperThumbView>
-                    </xct:RangeSlider>
+                    </xct:RangeSlider>-->
                     <FlexLayout
                         Grid.Row="10"
                         Margin="0,20,0,0"
                         Padding="2,5"
                         Direction="Row"
-                        JustifyContent="SpaceBetween">
+                        JustifyContent="SpaceBetween"
+                        >
                         <Button
                             Command="{Binding ResetFiltersCommand}"
                             CornerRadius="10"
@@ -342,7 +361,8 @@
                             Style="{StaticResource ButtonSecondary}"
                             Text="Reset"
                             VerticalOptions="Center"
-                            WidthRequest="160" />
+                            WidthRequest="160"
+                            />
                         <Button
                             xct:ShadowEffect.Color="{StaticResource ColorTypePsychic}"
                             xct:ShadowEffect.Radius="10"
@@ -353,7 +373,8 @@
                             Style="{StaticResource ButtonPrimary}"
                             Text="Apply"
                             VerticalOptions="Center"
-                            WidthRequest="160" />
+                            WidthRequest="160"
+                            />
                     </FlexLayout>
                 </Grid>
             </ScrollView>

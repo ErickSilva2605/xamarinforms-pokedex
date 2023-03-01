@@ -4,10 +4,10 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converters="clr-namespace:PokedexXF.Converters"
-    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:skeleton="clr-namespace:Xamarin.Forms.Skeleton;assembly=Xamarin.Forms.Skeleton"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     >
+    <!--  xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"  -->
     <ContentView.Resources>
         <ResourceDictionary>
             <converters:ConverterTypeToColorType x:Key="converterTypeToColorType" />
@@ -25,7 +25,7 @@
             >
             <BindableLayout.ItemTemplate>
                 <DataTemplate>
-                    <pancake:PancakeView
+                    <!--<pancake:PancakeView
                         Margin="0"
                         Padding="6"
                         skeleton:Skeleton.Animation="{skeleton:DefaultAnimation Source=Fade,
@@ -58,7 +58,8 @@
                                 VerticalTextAlignment="Center"
                                 />
                         </Grid>
-                    </pancake:PancakeView>
+                    </pancake:PancakeView>-->
+                    <Frame />
                 </DataTemplate>
             </BindableLayout.ItemTemplate>
         </StackLayout>

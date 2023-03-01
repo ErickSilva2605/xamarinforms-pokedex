@@ -5,24 +5,26 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:contentViews="clr-namespace:PokedexXF.ContentViews"
     xmlns:converters="clr-namespace:PokedexXF.Converters"
-    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+
     xmlns:system="clr-namespace:System;assembly=netstandard"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="Detail"
     NavigationPage.HasNavigationBar="False"
     >
 
-    <!--xmlns:magic="http://magic.com/schemas/gradients"-->
+    <!--xmlns:magic="http://magic.com/schemas/gradients"
+        xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    -->
     
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:ConverterTypeToColorBackgroundType x:Key="converterTypeToColorBackgroundType" />
 
-            <Style x:Key="pancakeTabItem" TargetType="{x:Type pancake:PancakeView}">
+            <!--<Style x:Key="pancakeTabItem" TargetType="{x:Type pancake:PancakeView}">
                 <Setter Property="BackgroundColor" Value="{StaticResource ColorBackgroundWhite}" />
                 <Setter Property="CornerRadius" Value="30,30,0,0" />
                 <Setter Property="VerticalOptions" Value="FillAndExpand" />
-            </Style>
+            </Style>-->
 
             <ControlTemplate x:Key="TabItemTemplate">
                 <Grid RowSpacing="0">
@@ -237,31 +239,31 @@
                 VerticalOptions="FillAndExpand"
                 >
                 <xct:TabViewItem ControlTemplate="{StaticResource TabItemTemplate}" Text="About">
-                    <pancake:PancakeView Style="{StaticResource pancakeTabItem}">
+                    <!--<pancake:PancakeView Style="{StaticResource pancakeTabItem}">
                         <ScrollView>
                             <contentViews:TabAboutContentView VerticalOptions="FillAndExpand" />
                         </ScrollView>
-                    </pancake:PancakeView>
+                    </pancake:PancakeView>-->
                 </xct:TabViewItem>
                 <xct:TabViewItem ControlTemplate="{StaticResource TabItemTemplate}" Text="Stats">
-                    <pancake:PancakeView Style="{StaticResource pancakeTabItem}">
+                    <!--<pancake:PancakeView Style="{StaticResource pancakeTabItem}">
                         <ScrollView>
                             <contentViews:TabStatsContentView />
                         </ScrollView>
-                    </pancake:PancakeView>
+                    </pancake:PancakeView>-->
                 </xct:TabViewItem>
                 <xct:TabViewItem ControlTemplate="{StaticResource TabItemTemplate}" Text="Evolution">
-                    <pancake:PancakeView Style="{StaticResource pancakeTabItem}">
+                    <!--<pancake:PancakeView Style="{StaticResource pancakeTabItem}">
                         <ScrollView>
                             <contentViews:TabEvolutionContentView />
                         </ScrollView>
-                    </pancake:PancakeView>
+                    </pancake:PancakeView>-->
                 </xct:TabViewItem>
             </xct:TabView>
 
             <!--  Fake NavBar  -->
             <Grid Padding="20,45,0,5" VerticalOptions="Start">
-                <pancake:PancakeView
+                <!--<pancake:PancakeView
                     Margin="0"
                     Padding="5"
                     xct:TouchEffect.Command="{Binding NavigateToBackCommand}"
@@ -280,7 +282,7 @@
                         VerticalOptions="Center"
                         WidthRequest="25"
                         />
-                </pancake:PancakeView>
+                </pancake:PancakeView>-->
             </Grid>
         </Grid>
     </ContentPage.Content>
