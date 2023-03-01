@@ -1,4 +1,6 @@
-﻿namespace PokedexXF;
+﻿using CommunityToolkit.Maui;
+
+namespace PokedexXF;
 
 public static class MauiProgram
 {
@@ -7,6 +9,7 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
+            .UseMauiCommunityToolkit()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("sf-pro-display-regular.ttf", "FontRegular");
