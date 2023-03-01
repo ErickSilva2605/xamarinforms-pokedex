@@ -16,13 +16,13 @@
         <converters:ConverterTypeToColorType x:Key="converterTypeToColorType" />
         <converters:ConverterTypeToImageType x:Key="converterTypeToImageType" />
 
-        <Style
+        <!--<Style
             x:Key="cardSkeletonStats"
             BasedOn="{StaticResource CardSkeleton}"
             TargetType="{x:Type pancake:PancakeView}"
             >
             <Setter Property="skeleton:Skeleton.IsBusy" Value="{Binding PokemonSpecies.IsBusy}" />
-        </Style>
+        </Style>-->
     </ContentView.Resources>
     <ContentView.Content>
         <StackLayout>
