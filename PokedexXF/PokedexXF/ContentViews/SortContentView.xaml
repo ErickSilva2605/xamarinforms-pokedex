@@ -6,7 +6,8 @@
     xmlns:converters="clr-namespace:PokedexXF.Converters"
     xmlns:system="clr-namespace:System;assembly=netstandard"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-    x:Name="sortFilter">
+    x:Name="sortFilter"
+    >
     <ContentView.Resources>
         <ResourceDictionary>
             <converters:ConverterSortToDescriptionSort x:Key="converterSortToDescriptionSort" />
@@ -22,18 +23,21 @@
                 Margin="40,0,40,35"
                 HorizontalOptions="Start"
                 HorizontalTextAlignment="Start"
-                VerticalOptions="Start">
+                VerticalOptions="Start"
+                >
                 <Label.FormattedText>
                     <FormattedString>
                         <Span
                             Style="{StaticResource LabelPokemonName}"
                             Text="Sort"
-                            TextColor="{StaticResource ColorTextBlack}" />
+                            TextColor="{StaticResource ColorTextBlack}"
+                            />
                         <Span Text="{x:Static system:Environment.NewLine}" />
                         <Span
                             Style="{StaticResource LabelDescription}"
                             Text="Sort Pokémons alphabetically or by National Pokédex number!"
-                            TextColor="{StaticResource ColorTextGray}" />
+                            TextColor="{StaticResource ColorTextGray}"
+                            />
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
@@ -41,7 +45,8 @@
                 Grid.Row="1"
                 BindableLayout.ItemsSource="{Binding Filters.Orders}"
                 Spacing="20"
-                VerticalOptions="Start">
+                VerticalOptions="Start"
+                >
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
                         <Grid Padding="3" HorizontalOptions="FillAndExpand">
@@ -55,12 +60,14 @@
                                 HorizontalOptions="FillAndExpand"
                                 Style="{StaticResource ButtonSecondary}"
                                 Text="{Binding Sort, Converter={StaticResource converterSortToDescriptionSort}}"
-                                VerticalOptions="Center">
+                                VerticalOptions="Center"
+                                >
                                 <Button.Triggers>
                                     <DataTrigger
                                         Binding="{Binding Selected}"
                                         TargetType="Button"
-                                        Value="True">
+                                        Value="True"
+                                        >
                                         <Setter Property="Style" Value="{StaticResource ButtonPrimary}" />
                                         <Setter Property="xct:ShadowEffect.Color" Value="{StaticResource ColorTypePsychic}" />
                                         <Setter Property="xct:ShadowEffect.Radius" Value="10" />
