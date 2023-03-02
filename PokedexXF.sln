@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31424.327
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33414.496
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokedexXF.Android", "PokedexXF\PokedexXF.Android\PokedexXF.Android.csproj", "{CE780BF8-C5F9-4D80-940E-D80F0C5F9C70}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokedexXF.iOS", "PokedexXF\PokedexXF.iOS\PokedexXF.iOS.csproj", "{D0C68614-037D-459D-9399-2DF3AF26A815}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokedexXF", "PokedexXF\PokedexXF\PokedexXF.csproj", "{22036964-A6E1-45CA-B8D6-D873F110E540}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokedexXF", "PokedexXF\PokedexXF\PokedexXF.csproj", "{22036964-A6E1-45CA-B8D6-D873F110E540}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
