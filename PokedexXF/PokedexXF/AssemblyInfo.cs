@@ -1,8 +1,0 @@
-using Microsoft.Maui;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui.Controls.Xaml;
-
-[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
-[assembly: ExportFont("sf-pro-display-regular.ttf", Alias = "FontRegular")]
-[assembly: ExportFont("sf-pro-display-medium.ttf", Alias = "FontMedium")]
-[assembly: ExportFont("sf-pro-display-bold.ttf", Alias = "FontBold")]
