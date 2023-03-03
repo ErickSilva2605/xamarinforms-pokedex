@@ -1,44 +1,64 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <?xaml-comp compile="true" ?>
-<ResourceDictionary 
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <Color x:Key="Primary">#512BD4</Color>
-    <Color x:Key="Secondary">#DFD8F7</Color>
-    <Color x:Key="Tertiary">#2B0B98</Color>
-    <Color x:Key="White">White</Color>
-    <Color x:Key="Black">Black</Color>
-    <Color x:Key="Gray100">#E1E1E1</Color>
-    <Color x:Key="Gray200">#C8C8C8</Color>
-    <Color x:Key="Gray300">#ACACAC</Color>
-    <Color x:Key="Gray400">#919191</Color>
-    <Color x:Key="Gray500">#6E6E6E</Color>
-    <Color x:Key="Gray600">#404040</Color>
-    <Color x:Key="Gray900">#212121</Color>
-    <Color x:Key="Gray950">#141414</Color>
-    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
-    <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>
-    <SolidColorBrush x:Key="TertiaryBrush" Color="{StaticResource Tertiary}"/>
-    <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource White}"/>
-    <SolidColorBrush x:Key="BlackBrush" Color="{StaticResource Black}"/>
-    <SolidColorBrush x:Key="Gray100Brush" Color="{StaticResource Gray100}"/>
-    <SolidColorBrush x:Key="Gray200Brush" Color="{StaticResource Gray200}"/>
-    <SolidColorBrush x:Key="Gray300Brush" Color="{StaticResource Gray300}"/>
-    <SolidColorBrush x:Key="Gray400Brush" Color="{StaticResource Gray400}"/>
-    <SolidColorBrush x:Key="Gray500Brush" Color="{StaticResource Gray500}"/>
-    <SolidColorBrush x:Key="Gray600Brush" Color="{StaticResource Gray600}"/>
-    <SolidColorBrush x:Key="Gray900Brush" Color="{StaticResource Gray900}"/>
-    <SolidColorBrush x:Key="Gray950Brush" Color="{StaticResource Gray950}"/>
+    <Color x:Key="ColorDarkGray">#828282</Color>
+    <Color x:Key="ColorGray">#E3E3E3</Color>
 
-    <Color x:Key="Yellow100Accent">#F7B548</Color>
-    <Color x:Key="Yellow200Accent">#FFD590</Color>
-    <Color x:Key="Yellow300Accent">#FFE5B9</Color>
-    <Color x:Key="Cyan100Accent">#28C2D1</Color>
-    <Color x:Key="Cyan200Accent">#7BDDEF</Color>
-    <Color x:Key="Cyan300Accent">#C3F2F4</Color>
-    <Color x:Key="Blue100Accent">#3E8EED</Color>
-    <Color x:Key="Blue200Accent">#72ACF1</Color>
-    <Color x:Key="Blue300Accent">#A7CBF6</Color>
+    <Color x:Key="ColorBackgroundWhite">#FFFFFF</Color>
+    <Color x:Key="ColorBackgroundDefaultInput">#F2F2F2</Color>
+    <Color x:Key="ColorBackgroundPressedInput">#E2E2E2</Color>
+    <Color x:Key="ColorBackgroundModal">#17171B</Color>
+
+    <Color x:Key="ColorBackgroundTypeBug">#8BD674</Color>
+    <Color x:Key="ColorBackgroundTypeDark">#6F6E78</Color>
+    <Color x:Key="ColorBackgroundTypeDragon">#7383B9</Color>
+    <Color x:Key="ColorBackgroundTypeElectric">#F2CB55</Color>
+    <Color x:Key="ColorBackgroundTypeFairy">#EBA8C3</Color>
+    <Color x:Key="ColorBackgroundTypeFighting">#EB4971</Color>
+    <Color x:Key="ColorBackgroundTypeFire">#FFA756</Color>
+    <Color x:Key="ColorBackgroundTypeFlying">#83A2E3</Color>
+    <Color x:Key="ColorBackgroundTypeGhost">#8571BE</Color>
+    <Color x:Key="ColorBackgroundTypeGrass">#8BBE8A</Color>
+    <Color x:Key="ColorBackgroundTypeGround">#F78551</Color>
+    <Color x:Key="ColorBackgroundTypeIce">#91D8DF</Color>
+    <Color x:Key="ColorBackgroundTypeNormal">#B5B9C4</Color>
+    <Color x:Key="ColorBackgroundTypePoison">#9F6E97</Color>
+    <Color x:Key="ColorBackgroundTypePsychic">#FF6568</Color>
+    <Color x:Key="ColorBackgroundTypeRock">#D4C294</Color>
+    <Color x:Key="ColorBackgroundTypeSteel">#4C91B2</Color>
+    <Color x:Key="ColorBackgroundTypeWater">#58ABF6</Color>
+
+    <Color x:Key="ColorTypeBug">#8CB230</Color>
+    <Color x:Key="ColorTypeDark">#58575F</Color>
+    <Color x:Key="ColorTypeDragon">#0F6AC0</Color>
+    <Color x:Key="ColorTypeElectric">#EED535</Color>
+    <Color x:Key="ColorTypeFairy">#ED6EC7</Color>
+    <Color x:Key="ColorTypeFighting">#D04164</Color>
+    <Color x:Key="ColorTypeFire">#FD7D24</Color>
+    <Color x:Key="ColorTypeFlying">#748FC9</Color>
+    <Color x:Key="ColorTypeGhost">#556AAE</Color>
+    <Color x:Key="ColorTypeGrass">#62B957</Color>
+    <Color x:Key="ColorTypeGround">#DD7748</Color>
+    <Color x:Key="ColorTypeIce">#61CEC0</Color>
+    <Color x:Key="ColorTypeNormal">#9DA0AA</Color>
+    <Color x:Key="ColorTypePoison">#A552CC</Color>
+    <Color x:Key="ColorTypePsychic">#EA5D60</Color>
+    <Color x:Key="ColorTypeRock">#BAAB82</Color>
+    <Color x:Key="ColorTypeSteel">#417D9A</Color>
+    <Color x:Key="ColorTypeWater">#4A90DA</Color>
+
+    <Color x:Key="ColorHeightShort">#FFC5E6</Color>
+    <Color x:Key="ColorHeightMedium">#AEBFD7</Color>
+    <Color x:Key="ColorHeightTall">#AAACB8</Color>
+
+    <Color x:Key="ColorWeightLight">#99CD7C</Color>
+    <Color x:Key="ColorWeightNormal">#57B2DC</Color>
+    <Color x:Key="ColorWeightHeavy">#5A92A5</Color>
+
+    <Color x:Key="ColorTextWhite">#FFFFFF</Color>
+    <Color x:Key="ColorTextBlack">#000000</Color>
+    <Color x:Key="ColorTextGray">#747476</Color>
+    <Color x:Key="ColorTextNumber">#17171B</Color>
 
 </ResourceDictionary>
