@@ -6,6 +6,7 @@
     xmlns:compat="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
     xmlns:contentViews="clr-namespace:PokedexXF.ContentViews"
     xmlns:converters="clr-namespace:PokedexXF.Converters"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:myControls="clr-namespace:PokedexXF.Controls"
     xmlns:system="clr-namespace:System;assembly=netstandard"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
@@ -23,19 +24,21 @@
         <ResourceDictionary>
             <converters:ConverterTypeToColorBackgroundType x:Key="converterTypeToColorBackgroundType" />
         </ResourceDictionary>
-        <!--<Style x:Key="cardFilter" TargetType="{x:Type pancake:PancakeView}">
+
+        <Style x:Key="frameFilter" TargetType="Frame">
             <Setter Property="Margin" Value="0" />
-            <Setter Property="Padding" Value="5" />
-            <Setter Property="xct:TouchEffect.NativeAnimation" Value="True" />
-            <Setter Property="xct:TouchEffect.PressedScale" Value="0.80" />
+            <!--<Setter Property="xct:TouchEffect.NativeAnimation" Value="True" />
+            <Setter Property="xct:TouchEffect.PressedScale" Value="0.80" />-->
             <Setter Property="BackgroundColor" Value="Transparent" />
-            <Setter Property="CornerRadius" Value="20" />
-            <Setter Property="HeightRequest" Value="27" />
+            <Setter Property="CornerRadius" Value="45" />
+            <Setter Property="HeightRequest" Value="45" />
             <Setter Property="HorizontalOptions" Value="End" />
             <Setter Property="VerticalOptions" Value="Center" />
-            <Setter Property="WidthRequest" Value="27" />
+            <Setter Property="WidthRequest" Value="45" />
+            <Setter Property="HasShadow" Value="false" />
         </Style>
-        <Style
+
+        <!--<Style
             x:Key="cardSkeletonHome"
             BasedOn="{StaticResource CardSkeleton}"
             TargetType="{x:Type pancake:PancakeView}"
@@ -52,61 +55,36 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <compat:RelativeLayout>
-            <Grid HorizontalOptions="FillAndExpand">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <!--<magic:GradientView
+            <Grid HorizontalOptions="FillAndExpand" RowDefinitions="Auto,Auto,Auto,*">
+                <!--  Pokedex gradient image  -->
+                <Path
                     Grid.RowSpan="2"
                     Margin="0,-180,0,0"
+                    Aspect="Fill"
+                    Data="M37.5 0C56.798 0 72.7167 14.361 75 32.9032H56.6974C54.6135 24.298 46.8091 17.9032 37.5 17.9032C28.1909 17.9032 20.3865 24.298 18.3026 32.9032H0C2.28333 14.361 18.202 0 37.5 0Z M56.6974 42.0968H75C72.7167 60.639 56.798 75 37.5 75C18.202 75 2.28333 60.639 0 42.0968H18.3026C20.3865 50.702 28.1909 57.0968 37.5 57.0968C46.8091 57.0968 54.6135 50.702 56.6974 42.0968Z M37.5 49.8387C44.3655 49.8387 49.9312 44.3145 49.9312 37.5C49.9312 30.6855 44.3655 25.1613 37.5 25.1613C30.6345 25.1613 25.0688 30.6855 25.0688 37.5C25.0688 44.3145 30.6345 49.8387 37.5 49.8387Z"
+                    Fill="linear-gradient(180deg, #F5F5F5 50%, #FFFFFF 94.81%)"
                     HorizontalOptions="FillAndExpand"
-                    >
-                    <magic:CssGradientSource>
-                        <x:String>
-                            <![CDATA[
-                            linear-gradient(180deg, #F5F5F5 50%, #FFFFFF 94.81%)
-                        ]]>
-                        </x:String>
-                    </magic:CssGradientSource>
-                    <magic:GradientView.Mask>
-                        <magic:PathMask
-                            ClipMode="Include"
-                            Data="M37.5 0C56.798 0 72.7167 14.361 75 32.9032H56.6974C54.6135 24.298 46.8091 17.9032 37.5 17.9032C28.1909 17.9032 20.3865 24.298 18.3026 32.9032H0C2.28333 14.361 18.202 0 37.5 0Z M56.6974 42.0968H75C72.7167 60.639 56.798 75 37.5 75C18.202 75 2.28333 60.639 0 42.0968H18.3026C20.3865 50.702 28.1909 57.0968 37.5 57.0968C46.8091 57.0968 54.6135 50.702 56.6974 42.0968Z M37.5 49.8387C44.3655 49.8387 49.9312 44.3145 49.9312 37.5C49.9312 30.6855 44.3655 25.1613 37.5 25.1613C30.6345 25.1613 25.0688 30.6855 25.0688 37.5C25.0688 44.3145 30.6345 49.8387 37.5 49.8387Z"
-                            Stretch="Fill"
-                            />
-                    </magic:GradientView.Mask>
-                </magic:GradientView>-->
-                <StackLayout
-                    Padding="43,45,20,30"
+                    />
+
+                <!--  Menu Icons  -->
+                <HorizontalStackLayout
+                    Padding="43,45,15,30"
                     HorizontalOptions="EndAndExpand"
-                    Orientation="Horizontal"
-                    Spacing="15"
+                    Spacing="10"
                     >
-                    <!--<pancake:PancakeView
-                        x:Name="frameFilterGeneration"
-                        xct:TouchEffect.Command="{Binding OpenModalGenerationCommand}"
-                        Style="{StaticResource cardFilter}"
-                        >
+                    <!--  xct:TouchEffect.Command="{Binding OpenModalGenerationCommand}"  -->
+                    <Frame x:Name="frameFilterGeneration" Style="{StaticResource frameFilter}">
                         <Image Source="icon_generation" Style="{StaticResource imageFilter}" />
-                    </pancake:PancakeView>
-                    <pancake:PancakeView
-                        x:Name="frameFilterSort"
-                        xct:TouchEffect.Command="{Binding OpenModalSortCommand}"
-                        Style="{StaticResource cardFilter}"
-                        >
+                    </Frame>
+                    <!--  xct:TouchEffect.Command="{Binding OpenModalSortCommand}"  -->
+                    <Frame x:Name="frameFilterSort" Style="{StaticResource frameFilter}">
                         <Image Source="icon_sort" Style="{StaticResource imageFilter}" />
-                    </pancake:PancakeView>
-                    <pancake:PancakeView
-                        x:Name="frameFilters"
-                        xct:TouchEffect.Command="{Binding OpenModalFiltersCommand}"
-                        Style="{StaticResource cardFilter}"
-                        >
+                    </Frame>
+                    <!--  xct:TouchEffect.Command="{Binding OpenModalFiltersCommand}"  -->
+                    <Frame x:Name="frameFilters" Style="{StaticResource frameFilter}">
                         <Image Source="icon_filter" Style="{StaticResource imageFilter}" />
-                    </pancake:PancakeView>-->
-                </StackLayout>
+                    </Frame>
+                </HorizontalStackLayout>
                 <Label
                     x:Name="labelTitle"
                     Grid.Row="1"
@@ -131,24 +109,28 @@
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
-                <!--<pancake:PancakeView
+                <Frame
                     x:Name="frameSearch"
                     Grid.Row="2"
                     Margin="40,25,40,10"
                     Padding="20,10"
                     BackgroundColor="{StaticResource ColorBackgroundDefaultInput}"
                     CornerRadius="10"
+                    HasShadow="False"
                     HorizontalOptions="FillAndExpand"
                     >
                     <StackLayout Orientation="Horizontal" Spacing="10">
                         <Image
-                            xct:IconTintColorEffect.TintColor="{StaticResource ColorTextGray}"
                             HeightRequest="16"
                             HorizontalOptions="Start"
                             Source="icon_search"
                             VerticalOptions="Center"
                             WidthRequest="16"
-                            />
+                            >
+                            <Image.Behaviors>
+                                <mct:IconTintColorBehavior TintColor="{StaticResource ColorTextGray}" />
+                            </Image.Behaviors>
+                        </Image>
                         <myControls:CustomEntryBorderless
                             Focused="CustomEntryBorderless_Focused"
                             FontFamily="FontRegular"
@@ -162,12 +144,12 @@
                             VerticalOptions="Center"
                             >
                             <myControls:CustomEntryBorderless.Behaviors>
-                                <xct:EventToCommandBehavior Command="{Binding SearchTextChangedCommand}" EventName="TextChanged" />
-                                <xct:EventToCommandBehavior Command="{Binding SearchCompletedCommand}" EventName="Completed" />
+                                <mct:EventToCommandBehavior Command="{Binding SearchTextChangedCommand}" EventName="TextChanged" />
+                                <mct:EventToCommandBehavior Command="{Binding SearchCompletedCommand}" EventName="Completed" />
                             </myControls:CustomEntryBorderless.Behaviors>
                         </myControls:CustomEntryBorderless>
                     </StackLayout>
-                </pancake:PancakeView>-->
+                </Frame>
 
                 <!--
                     skeleton:Skeleton.Animation="{skeleton:DefaultAnimation Beat}"
