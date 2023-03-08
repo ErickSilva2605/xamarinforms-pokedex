@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Maui.Controls.Compatibility.Hosting;
+using PokedexXF.Handlers;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.UI.Views;
 
@@ -31,6 +32,8 @@ public static class MauiProgram
                 fonts.AddFont("sf-pro-display-medium.ttf", "FontMedium");
                 fonts.AddFont("sf-pro-display-bold.ttf", "FontBold");
             });
+
+        EntryBorderlessHandler.Configure();
 
         return builder.Build();
     }
