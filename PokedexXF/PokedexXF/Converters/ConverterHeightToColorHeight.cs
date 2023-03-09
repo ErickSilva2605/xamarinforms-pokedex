@@ -1,8 +1,6 @@
 ﻿using PokedexXF.Enums;
-using System;
 using System.Globalization;
-using Microsoft.Maui;
-using Microsoft.Maui.Controls;
+using PokedexXF.Extensions;
 
 namespace PokedexXF.Converters
 {
@@ -15,7 +13,7 @@ namespace PokedexXF.Converters
             if (!(value is HeightEnum))
             {
                 if (!(value is string))
-                    return Application.Current.Resources["ColorGray"];
+                    return Application.Current.Resources.FindResource("ColorGray");
 
                 if (!Enum.TryParse((string)value, out type))
                     type = HeightEnum.Undefined;
@@ -26,15 +24,15 @@ namespace PokedexXF.Converters
             switch (type)
             {
                 case HeightEnum.Short:
-                    return Application.Current.Resources["ColorHeightShort"];
+                    return Application.Current.Resources.FindResource("ColorHeightShort");
                 case HeightEnum.Medium:
-                    return Application.Current.Resources["ColorHeightMedium"];
+                    return Application.Current.Resources.FindResource("ColorHeightMedium");
                 case HeightEnum.Tall:
-                    return Application.Current.Resources["ColorHeightTall"];
+                    return Application.Current.Resources.FindResource("ColorHeightTall");
                 case HeightEnum.Undefined:
-                    return Application.Current.Resources["ColorGray"];
+                    return Application.Current.Resources.FindResource("ColorGray");
                 default:
-                    return Application.Current.Resources["ColorGray"];
+                    return Application.Current.Resources.FindResource("ColorGray");
             }
         }
 

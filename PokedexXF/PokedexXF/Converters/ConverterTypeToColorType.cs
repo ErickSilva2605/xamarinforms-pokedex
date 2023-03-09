@@ -3,6 +3,7 @@ using System;
 using System.Globalization;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
+using PokedexXF.Extensions;
 
 namespace PokedexXF.Converters
 {
@@ -15,7 +16,7 @@ namespace PokedexXF.Converters
             if (!(value is TypeEnum))
             {
                 if (!(value is string))
-                    return Application.Current.Resources["ColorGray"];
+                    return Application.Current.Resources.FindResource("ColorGray");
 
                 if (!Enum.TryParse((string)value, out type))
                     type = TypeEnum.Undefined;
@@ -26,45 +27,45 @@ namespace PokedexXF.Converters
             switch (type)
             {
                 case TypeEnum.Bug:
-                    return Application.Current.Resources["ColorTypeBug"];
+                    return Application.Current.Resources.FindResource("ColorTypeBug");
                 case TypeEnum.Dark:
-                    return Application.Current.Resources["ColorTypeDark"];
+                    return Application.Current.Resources.FindResource("ColorTypeDark");
                 case TypeEnum.Dragon:
-                    return Application.Current.Resources["ColorTypeDragon"];
+                    return Application.Current.Resources.FindResource("ColorTypeDragon");
                 case TypeEnum.Electric:
-                    return Application.Current.Resources["ColorTypeElectric"];
+                    return Application.Current.Resources.FindResource("ColorTypeElectric");
                 case TypeEnum.Fairy:
-                    return Application.Current.Resources["ColorTypeFairy"];
+                    return Application.Current.Resources.FindResource("ColorTypeFairy");
                 case TypeEnum.Fighting:
-                    return Application.Current.Resources["ColorTypeFighting"];
+                    return Application.Current.Resources.FindResource("ColorTypeFighting");
                 case TypeEnum.Fire:
-                    return Application.Current.Resources["ColorTypeFire"];
+                    return Application.Current.Resources.FindResource("ColorTypeFire");
                 case TypeEnum.Flying:
-                    return Application.Current.Resources["ColorTypeFlying"];
+                    return Application.Current.Resources.FindResource("ColorTypeFlying");
                 case TypeEnum.Ghost:
-                    return Application.Current.Resources["ColorTypeGhost"];
+                    return Application.Current.Resources.FindResource("ColorTypeGhost");
                 case TypeEnum.Grass:
-                    return Application.Current.Resources["ColorTypeGrass"];
+                    return Application.Current.Resources.FindResource("ColorTypeGrass");
                 case TypeEnum.Ground:
-                    return Application.Current.Resources["ColorTypeGround"];
+                    return Application.Current.Resources.FindResource("ColorTypeGround");
                 case TypeEnum.Ice:
-                    return Application.Current.Resources["ColorTypeIce"];
+                    return Application.Current.Resources.FindResource("ColorTypeIce");
                 case TypeEnum.Normal:
-                    return Application.Current.Resources["ColorTypeNormal"];
+                    return Application.Current.Resources.FindResource("ColorTypeNormal");
                 case TypeEnum.Poison:
-                    return Application.Current.Resources["ColorTypePoison"];
+                    return Application.Current.Resources.FindResource("ColorTypePoison");
                 case TypeEnum.Psychic:
-                    return Application.Current.Resources["ColorTypePsychic"];
+                    return Application.Current.Resources.FindResource("ColorTypePsychic");
                 case TypeEnum.Rock:
-                    return Application.Current.Resources["ColorTypeRock"];
+                    return Application.Current.Resources.FindResource("ColorTypeRock");
                 case TypeEnum.Steel:
-                    return Application.Current.Resources["ColorTypeSteel"];
+                    return Application.Current.Resources.FindResource("ColorTypeSteel");
                 case TypeEnum.Water:
-                    return Application.Current.Resources["ColorTypeWater"];
+                    return Application.Current.Resources.FindResource("ColorTypeWater");
                 case TypeEnum.Undefined:
-                    return Application.Current.Resources["ColorGray"];
+                    return Application.Current.Resources.FindResource("ColorGray");
                 default:
-                    return Application.Current.Resources["ColorGray"];
+                    return Application.Current.Resources.FindResource("ColorGray");
             }
         }
 

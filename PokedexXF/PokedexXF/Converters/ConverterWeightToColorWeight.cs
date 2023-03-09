@@ -3,6 +3,7 @@ using System;
 using System.Globalization;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
+using PokedexXF.Extensions;
 
 namespace PokedexXF.Converters
 {
@@ -15,7 +16,7 @@ namespace PokedexXF.Converters
             if (!(value is WeightEnum))
             {
                 if (!(value is string))
-                    return Application.Current.Resources["ColorGray"];
+                    return Application.Current.Resources.FindResource("ColorGray");
 
                 if (!Enum.TryParse((string)value, out type))
                     type = WeightEnum.Undefined;
@@ -26,15 +27,15 @@ namespace PokedexXF.Converters
             switch (type)
             {
                 case WeightEnum.Light:
-                    return Application.Current.Resources["ColorWeightLight"];
+                    return Application.Current.Resources.FindResource("ColorWeightLight");
                 case WeightEnum.Normal:
-                    return Application.Current.Resources["ColorWeightNormal"];
+                    return Application.Current.Resources.FindResource("ColorWeightNormal");
                 case WeightEnum.Heavy:
-                    return Application.Current.Resources["ColorWeightHeavy"];
+                    return Application.Current.Resources.FindResource("ColorWeightHeavy");
                 case WeightEnum.Undefined:
-                    return Application.Current.Resources["ColorGray"];
+                    return Application.Current.Resources.FindResource("ColorGray");
                 default:
-                    return Application.Current.Resources["ColorGray"];
+                    return Application.Current.Resources.FindResource("ColorGray");
             }
         }
 

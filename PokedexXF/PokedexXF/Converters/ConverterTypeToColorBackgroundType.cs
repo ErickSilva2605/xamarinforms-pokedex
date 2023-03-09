@@ -1,8 +1,6 @@
 ﻿using PokedexXF.Enums;
-using System;
 using System.Globalization;
-using Microsoft.Maui;
-using Microsoft.Maui.Controls;
+using PokedexXF.Extensions;
 
 namespace PokedexXF.Converters
 {
@@ -11,52 +9,52 @@ namespace PokedexXF.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (!(value is TypeEnum))
-                return Application.Current.Resources["ColorGray"];
+                return Application.Current.Resources.FindResource("ColorGray");
 
             var type = (TypeEnum)value;
 
             switch (type)
             {
                 case TypeEnum.Bug:
-                    return Application.Current.Resources["ColorBackgroundTypeBug"];
+                    return Application.Current.Resources.FindResource("ColorBackgroundTypeBug");
                 case TypeEnum.Dark:
-                    return Application.Current.Resources["ColorBackgroundTypeDark"];
+                    return Application.Current.Resources.FindResource("ColorBackgroundTypeDark");
                 case TypeEnum.Dragon:
-                    return Application.Current.Resources["ColorBackgroundTypeDragon"];
+                    return Application.Current.Resources.FindResource("ColorBackgroundTypeDragon");
                 case TypeEnum.Electric:
-                    return Application.Current.Resources["ColorBackgroundTypeElectric"];
+                    return Application.Current.Resources.FindResource("ColorBackgroundTypeElectric");
                 case TypeEnum.Fairy:
-                    return Application.Current.Resources["ColorBackgroundTypeFairy"];
+                    return Application.Current.Resources.FindResource("ColorBackgroundTypeFairy");
                 case TypeEnum.Fighting:
-                    return Application.Current.Resources["ColorBackgroundTypeFighting"];
+                    return Application.Current.Resources.FindResource("ColorBackgroundTypeFighting");
                 case TypeEnum.Fire:
-                    return Application.Current.Resources["ColorBackgroundTypeFire"];
+                    return Application.Current.Resources.FindResource("ColorBackgroundTypeFire");
                 case TypeEnum.Flying:
-                    return Application.Current.Resources["ColorBackgroundTypeFlying"];
+                    return Application.Current.Resources.FindResource("ColorBackgroundTypeFlying");
                 case TypeEnum.Ghost:
-                    return Application.Current.Resources["ColorBackgroundTypeGhost"];
+                    return Application.Current.Resources.FindResource("ColorBackgroundTypeGhost");
                 case TypeEnum.Grass:
-                    return Application.Current.Resources["ColorBackgroundTypeGrass"];
+                    return Application.Current.Resources.FindResource("ColorBackgroundTypeGrass");
                 case TypeEnum.Ground:
-                    return Application.Current.Resources["ColorBackgroundTypeGround"];
+                    return Application.Current.Resources.FindResource("ColorBackgroundTypeGround");
                 case TypeEnum.Ice:
-                    return Application.Current.Resources["ColorBackgroundTypeIce"];
+                    return Application.Current.Resources.FindResource("ColorBackgroundTypeIce");
                 case TypeEnum.Normal:
-                    return Application.Current.Resources["ColorBackgroundTypeNormal"];
+                    return Application.Current.Resources.FindResource("ColorBackgroundTypeNormal");
                 case TypeEnum.Poison:
-                    return Application.Current.Resources["ColorBackgroundTypePoison"];
+                    return Application.Current.Resources.FindResource("ColorBackgroundTypePoison");
                 case TypeEnum.Psychic:
-                    return Application.Current.Resources["ColorBackgroundTypePsychic"];
+                    return Application.Current.Resources.FindResource("ColorBackgroundTypePsychic");
                 case TypeEnum.Rock:
-                    return Application.Current.Resources["ColorBackgroundTypeRock"];
+                    return Application.Current.Resources.FindResource("ColorBackgroundTypeRock");
                 case TypeEnum.Steel:
-                    return Application.Current.Resources["ColorBackgroundTypeSteel"];
+                    return Application.Current.Resources.FindResource("ColorBackgroundTypeSteel");
                 case TypeEnum.Water:
-                    return Application.Current.Resources["ColorBackgroundTypeWater"];
+                    return Application.Current.Resources.FindResource("ColorBackgroundTypeWater");
                 case TypeEnum.Undefined:
-                    return Application.Current.Resources["ColorGray"];
+                    return Application.Current.Resources.FindResource("ColorGray");
                 default:
-                    return Application.Current.Resources["ColorGray"];
+                    return Application.Current.Resources.FindResource("ColorGray");
             }
         }
 
