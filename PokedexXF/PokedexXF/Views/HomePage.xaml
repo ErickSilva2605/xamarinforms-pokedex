@@ -180,11 +180,11 @@
                                 xct:TouchEffect.PressedScale="0.90"
                             -->
                             <Border>
-                                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="25" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
+                                <Grid
+                                    HorizontalOptions="FillAndExpand"
+                                    RowDefinitions="25,Auto"
+                                    VerticalOptions="FillAndExpand"
+                                    >
                                     <!--
                                         skeleton:Skeleton.IsBusy="{Binding IsBusy}"
                                         skeleton:Skeleton.IsParent="True"
@@ -238,14 +238,10 @@
                                             <Grid
                                                 Grid.ColumnSpan="2"
                                                 HorizontalOptions="FillAndExpand"
+                                                RowDefinitions="Auto,Auto,Auto"
                                                 RowSpacing="0"
                                                 VerticalOptions="FillAndExpand"
                                                 >
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="Auto" />
-                                                    <RowDefinition Height="Auto" />
-                                                    <RowDefinition Height="Auto" />
-                                                </Grid.RowDefinitions>
                                                 <!--  Style="{StaticResource cardSkeletonHome}"  -->
                                                 <Border
                                                     Margin="20,15,20,0"
@@ -373,13 +369,10 @@
                 <Grid
                     Margin="0,15,0,0"
                     HorizontalOptions="FillAndExpand"
+                    RowDefinitions="10,*"
                     RowSpacing="5"
                     VerticalOptions="FillAndExpand"
                     >
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="10" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
                     <BoxView
                         BackgroundColor="{StaticResource ColorBackgroundWhite}"
                         CornerRadius="3"
