@@ -274,7 +274,7 @@
                                                         />
                                                 </Border>
 
-                                                <!--<contentViews:BadgeTypeContentView Grid.Row="2" Margin="20,0,0,20" />-->
+                                                <contentViews:BadgeTypeContentView Grid.Row="2" Margin="20,0,0,20" />
                                             </Grid>
 
                                             <!--

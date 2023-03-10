@@ -4,7 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converters="clr-namespace:PokedexXF.Converters"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     >
     <!--
         xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
@@ -17,27 +17,28 @@
         </ResourceDictionary>
     </ContentView.Resources>
     <ContentView.Content>
-        <StackLayout
+        <HorizontalStackLayout
             BindableLayout.ItemsSource="{Binding Types}"
             HeightRequest="30"
             HorizontalOptions="Start"
-            Orientation="Horizontal"
             Spacing="5"
             VerticalOptions="Start"
             >
             <BindableLayout.ItemTemplate>
                 <DataTemplate>
-                    <!--<pancake:PancakeView
-                        Margin="0"
-                        Padding="6"
+                    <!--
                         skeleton:Skeleton.Animation="{skeleton:DefaultAnimation Source=Fade,
-                                                                                Interval='600',
-                                                                                Parameter='0.3'}"
+                        Interval='600',
+                        Parameter='0.3'}"
                         skeleton:Skeleton.BackgroundColor="{StaticResource ColorTextWhite}"
                         skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                    -->
+                    <Border
+                        Margin="0"
+                        Padding="6"
                         BackgroundColor="{Binding Type.NameFirstCharUpper, Converter={StaticResource converterTypeToColorType}}"
-                        CornerRadius="3"
                         HorizontalOptions="Start"
+                        StrokeShape="RoundRectangle 3"
                         VerticalOptions="Start"
                         >
                         <Grid ColumnSpacing="5">
@@ -46,11 +47,14 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <Image
-                                xct:IconTintColorEffect.TintColor="{StaticResource ColorTextWhite}"
                                 HeightRequest="15"
                                 Source="{Binding Type.NameFirstCharUpper, Converter={StaticResource converterTypeToImageType}}"
                                 VerticalOptions="Center"
-                                />
+                                >
+                                <Image.Behaviors>
+                                    <mct:IconTintColorBehavior TintColor="{StaticResource ColorTextWhite}" />
+                                </Image.Behaviors>
+                            </Image>
                             <Label
                                 Grid.Column="1"
                                 Style="{StaticResource LabelPokemonType}"
@@ -60,10 +64,9 @@
                                 VerticalTextAlignment="Center"
                                 />
                         </Grid>
-                    </pancake:PancakeView>-->
-                    <Frame />
+                    </Border>
                 </DataTemplate>
             </BindableLayout.ItemTemplate>
-        </StackLayout>
+        </HorizontalStackLayout>
     </ContentView.Content>
 </ContentView>
