@@ -18,28 +18,36 @@
             <converters:ConverterTypeToColorBackgroundType x:Key="converterTypeToColorBackgroundType" />
         </ResourceDictionary>
 
-        <Style x:Key="frameFilter" TargetType="Frame">
-            <Setter Property="Margin" Value="0" />
+        <Style x:Key="BorderMenuIcon" TargetType="Border">
             <!--<Setter Property="xct:TouchEffect.NativeAnimation" Value="True" />
             <Setter Property="xct:TouchEffect.PressedScale" Value="0.80" />-->
+            <Setter Property="Margin" Value="0" />
             <Setter Property="BackgroundColor" Value="Transparent" />
-            <Setter Property="CornerRadius" Value="45" />
+            <Setter Property="StrokeShape" Value="RoundRectangle 45" />
             <Setter Property="HeightRequest" Value="45" />
             <Setter Property="HorizontalOptions" Value="End" />
             <Setter Property="VerticalOptions" Value="Center" />
             <Setter Property="WidthRequest" Value="45" />
-            <Setter Property="HasShadow" Value="false" />
         </Style>
 
+        <Style x:Key="BorderSearch" TargetType="Border">
+            <Setter Property="Margin" Value="40,25,40,10" />
+            <Setter Property="Padding" Value="20,10" />
+            <Setter Property="BackgroundColor" Value="{StaticResource ColorBackgroundDefaultInput}" />
+            <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+            <Setter Property="StrokeShape" Value="RoundRectangle 10" />
+        </Style>
+
+
         <!--<Style
-            x:Key="cardSkeletonHome"
+            x:Key="BorderSkeletonHome"
             BasedOn="{StaticResource CardSkeleton}"
-            TargetType="{x:Type pancake:PancakeView}"
+            TargetType="Border"
             >
             <Setter Property="skeleton:Skeleton.IsBusy" Value="{Binding IsBusy}" />
             <Setter Property="skeleton:Skeleton.BackgroundColor" Value="{StaticResource ColorTextWhite}" />
         </Style>-->
-        <Style x:Key="imageFilter" TargetType="Image">
+        <Style x:Key="ImageFilter" TargetType="Image">
             <Setter Property="HeightRequest" Value="20" />
             <Setter Property="HorizontalOptions" Value="Center" />
             <Setter Property="VerticalOptions" Value="Center" />
@@ -69,20 +77,22 @@
                 <HorizontalStackLayout
                     Padding="43,45,15,30"
                     HorizontalOptions="EndAndExpand"
-                    Spacing="10"
+                    Spacing="5"
                     >
                     <!--  xct:TouchEffect.Command="{Binding OpenModalGenerationCommand}"  -->
-                    <Frame x:Name="frameFilterGeneration" Style="{StaticResource frameFilter}">
-                        <Image Source="icon_generation" Style="{StaticResource imageFilter}" />
-                    </Frame>
+                    <Border x:Name="borderFilterGeneration" Style="{StaticResource BorderMenuIcon}">
+                        <Image Source="icon_generation" Style="{StaticResource ImageFilter}" />
+                    </Border>
+
                     <!--  xct:TouchEffect.Command="{Binding OpenModalSortCommand}"  -->
-                    <Frame x:Name="frameFilterSort" Style="{StaticResource frameFilter}">
-                        <Image Source="icon_sort" Style="{StaticResource imageFilter}" />
-                    </Frame>
+                    <Border x:Name="borderFilterSort" Style="{StaticResource BorderMenuIcon}">
+                        <Image Source="icon_sort" Style="{StaticResource ImageFilter}" />
+                    </Border>
+
                     <!--  xct:TouchEffect.Command="{Binding OpenModalFiltersCommand}"  -->
-                    <Frame x:Name="frameFilters" Style="{StaticResource frameFilter}">
-                        <Image Source="icon_filter" Style="{StaticResource imageFilter}" />
-                    </Frame>
+                    <Border x:Name="borderFilters" Style="{StaticResource BorderMenuIcon}">
+                        <Image Source="icon_filter" Style="{StaticResource ImageFilter}" />
+                    </Border>
                 </HorizontalStackLayout>
                 <Label
                     x:Name="labelTitle"
@@ -108,17 +118,12 @@
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
-                <Frame
-                    x:Name="frameSearch"
+                <Border
+                    x:Name="borderSearch"
                     Grid.Row="2"
-                    Margin="40,25,40,10"
-                    Padding="20,10"
-                    BackgroundColor="{StaticResource ColorBackgroundDefaultInput}"
-                    CornerRadius="10"
-                    HasShadow="False"
-                    HorizontalOptions="FillAndExpand"
+                    Style="{StaticResource BorderSearch}"
                     >
-                    <StackLayout Orientation="Horizontal" Spacing="10">
+                    <HorizontalStackLayout Spacing="10">
                         <Image
                             HeightRequest="16"
                             HorizontalOptions="Start"
@@ -148,8 +153,8 @@
                                 <mct:EventToCommandBehavior Command="{Binding SearchCompletedCommand}" EventName="Completed" />
                             </myControls:CustomEntryBorderless.Behaviors>
                         </myControls:CustomEntryBorderless>
-                    </StackLayout>
-                </Frame>
+                    </HorizontalStackLayout>
+                </Border>
 
                 <!--
                     skeleton:Skeleton.Animation="{skeleton:DefaultAnimation Beat}"
@@ -174,11 +179,7 @@
                                 xct:TouchEffect.CommandParameter="{Binding .}"
                                 xct:TouchEffect.PressedScale="0.90"
                             -->
-                            <Frame
-                                Margin="0"
-                                Padding="0"
-                                HasShadow="False"
-                                >
+                            <Border>
                                 <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="25" />
@@ -194,11 +195,9 @@
                                         Padding="0"
                                         BackgroundColor="{Binding TypeDefault, Converter={StaticResource converterTypeToColorBackgroundType}}"
                                         HorizontalOptions="FillAndExpand"
+                                        StrokeShape="RoundRectangle 10"
                                         VerticalOptions="FillAndExpand"
                                         >
-                                        <Border.StrokeShape>
-                                            <RoundRectangle CornerRadius="10" />
-                                        </Border.StrokeShape>
                                         <Border.Shadow>
                                             <Shadow
                                                 Brush="{Binding TypeDefault, Converter={StaticResource converterTypeToColorBackgroundType}}"
@@ -328,7 +327,7 @@
                                         WidthRequest="130"
                                         />-->
                                 </Grid>
-                            </Frame>
+                            </Border>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
@@ -389,11 +388,10 @@
                         VerticalOptions="Start"
                         WidthRequest="80"
                         />
-                    <!--<pancake:PancakeView
+                    <!--<Border
                         Grid.Row="1"
-                        Margin="0"
                         BackgroundColor="{StaticResource ColorBackgroundWhite}"
-                        CornerRadius="30,30,0,0"
+                        StrokeShape="RoundRectangle 30,30,0,0"
                         VerticalOptions="FillAndExpand"
                         >
                         <Grid>
@@ -401,7 +399,7 @@
                             <contentViews:SortContentView IsVisible="{Binding FilterSortVisible}" />
                             <contentViews:FiltersContentView IsVisible="{Binding FiltersVisible}" />
                         </Grid>
-                    </pancake:PancakeView>-->
+                    </Border>-->
                 </Grid>
             </myControls:CustomBottomDrawer>
         </compat:RelativeLayout>

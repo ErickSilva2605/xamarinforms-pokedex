@@ -1,9 +1,6 @@
 ﻿using PokedexXF.Services;
 using PokedexXF.ViewModels;
-using System.Threading.Tasks;
-using Microsoft.Maui;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui.Controls.Xaml;
+using PokedexXF.Extensions;
 
 namespace PokedexXF.Views
 {
@@ -18,10 +15,10 @@ namespace PokedexXF.Views
             BindingContext = new HomeViewModel(Navigation, new RestService());
 
             labelTitle.TranslationX = -350;
-            //frameSearch.TranslationX = -300;
-            //frameFilterGeneration.TranslationY = -300;
-            //frameFilterSort.TranslationY = -300;
-            //frameFilters.TranslationY = -300;
+            borderFilterGeneration.TranslationY = -300;
+            borderFilterSort.TranslationY = -300;
+            borderFilters.TranslationY = -300;
+            borderSearch.TranslationX = -300;
             collectionPokemons.Opacity = 0;
         }
 
@@ -33,29 +30,29 @@ namespace PokedexXF.Views
                 labelTitle.TranslateTo(0, -300, DURATION_ANIMATION, Easing.Linear),
                 labelTitle.TranslateTo(0, -150, DURATION_ANIMATION, Easing.Linear),
                 labelTitle.TranslateTo(0, -75, DURATION_ANIMATION, Easing.Linear),
-                labelTitle.TranslateTo(0, 0, DURATION_ANIMATION, Easing.Linear)
-                //frameSearch.TranslateTo(0, -300, DURATION_ANIMATION, Easing.Linear),
-                //frameSearch.TranslateTo(0, -150, DURATION_ANIMATION, Easing.Linear),
-                //frameSearch.TranslateTo(0, 0, DURATION_ANIMATION, Easing.Linear)
+                labelTitle.TranslateTo(0, 0, DURATION_ANIMATION, Easing.Linear),
+                borderSearch.TranslateTo(0, -300, DURATION_ANIMATION, Easing.Linear),
+                borderSearch.TranslateTo(0, -150, DURATION_ANIMATION, Easing.Linear),
+                borderSearch.TranslateTo(0, 0, DURATION_ANIMATION, Easing.Linear)
             );
 
-            //await Task.WhenAll(
-            //    frameFilterGeneration.TranslateTo(0, -300, DURATION_ANIMATION, Easing.BounceOut),
-            //    frameFilterGeneration.TranslateTo(0, -150, DURATION_ANIMATION, Easing.BounceOut),
-            //    frameFilterGeneration.TranslateTo(0, 0, DURATION_ANIMATION, Easing.BounceOut)
-            //);
+            await Task.WhenAll(
+                borderFilterGeneration.TranslateTo(0, -300, DURATION_ANIMATION, Easing.BounceOut),
+                borderFilterGeneration.TranslateTo(0, -150, DURATION_ANIMATION, Easing.BounceOut),
+                borderFilterGeneration.TranslateTo(0, 0, DURATION_ANIMATION, Easing.BounceOut)
+            );
 
-            //await Task.WhenAll(
-            //    frameFilterSort.TranslateTo(0, -300, DURATION_ANIMATION, Easing.BounceOut),
-            //    frameFilterSort.TranslateTo(0, -150, DURATION_ANIMATION, Easing.BounceOut),
-            //    frameFilterSort.TranslateTo(0, 0, DURATION_ANIMATION, Easing.BounceOut)
-            //);
+            await Task.WhenAll(
+                borderFilterSort.TranslateTo(0, -300, DURATION_ANIMATION, Easing.BounceOut),
+                borderFilterSort.TranslateTo(0, -150, DURATION_ANIMATION, Easing.BounceOut),
+                borderFilterSort.TranslateTo(0, 0, DURATION_ANIMATION, Easing.BounceOut)
+            );
 
-            //await Task.WhenAll(
-            //    frameFilters.TranslateTo(0, -300, DURATION_ANIMATION, Easing.BounceOut),
-            //    frameFilters.TranslateTo(0, -150, DURATION_ANIMATION, Easing.BounceOut),
-            //    frameFilters.TranslateTo(0, 0, DURATION_ANIMATION, Easing.BounceOut)
-            //);
+            await Task.WhenAll(
+                borderFilters.TranslateTo(0, -300, DURATION_ANIMATION, Easing.BounceOut),
+                borderFilters.TranslateTo(0, -150, DURATION_ANIMATION, Easing.BounceOut),
+                borderFilters.TranslateTo(0, 0, DURATION_ANIMATION, Easing.BounceOut)
+            );
 
             await Task.WhenAll(
                 collectionPokemons.FadeTo(0.5, DURATION_ANIMATION, Easing.Linear),
@@ -67,12 +64,12 @@ namespace PokedexXF.Views
 
         private void CustomEntryBorderless_Focused(object sender, FocusEventArgs e)
         {
-            //frameSearch.BackgroundColor = (Color)Application.Current.Resources["ColorBackgroundPressedInput"];
+            borderSearch.BackgroundColor = (Color)Application.Current.Resources.FindResource("ColorBackgroundPressedInput");
         }
 
         private void CustomEntryBorderless_Unfocused(object sender, FocusEventArgs e)
         {
-            //frameSearch.BackgroundColor = (Color)Application.Current.Resources["ColorBackgroundDefaultInput"];
+            borderSearch.BackgroundColor = (Color)Application.Current.Resources.FindResource("ColorBackgroundDefaultInput");
         }
     }
 }
