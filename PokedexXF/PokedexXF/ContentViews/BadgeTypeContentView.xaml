@@ -41,11 +41,7 @@
                         StrokeShape="RoundRectangle 3"
                         VerticalOptions="Start"
                         >
-                        <Grid ColumnSpacing="5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
+                        <Grid ColumnDefinitions="Auto,Auto" ColumnSpacing="5">
                             <Image
                                 HeightRequest="15"
                                 Source="{Binding Type.NameFirstCharUpper, Converter={StaticResource converterTypeToImageType}}"
