@@ -299,29 +299,22 @@
                                     <!--
                                         skeleton:Skeleton.Hide="True"
                                         skeleton:Skeleton.IsBusy="{Binding IsBusy}"
-                                        CacheDuration="7"
-                                        DownsampleWidth="500"
                                     -->
                                     <Image
                                         Grid.RowSpan="2"
                                         Margin="0,0,50,15"
                                         HeightRequest="130"
                                         HorizontalOptions="End"
-                                        Source="{Binding ImageUrl}"
                                         WidthRequest="130"
-                                        />
-                                    <!--<ffimageloading:CachedImage
-                                        Grid.RowSpan="2"
-                                        Margin="0,0,50,15"
-                                        skeleton:Skeleton.Hide="True"
-                                        skeleton:Skeleton.IsBusy="{Binding IsBusy}"
-                                        CacheDuration="7"
-                                        DownsampleWidth="500"
-                                        HeightRequest="130"
-                                        HorizontalOptions="End"
-                                        Source="{Binding ImageUrl}"
-                                        WidthRequest="130"
-                                        />-->
+                                        >
+                                        <Image.Source>
+                                            <UriImageSource
+                                                CacheValidity="07:00:00:00"
+                                                CachingEnabled="True"
+                                                Uri="{Binding ImageUrl}"
+                                                />
+                                        </Image.Source>
+                                    </Image>
                                 </Grid>
                             </Border>
                         </DataTemplate>

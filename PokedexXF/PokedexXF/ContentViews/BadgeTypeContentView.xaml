@@ -7,7 +7,6 @@
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     >
     <!--
-        xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
         xmlns:skeleton="clr-namespace:Xamarin.Forms.Skeleton;assembly=Xamarin.Forms.Skeleton"
     -->
     <ContentView.Resources>
