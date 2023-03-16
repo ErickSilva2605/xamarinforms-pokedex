@@ -38,6 +38,7 @@
                         BackgroundColor="{Binding Type.NameFirstCharUpper, Converter={StaticResource converterTypeToColorType}}"
                         HorizontalOptions="Start"
                         StrokeShape="RoundRectangle 3"
+                        StrokeThickness="0"
                         VerticalOptions="Start"
                         >
                         <Grid ColumnDefinitions="Auto,Auto" ColumnSpacing="5">

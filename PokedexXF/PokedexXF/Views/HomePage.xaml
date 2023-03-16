@@ -28,6 +28,7 @@
             <Setter Property="HorizontalOptions" Value="End" />
             <Setter Property="VerticalOptions" Value="Center" />
             <Setter Property="WidthRequest" Value="45" />
+            <Setter Property="StrokeThickness" Value="0" />
         </Style>
 
         <Style x:Key="BorderSearch" TargetType="Border">
@@ -36,6 +37,7 @@
             <Setter Property="BackgroundColor" Value="{StaticResource ColorBackgroundDefaultInput}" />
             <Setter Property="HorizontalOptions" Value="FillAndExpand" />
             <Setter Property="StrokeShape" Value="RoundRectangle 10" />
+            <Setter Property="StrokeThickness" Value="0" />
         </Style>
 
 
@@ -179,7 +181,7 @@
                                 xct:TouchEffect.CommandParameter="{Binding .}"
                                 xct:TouchEffect.PressedScale="0.90"
                             -->
-                            <Border>
+                            <Border BackgroundColor="Transparent" StrokeThickness="0">
                                 <Grid
                                     HorizontalOptions="FillAndExpand"
                                     RowDefinitions="25,Auto"
@@ -196,6 +198,7 @@
                                         BackgroundColor="{Binding TypeDefault, Converter={StaticResource converterTypeToColorBackgroundType}}"
                                         HorizontalOptions="FillAndExpand"
                                         StrokeShape="RoundRectangle 10"
+                                        StrokeThickness="0"
                                         VerticalOptions="FillAndExpand"
                                         >
                                         <Border.Shadow>
@@ -247,6 +250,7 @@
                                                     Margin="20,15,20,0"
                                                     BackgroundColor="Transparent"
                                                     HorizontalOptions="Start"
+                                                    StrokeThickness="0"
                                                     >
                                                     <Label
                                                         HorizontalOptions="Start"
@@ -261,6 +265,7 @@
                                                     Margin="20,2,20,5"
                                                     BackgroundColor="Transparent"
                                                     HorizontalOptions="Start"
+                                                    StrokeThickness="0"
                                                     >
                                                     <Label
                                                         HorizontalOptions="Start"
@@ -303,6 +308,7 @@
                                     <Image
                                         Grid.RowSpan="2"
                                         Margin="0,0,50,15"
+                                        Aspect="Center"
                                         HeightRequest="130"
                                         HorizontalOptions="End"
                                         WidthRequest="130"
@@ -379,6 +385,7 @@
                         BackgroundColor="{StaticResource ColorBackgroundWhite}"
                         StrokeShape="RoundRectangle 30,30,0,0"
                         VerticalOptions="FillAndExpand"
+                        StrokeThickness="0"
                         >
                         <Grid>
                             <contentViews:GenerationContentView IsVisible="{Binding FilterGenerationVisible}" />
