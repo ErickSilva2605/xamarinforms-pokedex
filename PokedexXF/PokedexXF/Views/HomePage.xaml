@@ -59,7 +59,8 @@
     <ContentPage.Content>
         <compat:RelativeLayout>
             <Grid HorizontalOptions="FillAndExpand" RowDefinitions="Auto,Auto,Auto,*">
-                <!--  Pokedex gradient image  -->
+
+                <!--  Pokeball Gradient  -->
                 <Path
                     Grid.RowSpan="2"
                     Margin="0,-180,0,0"
@@ -100,6 +101,8 @@
                         </Border.GestureRecognizers>-->
                     </Border>
                 </HorizontalStackLayout>
+
+                <!--  Title - Subtitle  -->
                 <Label
                     x:Name="labelTitle"
                     Grid.Row="1"
@@ -124,6 +127,8 @@
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
+
+                <!--  Pokemon Search  -->
                 <Border
                     x:Name="borderSearch"
                     Grid.Row="2"
@@ -226,6 +231,7 @@
                                                 skeleton:Skeleton.Hide="True"
                                                 skeleton:Skeleton.IsBusy="{Binding IsBusy}"
                                             -->
+                                            <!--  Pattern 6x3 Gradient  -->
                                             <Path
                                                 Margin="90,5,0,0"
                                                 Aspect="Fill"
@@ -242,6 +248,7 @@
                                                     </LinearGradientBrush>
                                                 </Path.Fill>
                                             </Path>
+
                                             <Grid
                                                 Grid.ColumnSpan="2"
                                                 HorizontalOptions="FillAndExpand"
@@ -250,6 +257,7 @@
                                                 VerticalOptions="FillAndExpand"
                                                 >
                                                 <!--  Style="{StaticResource cardSkeletonHome}"  -->
+                                                <!--  Pokemon Id  -->
                                                 <Border
                                                     Margin="20,15,20,0"
                                                     BackgroundColor="Transparent"
@@ -264,6 +272,7 @@
                                                         />
                                                 </Border>
                                                 <!--  Style="{StaticResource cardSkeletonHome}"  -->
+                                                <!--  Pokemon Name  -->
                                                 <Border
                                                     Grid.Row="1"
                                                     Margin="20,2,20,5"
@@ -279,6 +288,7 @@
                                                         />
                                                 </Border>
 
+                                                <!--  Pokemon Types  -->
                                                 <contentViews:BadgeTypeContentView Grid.Row="2" Margin="20,0,0,20" />
                                             </Grid>
 
@@ -286,6 +296,7 @@
                                                 skeleton:Skeleton.Hide="True"
                                                 skeleton:Skeleton.IsBusy="{Binding IsBusy}"
                                             -->
+                                            <!--  Pokeball Gradient  -->
                                             <Path
                                                 Grid.Column="1"
                                                 Margin="0,0,-25,-30"
@@ -309,6 +320,7 @@
                                         skeleton:Skeleton.Hide="True"
                                         skeleton:Skeleton.IsBusy="{Binding IsBusy}"
                                     -->
+                                    <!--  Pokemon Image  -->
                                     <Image
                                         Grid.RowSpan="2"
                                         Margin="0,0,50,15"
@@ -350,6 +362,7 @@
                 </ContentView.GestureRecognizers>
             </ContentView>
 
+            <!--  Pokemon Filters  -->
             <myControls:CustomBottomDrawer
                 Padding="0"
                 compat:RelativeLayout.HeightConstraint="{compat:ConstraintExpression Type=RelativeToParent,
