@@ -81,19 +81,23 @@
                     HorizontalOptions="EndAndExpand"
                     Spacing="5"
                     >
-                    <!--  xct:TouchEffect.Command="{Binding OpenModalGenerationCommand}"  -->
                     <Border x:Name="borderFilterGeneration" Style="{StaticResource BorderMenuIcon}">
                         <Image Source="icon_generation" Style="{StaticResource ImageFilter}" />
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenModalGenerationCommand}" />
+                        </Border.GestureRecognizers>
                     </Border>
-
-                    <!--  xct:TouchEffect.Command="{Binding OpenModalSortCommand}"  -->
                     <Border x:Name="borderFilterSort" Style="{StaticResource BorderMenuIcon}">
                         <Image Source="icon_sort" Style="{StaticResource ImageFilter}" />
+                        <!--<Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenModalSortCommand}" />
+                        </Border.GestureRecognizers>-->
                     </Border>
-
-                    <!--  xct:TouchEffect.Command="{Binding OpenModalFiltersCommand}"  -->
                     <Border x:Name="borderFilters" Style="{StaticResource BorderMenuIcon}">
                         <Image Source="icon_filter" Style="{StaticResource ImageFilter}" />
+                        <!--<Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenModalFiltersCommand}" />
+                        </Border.GestureRecognizers>-->
                     </Border>
                 </HorizontalStackLayout>
                 <Label
@@ -372,27 +376,28 @@
                     RowSpacing="5"
                     VerticalOptions="FillAndExpand"
                     >
-                    <BoxView
+                    <Border
                         BackgroundColor="{StaticResource ColorBackgroundWhite}"
-                        CornerRadius="3"
                         HeightRequest="6"
                         HorizontalOptions="Center"
+                        StrokeShape="RoundRectangle 3"
+                        StrokeThickness="0"
                         VerticalOptions="Start"
                         WidthRequest="80"
                         />
-                    <!--<Border
+                    <Border
                         Grid.Row="1"
                         BackgroundColor="{StaticResource ColorBackgroundWhite}"
                         StrokeShape="RoundRectangle 30,30,0,0"
-                        VerticalOptions="FillAndExpand"
                         StrokeThickness="0"
+                        VerticalOptions="FillAndExpand"
                         >
                         <Grid>
                             <contentViews:GenerationContentView IsVisible="{Binding FilterGenerationVisible}" />
-                            <contentViews:SortContentView IsVisible="{Binding FilterSortVisible}" />
-                            <contentViews:FiltersContentView IsVisible="{Binding FiltersVisible}" />
+                            <!--<contentViews:SortContentView IsVisible="{Binding FilterSortVisible}" />
+                            <contentViews:FiltersContentView IsVisible="{Binding FiltersVisible}" />-->
                         </Grid>
-                    </Border>-->
+                    </Border>
                 </Grid>
             </myControls:CustomBottomDrawer>
         </compat:RelativeLayout>
