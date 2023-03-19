@@ -90,9 +90,9 @@
                     </Border>
                     <Border x:Name="borderFilterSort" Style="{StaticResource BorderMenuIcon}">
                         <Image Source="icon_sort" Style="{StaticResource ImageFilter}" />
-                        <!--<Border.GestureRecognizers>
+                        <Border.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OpenModalSortCommand}" />
-                        </Border.GestureRecognizers>-->
+                        </Border.GestureRecognizers>
                     </Border>
                     <Border x:Name="borderFilters" Style="{StaticResource BorderMenuIcon}">
                         <Image Source="icon_filter" Style="{StaticResource ImageFilter}" />
@@ -407,8 +407,8 @@
                         >
                         <Grid>
                             <contentViews:GenerationContentView IsVisible="{Binding FilterGenerationVisible}" />
-                            <!--<contentViews:SortContentView IsVisible="{Binding FilterSortVisible}" />
-                            <contentViews:FiltersContentView IsVisible="{Binding FiltersVisible}" />-->
+                            <contentViews:SortContentView IsVisible="{Binding FilterSortVisible}" />
+                            <!--<contentViews:FiltersContentView IsVisible="{Binding FiltersVisible}" />-->
                         </Grid>
                     </Border>
                 </Grid>

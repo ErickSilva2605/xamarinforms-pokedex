@@ -51,6 +51,16 @@
         <Setter Property="FontSize" Value="16" />
         <Setter Property="TextColor" Value="{StaticResource ColorTextWhite}" />
         <Setter Property="BackgroundColor" Value="{StaticResource ColorTypePsychic}" />
+        <Setter Property="Shadow">
+            <Setter.Value>
+                <Shadow
+                    Brush="{StaticResource ColorTypePsychic}"
+                    Opacity="0.75"
+                    Radius="10"
+                    Offset="0,10"
+                    />
+            </Setter.Value>
+        </Setter>
     </Style>
     <Style x:Key="ButtonSecondary" TargetType="Button">
         <Setter Property="FontFamily" Value="FontRegular" />

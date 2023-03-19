@@ -19,6 +19,8 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="370" />
             </Grid.RowDefinitions>
+
+            <!--  Title - Subtitle  -->
             <Label
                 Margin="40,0,40,35"
                 HorizontalOptions="Start"
@@ -33,6 +35,7 @@
                             TextColor="{StaticResource ColorTextBlack}"
                             />
                         <Span Text="{x:Static system:Environment.NewLine}" />
+                        <Span Text="{x:Static system:Environment.NewLine}" />
                         <Span
                             Style="{StaticResource LabelDescription}"
                             Text="Sort Pokémons alphabetically or by National Pokédex number!"
@@ -41,6 +44,7 @@
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
+
             <StackLayout
                 Grid.Row="1"
                 BindableLayout.ItemsSource="{Binding Filters.Orders}"
@@ -50,11 +54,12 @@
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
                         <Grid Padding="3" HorizontalOptions="FillAndExpand">
+                            <!--  xct:TouchEffect.PressedScale="0.90"  -->
+                            <!--  Sort Type  -->
                             <Button
                                 Margin="40,0"
-                                xct:TouchEffect.Command="{Binding Source={x:Reference sortFilter}, Path=BindingContext.SelectSortCommand}"
-                                xct:TouchEffect.CommandParameter="{Binding .}"
-                                xct:TouchEffect.PressedScale="0.90"
+                                Command="{Binding Source={x:Reference sortFilter}, Path=BindingContext.SelectSortCommand}"
+                                CommandParameter="{Binding .}"
                                 CornerRadius="10"
                                 HeightRequest="60"
                                 HorizontalOptions="FillAndExpand"
@@ -69,8 +74,6 @@
                                         Value="True"
                                         >
                                         <Setter Property="Style" Value="{StaticResource ButtonPrimary}" />
-                                        <Setter Property="xct:ShadowEffect.Color" Value="{StaticResource ColorTypePsychic}" />
-                                        <Setter Property="xct:ShadowEffect.Radius" Value="10" />
                                     </DataTrigger>
                                 </Button.Triggers>
                             </Button>
