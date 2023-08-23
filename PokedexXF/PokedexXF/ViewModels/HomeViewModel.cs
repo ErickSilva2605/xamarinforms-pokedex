@@ -169,8 +169,12 @@ namespace PokedexXF.ViewModels
 
         private async Task InitializeAsync()
         {
+            SearchParameter = string.Empty;
+
             LoadFilters();
+
             Pokemons.AddRange(PokemonHelper.GetMockPokemonList(Offset, Amount));
+
             await GetResourceListAsync(string.Format(Constants.BASE_URL_RESOURCE_LIST, 0, Constants.POKEMON_LIMIT));
             await LoadPokemonsAsync();
         }
@@ -549,7 +553,7 @@ namespace PokedexXF.ViewModels
                 await Task.Run(() =>
                 {
                     IsBusy = true;
-                    LockStates = new double[] { 0, 0.44, 0.97 };
+                    LockStates = new double[] { 0, 0.97, 0.97 };
                     FiltersVisible = true;
                     FilterGenerationVisible = false;
                     FilterSortVisible = false;

@@ -18,7 +18,7 @@ namespace PokedexXF.Views
             borderFilterGeneration.TranslationY = -300;
             borderFilterSort.TranslationY = -300;
             borderFilters.TranslationY = -300;
-            borderSearch.TranslationX = -300;
+            customSearchBar.TranslationX = -300;
             collectionPokemons.Opacity = 0;
         }
 
@@ -31,9 +31,9 @@ namespace PokedexXF.Views
                 labelTitle.TranslateTo(0, -150, DURATION_ANIMATION, Easing.Linear),
                 labelTitle.TranslateTo(0, -75, DURATION_ANIMATION, Easing.Linear),
                 labelTitle.TranslateTo(0, 0, DURATION_ANIMATION, Easing.Linear),
-                borderSearch.TranslateTo(0, -300, DURATION_ANIMATION, Easing.Linear),
-                borderSearch.TranslateTo(0, -150, DURATION_ANIMATION, Easing.Linear),
-                borderSearch.TranslateTo(0, 0, DURATION_ANIMATION, Easing.Linear)
+                customSearchBar.TranslateTo(0, -300, DURATION_ANIMATION, Easing.Linear),
+                customSearchBar.TranslateTo(0, -150, DURATION_ANIMATION, Easing.Linear),
+                customSearchBar.TranslateTo(0, 0, DURATION_ANIMATION, Easing.Linear)
             );
 
             await Task.WhenAll(
@@ -60,16 +60,6 @@ namespace PokedexXF.Views
             );
 
             base.OnAppearing();
-        }
-
-        private void CustomEntryBorderless_Focused(object sender, FocusEventArgs e)
-        {
-            borderSearch.BackgroundColor = (Color)Application.Current.Resources.FindResource("ColorBackgroundPressedInput");
-        }
-
-        private void CustomEntryBorderless_Unfocused(object sender, FocusEventArgs e)
-        {
-            borderSearch.BackgroundColor = (Color)Application.Current.Resources.FindResource("ColorBackgroundDefaultInput");
         }
     }
 }

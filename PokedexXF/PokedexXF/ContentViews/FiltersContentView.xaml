@@ -8,8 +8,6 @@
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="filters"
     >
-
-    <!--  xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"  -->
     <ContentView.Resources>
         <ResourceDictionary>
             <converters:ConverterTypeToColorType x:Key="converterTypeToColorType" />
@@ -26,6 +24,8 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+
+            <!--  Title - Subtitle  -->
             <Label
                 Margin="40,0"
                 HorizontalOptions="Start"
@@ -40,6 +40,7 @@
                             TextColor="{StaticResource ColorTextBlack}"
                             />
                         <Span Text="{x:Static system:Environment.NewLine}" />
+                        <Span Text="{x:Static system:Environment.NewLine}" />
                         <Span
                             Style="{StaticResource LabelDescription}"
                             Text="Use advanced search to explore Pokémon by type, weakness, height and more!"
@@ -48,6 +49,7 @@
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
+
             <ScrollView Grid.Row="1">
                 <Grid Padding="40,0" RowSpacing="5">
                     <Grid.RowDefinitions>
@@ -62,6 +64,8 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
+
+                    <!--  Filter By Type  -->
                     <Label
                         Margin="0,15,0,0"
                         Style="{StaticResource LabelFilterTitle}"
@@ -122,6 +126,8 @@
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
+
+                    <!--  Filter By Weaknesses  -->
                     <Label
                         Grid.Row="2"
                         Margin="0,10,0,0"
@@ -183,6 +189,8 @@
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
+
+                    <!--  Filter By Heights  -->
                     <Label
                         Grid.Row="4"
                         Margin="0,10,0,0"
@@ -244,6 +252,8 @@
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
+
+                    <!--  Filter By Weights  -->
                     <Label
                         Grid.Row="6"
                         Margin="0,10,0,0"
@@ -305,6 +315,8 @@
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
+
+                    <!--  Filter Number Range  -->
                     <Label
                         Grid.Row="8"
                         Margin="0,10,0,0"
@@ -346,6 +358,8 @@
                             </pancake:PancakeView>
                         </xct:RangeSlider.UpperThumbView>
                     </xct:RangeSlider>-->
+
+                    <!--  Footer  -->
                     <FlexLayout
                         Grid.Row="10"
                         Margin="0,20,0,0"
@@ -353,6 +367,7 @@
                         Direction="Row"
                         JustifyContent="SpaceBetween"
                         >
+                        <!--  Reset Button  -->
                         <Button
                             Command="{Binding ResetFiltersCommand}"
                             CornerRadius="10"
@@ -363,6 +378,8 @@
                             VerticalOptions="Center"
                             WidthRequest="160"
                             />
+
+                        <!--  Confirm Button  -->
                         <Button
                             xct:ShadowEffect.Color="{StaticResource ColorTypePsychic}"
                             xct:ShadowEffect.Radius="10"

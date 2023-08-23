@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="PokedexXF.Controls.CustomSearchBar"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:myControls="clr-namespace:PokedexXF.Controls"
+    x:Name="customSearchBar"
+    >
+    <Border
+        x:Name="container"
+        Padding="16,10"
+        BackgroundColor="{Binding NormalStateBackgroundColor, Source={x:Reference customSearchBar}}"
+        HorizontalOptions="Fill"
+        StrokeShape="RoundRectangle 10"
+        StrokeThickness="0"
+        >
+        <Border.GestureRecognizers>
+            <TapGestureRecognizer x:Name="tapGesture" NumberOfTapsRequired="1" />
+        </Border.GestureRecognizers>
+        <HorizontalStackLayout Spacing="10">
+            <Image
+                x:Name="leadingIcon"
+                HeightRequest="20"
+                HorizontalOptions="Start"
+                Source="{Binding LeadingIconSource, Source={x:Reference customSearchBar}}"
+                VerticalOptions="Center"
+                WidthRequest="20"
+                >
+                <Image.Triggers>
+                    <Trigger TargetType="Image" Property="Source" Value="{x:Null}">
+                        <Setter Property="IsVisible" Value="False" />
+                    </Trigger>
+                </Image.Triggers>
+            </Image>
+            <myControls:CustomEntryBorderless
+                x:Name="inputText"
+                BackgroundColor="Transparent"
+                FontFamily="FontRegular"
+                FontSize="14"
+                HorizontalOptions="FillAndExpand"
+                HorizontalTextAlignment="Start"
+                Placeholder="{Binding Placeholder, Source={x:Reference customSearchBar}}"
+                PlaceholderColor="{Binding PlaceholderColor, Source={x:Reference customSearchBar}}"
+                ReturnType="{Binding ReturnType, Source={x:Reference customSearchBar}}"
+                Text="{Binding Text, Source={x:Reference customSearchBar}}"
+                TextColor="{Binding TextColor, Source={x:Reference customSearchBar}}"
+                VerticalOptions="Center"
+                />
+        </HorizontalStackLayout>
+    </Border>
+</ContentView>

@@ -31,16 +31,6 @@
             <Setter Property="StrokeThickness" Value="0" />
         </Style>
 
-        <Style x:Key="BorderSearch" TargetType="Border">
-            <Setter Property="Margin" Value="40,25,40,10" />
-            <Setter Property="Padding" Value="20,10" />
-            <Setter Property="BackgroundColor" Value="{StaticResource ColorBackgroundDefaultInput}" />
-            <Setter Property="HorizontalOptions" Value="FillAndExpand" />
-            <Setter Property="StrokeShape" Value="RoundRectangle 10" />
-            <Setter Property="StrokeThickness" Value="0" />
-        </Style>
-
-
         <!--<Style
             x:Key="BorderSkeletonHome"
             BasedOn="{StaticResource CardSkeleton}"
@@ -96,9 +86,9 @@
                     </Border>
                     <Border x:Name="borderFilters" Style="{StaticResource BorderMenuIcon}">
                         <Image Source="icon_filter" Style="{StaticResource ImageFilter}" />
-                        <!--<Border.GestureRecognizers>
+                        <Border.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OpenModalFiltersCommand}" />
-                        </Border.GestureRecognizers>-->
+                        </Border.GestureRecognizers>
                     </Border>
                 </HorizontalStackLayout>
 
@@ -129,43 +119,22 @@
                 </Label>
 
                 <!--  Pokemon Search  -->
-                <Border
-                    x:Name="borderSearch"
+                <myControls:CustomSearchBar
+                    x:Name="customSearchBar"
                     Grid.Row="2"
-                    Style="{StaticResource BorderSearch}"
-                    >
-                    <HorizontalStackLayout Spacing="10">
-                        <Image
-                            HeightRequest="16"
-                            HorizontalOptions="Start"
-                            Source="icon_search"
-                            VerticalOptions="Center"
-                            WidthRequest="16"
-                            >
-                            <Image.Behaviors>
-                                <mct:IconTintColorBehavior TintColor="{StaticResource ColorTextGray}" />
-                            </Image.Behaviors>
-                        </Image>
-                        <myControls:CustomEntryBorderless
-                            Focused="CustomEntryBorderless_Focused"
-                            FontFamily="FontRegular"
-                            FontSize="14"
-                            HorizontalOptions="FillAndExpand"
-                            HorizontalTextAlignment="Start"
-                            Placeholder="What Pokémon are you looking for?"
-                            PlaceholderColor="{StaticResource ColorTextGray}"
-                            Text="{Binding SearchParameter}"
-                            TextColor="{StaticResource ColorTextBlack}"
-                            Unfocused="CustomEntryBorderless_Unfocused"
-                            VerticalOptions="Center"
-                            >
-                            <myControls:CustomEntryBorderless.Behaviors>
-                                <mct:EventToCommandBehavior Command="{Binding SearchTextChangedCommand}" EventName="TextChanged" />
-                                <mct:EventToCommandBehavior Command="{Binding SearchCompletedCommand}" EventName="Completed" />
-                            </myControls:CustomEntryBorderless.Behaviors>
-                        </myControls:CustomEntryBorderless>
-                    </HorizontalStackLayout>
-                </Border>
+                    Margin="40,25,40,10"
+                    CompletedCommand="{Binding SearchCompletedCommand}"
+                    FocusedStateBackgroundColor="{StaticResource ColorBackgroundPressedInput}"
+                    LeadingIconColor="{StaticResource ColorTextGray}"
+                    LeadingIconSource="icon_search"
+                    NormalStateBackgroundColor="{StaticResource ColorBackgroundDefaultInput}"
+                    Placeholder="What Pokémon are you looking for?"
+                    PlaceholderColor="{StaticResource ColorTextGray}"
+                    ReturnType="Search"
+                    Text="{Binding SearchParameter}"
+                    TextChangeCommand="{Binding SearchTextChangedCommand}"
+                    TextColor="{StaticResource ColorTextBlack}"
+                    />
 
                 <!--
                     skeleton:Skeleton.Animation="{skeleton:DefaultAnimation Beat}"
