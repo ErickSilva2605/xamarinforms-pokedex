@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="PokedexXF.Controls.CustomBadgeType"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:PokedexXF.Converters"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Name="customBadgeType"
+    >
+    <ContentView.Content>
+        <Border
+            x:Name="badgeContainer"
+            Margin="0"
+            Padding="6"
+            BackgroundColor="{Binding BadgeBackgroundColor}"
+            BindingContext="{x:Reference customBadgeType}"
+            HorizontalOptions="Start"
+            StrokeShape="RoundRectangle 3"
+            StrokeThickness="0"
+            VerticalOptions="Start"
+            >
+            <HorizontalStackLayout
+                HorizontalOptions="FillAndExpand"
+                Spacing="5"
+                VerticalOptions="FillAndExpand"
+                >
+                <Image
+                    x:Name="icon"
+                    HeightRequest="16"
+                    HorizontalOptions="Start"
+                    Source="{Binding IconSource}"
+                    VerticalOptions="Center"
+                    WidthRequest="16"
+                    >
+                    <Image.Behaviors>
+                        <mct:IconTintColorBehavior TintColor="{StaticResource ColorTextWhite}" />
+                    </Image.Behaviors>
+                </Image>
+                <Label
+                    x:Name="labelType"
+                    Grid.Column="1"
+                    HorizontalOptions="Start"
+                    Style="{StaticResource LabelPokemonType}"
+                    Text="{Binding Text}"
+                    TextColor="{StaticResource ColorTextWhite}"
+                    VerticalOptions="Center"
+                    VerticalTextAlignment="Center"
+                    >
+                    <Label.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Text.Length}"
+                            TargetType="Label"
+                            Value="0"
+                            >
+                            <Setter Property="IsVisible" Value="False" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+            </HorizontalStackLayout>
+        </Border>
+    </ContentView.Content>
+</ContentView>

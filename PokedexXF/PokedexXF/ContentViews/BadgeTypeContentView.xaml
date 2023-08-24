@@ -3,6 +3,7 @@
     x:Class="PokedexXF.ContentViews.BadgeTypeContentView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:PokedexXF.Controls"
     xmlns:converters="clr-namespace:PokedexXF.Converters"
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     >
@@ -18,7 +19,6 @@
     <ContentView.Content>
         <HorizontalStackLayout
             BindableLayout.ItemsSource="{Binding Types}"
-            HeightRequest="30"
             HorizontalOptions="Start"
             Spacing="5"
             VerticalOptions="Start"
@@ -32,35 +32,11 @@
                         skeleton:Skeleton.BackgroundColor="{StaticResource ColorTextWhite}"
                         skeleton:Skeleton.IsBusy="{Binding IsBusy}"
                     -->
-                    <Border
-                        Margin="0"
-                        Padding="6"
-                        BackgroundColor="{Binding Type.NameFirstCharUpper, Converter={StaticResource converterTypeToColorType}}"
-                        HorizontalOptions="Start"
-                        StrokeShape="RoundRectangle 3"
-                        StrokeThickness="0"
-                        VerticalOptions="Start"
-                        >
-                        <Grid ColumnDefinitions="Auto,Auto" ColumnSpacing="5">
-                            <Image
-                                HeightRequest="15"
-                                Source="{Binding Type.NameFirstCharUpper, Converter={StaticResource converterTypeToImageType}}"
-                                VerticalOptions="Center"
-                                >
-                                <Image.Behaviors>
-                                    <mct:IconTintColorBehavior TintColor="{StaticResource ColorTextWhite}" />
-                                </Image.Behaviors>
-                            </Image>
-                            <Label
-                                Grid.Column="1"
-                                Style="{StaticResource LabelPokemonType}"
-                                Text="{Binding Type.NameFirstCharUpper}"
-                                TextColor="{StaticResource ColorTextWhite}"
-                                VerticalOptions="Center"
-                                VerticalTextAlignment="Center"
-                                />
-                        </Grid>
-                    </Border>
+                    <controls:CustomBadgeType
+                        BadgeBackgroundColor="{Binding Type.NameFirstCharUpper, Converter={StaticResource converterTypeToColorType}}"
+                        IconSource="{Binding Type.NameFirstCharUpper, Converter={StaticResource converterTypeToImageType}}"
+                        Text="{Binding Type.NameFirstCharUpper}"
+                        />
                 </DataTemplate>
             </BindableLayout.ItemTemplate>
         </HorizontalStackLayout>
